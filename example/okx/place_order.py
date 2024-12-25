@@ -19,7 +19,7 @@ async def main():
         response = await client.post_api_v5_trade_order(
             inst_id="BTC-USDT-SWAP",
             td_mode="cross",
-            side="buy",
+            side="sell",
             ord_type="market",
             sz="0.1",
         )
