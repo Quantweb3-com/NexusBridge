@@ -1,3 +1,5 @@
 *.log
 logs/
 log/
+__pycache__/
+

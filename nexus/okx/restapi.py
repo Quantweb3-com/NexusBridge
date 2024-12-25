@@ -13,6 +13,7 @@ from nexus.okx.schema import (
     OkxPlaceOrderResponse,
     OkxCancelOrderResponse,
     OkxGeneralResponse,
+    OkxErrorResponse,
 )
 
 
@@ -37,6 +38,7 @@ class OkxApiClient(ApiClient):
         self._place_order_decoder = msgspec.json.Decoder(OkxPlaceOrderResponse)
         self._cancel_order_decoder = msgspec.json.Decoder(OkxCancelOrderResponse)
         self._general_response_decoder = msgspec.json.Decoder(OkxGeneralResponse)
+        self._error_response_decoder = msgspec.json.Decoder(OkxErrorResponse)
         self._headers = {
             "Content-Type": "application/json",
             "User-Agent": "TradingBot/1.0",
@@ -136,7 +138,7 @@ class OkxApiClient(ApiClient):
         payload: Dict[str, Any] = None,
         signed: bool = False,
     ) -> bytes:
-        await self._init_session()
+        self._init_session()
         url = urljoin(self._base_url, endpoint)
         request_path = endpoint
         headers = self._headers
@@ -176,11 +178,13 @@ class OkxApiClient(ApiClient):
             if okx_response.code == "0":
                 return raw
             else:
-                raise OkxRequestError(
-                    error_code=okx_response.code,
-                    status_code=response.status,
-                    message=okx_response.msg,
-                )
+                okx_error_response = self._error_response_decoder.decode(raw)
+                for data in okx_error_response.data:
+                    raise OkxRequestError(
+                        error_code=data.sCode,
+                        status_code=response.status,
+                        message=data.sMsg,
+                    )
         except aiohttp.ClientError as e:
             self._log.error(f"Client Error {method} Url: {url} {e}")
             raise

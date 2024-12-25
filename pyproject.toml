@@ -13,6 +13,7 @@ pathlib = "^1.0.1"
 loguru = "^0.7.3"
 msgspec = "^0.18.6"
 orjson = "^3.10.12"
+dynaconf = "^3.2.6"
 
 
 [build-system]

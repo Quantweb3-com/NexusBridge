@@ -19,7 +19,7 @@ class ApiClient(ABC):
         self._api_key = api_key
         self._secret = secret
         self._timeout = timeout
-        self._log = Log.get_logger(type(self).__name__, level="DEBUG", flush=True)
+        self._log = Log.get_logger(type(self).__name__)
         self._ssl_context = ssl.create_default_context(cafile=certifi.where())
         self._session: Optional[aiohttp.ClientSession] = None
         self._clock = LiveClock()
