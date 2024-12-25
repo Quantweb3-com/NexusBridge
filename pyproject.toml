@@ -7,7 +7,7 @@ license = "MIT LICENSE"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 aiohttp = "^3.11.11"
 pathlib = "^1.0.1"
 loguru = "^0.7.3"
