@@ -12,6 +12,7 @@ aiohttp = "^3.11.11"
 pathlib = "^1.0.1"
 loguru = "^0.7.3"
 msgspec = "^0.18.6"
+orjson = "^3.10.12"
 
 
 [build-system]
