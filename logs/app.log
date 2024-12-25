@@ -1,0 +1,10 @@
+2024-12-20 12:32:21.438 | INFO     | __main__:A:run:59 - Hello, world!
+2024-12-20 12:32:21.439 | ERROR    | __main__:A:run:60 - Hello, world!
+2024-12-20 12:32:21.439 | DEBUG    | __main__:A:run:61 - Hello, world!
+2024-12-20 12:32:21.440 | WARNING  | __main__:A:run:62 - Hello, world!
+2024-12-20 12:32:21.440 | CRITICAL | __main__:A:run:63 - Hello, world!
+2024-12-20 12:32:21.440 | INFO     | __main__:B:run:71 - Hello, world!
+2024-12-20 12:32:21.440 | ERROR    | __main__:B:run:72 - Hello, world!
+2024-12-20 12:32:21.441 | DEBUG    | __main__:B:run:73 - Hello, world!
+2024-12-20 12:32:21.441 | WARNING  | __main__:B:run:74 - Hello, world!
+2024-12-20 12:32:21.441 | CRITICAL | __main__:B:run:75 - Hello, world!

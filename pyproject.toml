@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "nexus"
+version = "0.1.0"
+description = "A unified trading interface for major cryptocurrency exchanges, supporting REST APIs and WebSocket connections for Binance, OKX, Bybit and more."
+authors = ["River-Shi <nachuan.shi.quant@gmail.com>"]
+license = "MIT LICENSE"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiohttp = "^3.11.11"
+pathlib = "^1.0.1"
+loguru = "^0.7.3"
+msgspec = "^0.18.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
