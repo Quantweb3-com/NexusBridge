@@ -21,7 +21,7 @@ async def main():
             td_mode="cross",
             side="sell",
             ord_type="market",
-            sz="0.1",
+            sz="1",
         )
         print(response)
     except Exception as e:

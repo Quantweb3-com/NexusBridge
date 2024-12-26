@@ -122,16 +122,16 @@ class OkxApiClient(ApiClient):
                     message=orjson.loads(raw),
                     headers=response.headers,
                 )
-            okx_response = self._general_response_decoder.decode(raw)
-            if okx_response.code == "0":
+            okx_response = orjson.loads(raw)
+            if okx_response["code"] == "0":
                 return raw
             else:
-                okx_error_response = self._error_response_decoder.decode(raw)
-                for data in okx_error_response.data:
+                okx_error_response = orjson.loads(raw)
+                for data in okx_error_response["data"]:
                     raise OkxRequestError(
-                        error_code=data.sCode,
+                        error_code=data["sCode"],
                         status_code=response.status,
-                        message=data.sMsg,
+                        message=data["sMsg"],
                     )
         except aiohttp.ClientError as e:
             self._log.error(f"Client Error {method} Url: {url} {e}")
