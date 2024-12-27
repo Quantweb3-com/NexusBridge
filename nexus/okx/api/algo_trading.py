@@ -1,5 +1,4 @@
-from orjson import orjson
-
+import orjson
 
 class AlgoTradingApi:
     def __init__(self, fetch_func):

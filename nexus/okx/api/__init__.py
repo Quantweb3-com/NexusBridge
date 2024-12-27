@@ -1,2 +1,2 @@
-from .trade import TradeApi
-from .algo_trading import AlgoTradingApi
+from nexus.okx.api.trade import TradeApi
+from nexus.okx.api.algo_trading import AlgoTradingApi
