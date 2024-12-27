@@ -7,7 +7,7 @@ import aiohttp
 from urllib.parse import urljoin, urlencode, unquote
 
 from nexus.base import ApiClient
-from nexus.okx.api import TradeApi, AlgoTradingApi
+from nexus.okx.api import TradeApi, AlgoTradingApi, GridTradingApi
 from nexus.okx.constants import OkxUrl
 from nexus.okx.error import OkxHttpError, OkxRequestError
 
@@ -32,6 +32,7 @@ class OkxApiClient(ApiClient):
         self._testnet = url.is_testnet
         self.trade_api = TradeApi(self._fetch)
         self.algo_trading_api = AlgoTradingApi(self._fetch)
+        self.grid_trading_api = GridTradingApi(self._fetch)
         self._headers = {
             "Content-Type": "application/json",
             "User-Agent": "TradingBot/1.0",
@@ -154,11 +155,11 @@ class OkxApiClient(ApiClient):
         finally:
             await self.close_session()
 
-        # 动态委托方法
-
     def __getattr__(self, name):
         if hasattr(self.trade_api, name):
             return getattr(self.trade_api, name)
         elif hasattr(self.algo_trading_api, name):
             return getattr(self.algo_trading_api, name)
+        elif hasattr(self.grid_trading_api, name):
+            return getattr(self.grid_trading_api, name)
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")

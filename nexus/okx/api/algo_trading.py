@@ -1,4 +1,4 @@
-from orjson import orjson
+import orjson
 
 
 class AlgoTradingApi:

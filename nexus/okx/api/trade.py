@@ -1,6 +1,6 @@
 from typing import Literal
 
-from orjson import orjson
+import orjson
 
 
 class TradeApi:
