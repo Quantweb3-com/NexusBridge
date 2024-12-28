@@ -16,7 +16,7 @@ async def main():
             passphrase=PASSPHRASE,
             url=OkxUrl.DEMO,
         )
-        response = await client.post_api_v5_trade_order(
+        response = await client.trade_api.post_api_v5_trade_order(
             inst_id="BTC-USDT-SWAP",
             td_mode="cross",
             side="sell",
