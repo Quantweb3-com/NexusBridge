@@ -1,8 +1,8 @@
 import orjson
-from typing import Any, Dict
+from typing import Any, Dict, Callable
 
 class TradeApi:
-    def __init__(self, fetch_func: callable):
+    def __init__(self, fetch_func: Callable):
         self._fetch = fetch_func
 
     async def post_v5_order_create(
@@ -26,7 +26,7 @@ class TradeApi:
             "qty": qty,
             **kwargs,
         }
-        raw = await self._fetch("POST", self._base_url, endpoint, payload, signed=True)
+        raw = await self._fetch("POST", endpoint, payload, signed=True)
         return orjson.loads(raw)
 
     async def post_v5_order_cancel(
@@ -41,7 +41,7 @@ class TradeApi:
             "symbol": symbol,
             **kwargs,
         }
-        raw = await self._fetch("POST", self._base_url, endpoint, payload, signed=True)
+        raw = await self._fetch("POST", endpoint, payload, signed=True)
         return orjson.loads(raw)
 
 
@@ -55,7 +55,7 @@ class TradeApi:
             "category": category,
             **kwargs,
         }
-        raw = await self._fetch("GET", self._base_url, endpoint, payload, signed=True)
+        raw = await self._fetch("GET", endpoint, payload, signed=True)
         return orjson.loads(raw)
 
     async def get_v5_order_history(self, category: str, **kwargs):
@@ -67,5 +67,5 @@ class TradeApi:
             "category": category,
             **kwargs,
         }
-        raw = await self._fetch("GET", self._base_url, endpoint, payload, signed=True)
+        raw = await self._fetch("GET", endpoint, payload, signed=True)
         return orjson.loads(raw)

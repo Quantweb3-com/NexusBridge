@@ -11,7 +11,7 @@ from nexus.bybit.constants import BybitUrl
 from nexus.bybit.error import BybitError
 
 
-from nexus.bybit.api import AccountApi, PositionApi, TradeApi
+from nexus.bybit.api import AccountApi, PositionApi, TradeApi, MarketApi
 
 
 class BybitApiClient(ApiClient):
@@ -50,12 +50,15 @@ class BybitApiClient(ApiClient):
         self._headers = {
             "Content-Type": "application/json",
             "User-Agent": "TradingBot/1.0",
-            "X-BAPI-API-KEY": api_key,
         }
+        
+        if api_key:
+            self._headers["X-BAPI-API-KEY"] = api_key
         
         self.trade_api = TradeApi(self._fetch)
         self.account_api = AccountApi(self._fetch)
         self.position_api = PositionApi(self._fetch)
+        self.market = MarketApi(self._fetch)
         
 
     def _generate_signature(self, payload: str) -> List[str]:
@@ -71,14 +74,13 @@ class BybitApiClient(ApiClient):
     async def _fetch(
         self,
         method: str,
-        base_url: str,
         endpoint: str,
         payload: Dict[str, Any] = None,
         signed: bool = False,
     ):
-        await self._init_session()
+        self._init_session()
         
-        url = urljoin(base_url, endpoint)
+        url = urljoin(self._base_url, endpoint)
         payload = payload or {}
 
         payload_str = (
@@ -141,5 +143,7 @@ class BybitApiClient(ApiClient):
             return getattr(self.position_api, name)
         elif hasattr(self.account_api, name):
             return getattr(self.account_api, name)
+        elif hasattr(self.market, name):
+            return getattr(self.market, name)
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
 
