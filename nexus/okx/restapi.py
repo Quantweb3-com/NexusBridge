@@ -7,7 +7,8 @@ import aiohttp
 from urllib.parse import urljoin, urlencode, unquote
 
 from nexus.base import ApiClient
-from nexus.okx.api import TradeApi, AlgoTradingApi, GridTradingApi, SignalBotTradingApi, RecurringBuyApi, CopyTradingApi
+from nexus.okx.api import TradeApi, AlgoTradingApi, GridTradingApi, SignalBotTradingApi, RecurringBuyApi, \
+    CopyTradingApi, MarketDataApi
 from nexus.okx.constants import OkxUrl
 from nexus.okx.error import OkxHttpError, OkxRequestError
 
@@ -36,6 +37,7 @@ class OkxApiClient(ApiClient):
         self.signal_bot_trading_api = SignalBotTradingApi(self._fetch)
         self.recurring_buy_api = RecurringBuyApi(self._fetch)
         self.copy_trading_api = CopyTradingApi(self._fetch)
+        self.market_data_api = MarketDataApi(self._fetch)
         self._headers = {
             "Content-Type": "application/json",
             "User-Agent": "TradingBot/1.0",
