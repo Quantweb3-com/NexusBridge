@@ -7,7 +7,8 @@ import aiohttp
 from urllib.parse import urljoin, urlencode, unquote
 
 from nexus.base import ApiClient
-from nexus.okx.api import TradeApi, AlgoTradingApi, GridTradingApi, SignalBotTradingApi, RecurringBuyApi
+from nexus.okx.api import TradeApi, AlgoTradingApi, GridTradingApi, SignalBotTradingApi, RecurringBuyApi, \
+    CopyTradingApi, MarketDataApi
 from nexus.okx.constants import OkxUrl
 from nexus.okx.error import OkxHttpError, OkxRequestError
 
@@ -35,6 +36,8 @@ class OkxApiClient(ApiClient):
         self.grid_trading_api = GridTradingApi(self._fetch)
         self.signal_bot_trading_api = SignalBotTradingApi(self._fetch)
         self.recurring_buy_api = RecurringBuyApi(self._fetch)
+        self.copy_trading_api = CopyTradingApi(self._fetch)
+        self.market_data_api = MarketDataApi(self._fetch)
         self._headers = {
             "Content-Type": "application/json",
             "User-Agent": "TradingBot/1.0",
@@ -168,4 +171,6 @@ class OkxApiClient(ApiClient):
             return getattr(self.signal_bot_trading_api, name)
         elif hasattr(self.recurring_buy_api, name):
             return getattr(self.recurring_buy_api, name)
+        elif hasattr(self.copy_trading_api, name):
+            return getattr(self.copy_trading_api, name)
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
