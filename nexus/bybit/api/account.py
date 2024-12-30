@@ -14,5 +14,5 @@ class AccountApi:
             "accountType": account_type,
             **kwargs,
         }
-        raw = await self._fetch("GET", self._base_url, endpoint, payload, signed=True)
+        raw = await self._fetch("GET", endpoint, payload, signed=True)
         return orjson.loads(raw)
