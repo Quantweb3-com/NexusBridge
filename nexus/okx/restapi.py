@@ -8,7 +8,7 @@ from urllib.parse import urljoin, urlencode, unquote
 
 from nexus.base import ApiClient
 from nexus.okx.api import TradeApi, AlgoTradingApi, GridTradingApi, SignalBotTradingApi, RecurringBuyApi, \
-    CopyTradingApi, MarketDataApi
+    CopyTradingApi, MarketDataApi, TradingAccountApi
 from nexus.okx.constants import OkxUrl
 from nexus.okx.error import OkxHttpError, OkxRequestError
 
@@ -38,6 +38,7 @@ class OkxApiClient(ApiClient):
         self.recurring_buy_api = RecurringBuyApi(self._fetch)
         self.copy_trading_api = CopyTradingApi(self._fetch)
         self.market_data_api = MarketDataApi(self._fetch)
+        self.trading_account_api = TradingAccountApi(self._fetch)
         self._headers = {
             "Content-Type": "application/json",
             "User-Agent": "TradingBot/1.0",
@@ -55,6 +56,8 @@ class OkxApiClient(ApiClient):
             self, ts: str, method: str, request_path: str, payload: Dict[str, Any] = None
     ) -> str:
         body = ""
+        if method == "POST":
+            body = {}
         if payload:
             body = orjson.dumps(payload).decode()
 
@@ -173,4 +176,8 @@ class OkxApiClient(ApiClient):
             return getattr(self.recurring_buy_api, name)
         elif hasattr(self.copy_trading_api, name):
             return getattr(self.copy_trading_api, name)
+        elif hasattr(self.market_data_api, name):
+            return getattr(self.market_data_api, name)
+        elif hasattr(self.trading_account_api, name):
+            return getattr(self.trading_account_api, name)
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
