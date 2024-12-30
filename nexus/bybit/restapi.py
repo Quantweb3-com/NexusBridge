@@ -50,8 +50,10 @@ class BybitApiClient(ApiClient):
         self._headers = {
             "Content-Type": "application/json",
             "User-Agent": "TradingBot/1.0",
-            "X-BAPI-API-KEY": api_key,
         }
+        
+        if api_key:
+            self._headers["X-BAPI-API-KEY"] = api_key
         
         self.trade_api = TradeApi(self._fetch)
         self.account_api = AccountApi(self._fetch)
@@ -76,7 +78,7 @@ class BybitApiClient(ApiClient):
         payload: Dict[str, Any] = None,
         signed: bool = False,
     ):
-        await self._init_session()
+        self._init_session()
         
         url = urljoin(self._base_url, endpoint)
         payload = payload or {}
