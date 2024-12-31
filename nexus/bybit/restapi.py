@@ -4,13 +4,13 @@ import aiohttp
 import asyncio
 import orjson
 from typing import Any, Dict, List
-from urllib.parse import urljoin, urlencode
+from urllib.parse import urljoin, urlencode, unquote
 
 from nexus.base import ApiClient
 from nexus.bybit.constants import BybitUrl
 from nexus.bybit.error import BybitError
 
-from nexus.bybit.api import AccountApi, PositionApi, TradeApi, MarketApi
+from nexus.bybit.api import AccountApi, PositionApi, TradeApi, MarketApi, AssetApi
 
 
 class BybitApiClient(ApiClient):
@@ -58,6 +58,7 @@ class BybitApiClient(ApiClient):
         self.account_api = AccountApi(self._fetch)
         self.position_api = PositionApi(self._fetch)
         self.market_api = MarketApi(self._fetch)
+        self.asset_api = AssetApi(self._fetch)
 
     def _generate_signature(self, payload: str) -> List[str]:
         timestamp = str(self._clock.timestamp_ms())
@@ -82,7 +83,7 @@ class BybitApiClient(ApiClient):
         payload = payload or {}
 
         payload_str = (
-            urlencode(payload)
+            unquote(urlencode(payload))
             if method == "GET"
             else orjson.dumps(payload).decode("utf-8")
         )
@@ -144,4 +145,6 @@ class BybitApiClient(ApiClient):
             return getattr(self.account_api, name)
         elif hasattr(self.market_api, name):
             return getattr(self.market_api, name)
+        elif hasattr(self.asset_api, name):
+            return getattr(self.asset_api, name)
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
