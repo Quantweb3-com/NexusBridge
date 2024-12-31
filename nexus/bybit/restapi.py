@@ -10,17 +10,16 @@ from nexus.base import ApiClient
 from nexus.bybit.constants import BybitUrl
 from nexus.bybit.error import BybitError
 
-
 from nexus.bybit.api import AccountApi, PositionApi, TradeApi, MarketApi
 
 
 class BybitApiClient(ApiClient):
     def __init__(
-        self,
-        api_key: str = None,
-        secret: str = None,
-        url: BybitUrl = BybitUrl.TESTNET,
-        timeout: int = 10,
+            self,
+            api_key: str = None,
+            secret: str = None,
+            url: BybitUrl = BybitUrl.TESTNET,
+            timeout: int = 10,
     ):
         """
         ### Testnet:
@@ -51,15 +50,14 @@ class BybitApiClient(ApiClient):
             "Content-Type": "application/json",
             "User-Agent": "TradingBot/1.0",
         }
-        
+
         if api_key:
             self._headers["X-BAPI-API-KEY"] = api_key
-        
+
         self.trade_api = TradeApi(self._fetch)
         self.account_api = AccountApi(self._fetch)
         self.position_api = PositionApi(self._fetch)
-        self.market = MarketApi(self._fetch)
-        
+        self.market_api = MarketApi(self._fetch)
 
     def _generate_signature(self, payload: str) -> List[str]:
         timestamp = str(self._clock.timestamp_ms())
@@ -70,16 +68,16 @@ class BybitApiClient(ApiClient):
         )
         signature = hash.hexdigest()
         return [signature, timestamp]
-    
+
     async def _fetch(
-        self,
-        method: str,
-        endpoint: str,
-        payload: Dict[str, Any] = None,
-        signed: bool = False,
+            self,
+            method: str,
+            endpoint: str,
+            payload: Dict[str, Any] = None,
+            signed: bool = False,
     ):
         self._init_session()
-        
+
         url = urljoin(self._base_url, endpoint)
         payload = payload or {}
 
@@ -134,7 +132,8 @@ class BybitApiClient(ApiClient):
         except Exception as e:
             self._log.error(f"Error {method} Url: {url} {e}")
             raise
-
+        finally:
+            await self.close_session()
 
     def __getattr__(self, name):
         if hasattr(self.trade_api, name):
@@ -143,7 +142,6 @@ class BybitApiClient(ApiClient):
             return getattr(self.position_api, name)
         elif hasattr(self.account_api, name):
             return getattr(self.account_api, name)
-        elif hasattr(self.market, name):
-            return getattr(self.market, name)
+        elif hasattr(self.market_api, name):
+            return getattr(self.market_api, name)
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-

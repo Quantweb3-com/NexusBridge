@@ -176,3 +176,110 @@ class MarketApi:
         raw = await self._fetch("GET", endpoint, payload=payload, signed=False)
         return orjson.loads(raw)
 
+    async def get_v5_market_open_interest(
+            self,
+            symbol: str,
+            category: Literal["linear", "inverse"],
+            interval_time: Literal["5min", "15min", "30min", "1h", "4h", "1d"],
+            **kwargs
+    ):
+        """
+        Get the open interest of each symbol.
+        https://bybit-exchange.github.io/docs/v5/market/open-interest
+        """
+        endpoint = "/v5/market/open-interest"
+        payload = {
+            "symbol": symbol,
+            "category": category,
+            "interval_time": interval_time,
+            **kwargs
+        }
+        raw = await self._fetch("GET", endpoint, payload=payload, signed=False)
+        return orjson.loads(raw)
+
+    async def get_v5_market_historical_volatility(
+            self,
+            category: str = "option",
+            **kwargs
+    ):
+        """
+        Query option historical volatility
+        https://bybit-exchange.github.io/docs/v5/market/iv
+        """
+        endpoint = "/v5/market/historical-volatility"
+        payload = {
+            "category": category,
+            **kwargs
+        }
+        raw = await self._fetch("GET", endpoint, payload=payload, signed=False)
+        return orjson.loads(raw)
+
+    async def get_v5_market_insurance(
+            self,
+            coin: str | None = None,
+    ):
+        """
+        Query for Bybit insurance pool data (BTC/USDT/USDC etc). The data is updated every 24 hours.
+        https://bybit-exchange.github.io/docs/v5/market/insurance
+        """
+        endpoint = "/v5/market/insurance"
+        payload = {}
+        if coin:
+            payload["coin"] = coin
+        raw = await self._fetch("GET", endpoint, payload=payload, signed=False)
+        return orjson.loads(raw)
+
+    async def get_v5_market_risk_limit(
+            self,
+            category: Literal["linear", "inverse"],
+            **kwargs
+    ):
+        """
+        Query for the risk limit.
+        https://bybit-exchange.github.io/docs/v5/market/risk-limit
+        """
+        endpoint = "/v5/market/risk-limit"
+        payload = {
+            "category": category,
+            **kwargs
+        }
+        raw = await self._fetch("GET", endpoint, payload=payload, signed=False)
+        return orjson.loads(raw)
+
+    async def get_v5_market_delivery_price(
+            self,
+            category: Literal["linear", "inverse", "option"],
+            **kwargs
+    ):
+        """
+        Get the delivery price.
+        https://bybit-exchange.github.io/docs/v5/market/delivery-price
+        """
+        endpoint = "/v5/market/delivery-price"
+        payload = {
+            "category": category,
+            **kwargs
+        }
+        raw = await self._fetch("GET", endpoint, payload=payload, signed=False)
+        return orjson.loads(raw)
+
+    async def get_v5_market_account_ratio(
+            self,
+            category: Literal["linear", "inverse"],
+            symbol: str,
+            period: Literal["5min", "15min", "30min", "1h", "4h", "1d"],
+            **kwargs
+    ):
+        """
+        Get Long Short Ratio
+       https://bybit-exchange.github.io/docs/v5/market/long-short-ratio
+        """
+        endpoint = "/v5/market/account-ratio"
+        payload = {
+            "category": category,
+            "symbol": symbol,
+            "period": period,
+            **kwargs
+        }
+        raw = await self._fetch("GET", endpoint, payload=payload, signed=False)
+        return orjson.loads(raw)
