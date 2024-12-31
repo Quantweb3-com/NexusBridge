@@ -5,3 +5,4 @@ from .signal_bot_trading import SignalBotTradingApi
 from .recurring_buy import RecurringBuyApi
 from .copy_trading import CopyTradingApi
 from .market_data import MarketDataApi
+from .public_data import PublicDataApi
