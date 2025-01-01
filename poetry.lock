@@ -110,6 +110,17 @@ yarl = ">=1.17.0,<2.0"
 speedups = ["Brotli", "aiodns (>=3.2.0)", "brotlicffi"]
 
 [[package]]
+name = "aiolimiter"
+version = "1.2.1"
+description = "asyncio rate limiter, a leaky bucket implementation"
+optional = false
+python-versions = "<4.0,>=3.8"
+files = [
+    {file = "aiolimiter-1.2.1-py3-none-any.whl", hash = "sha256:d3f249e9059a20badcb56b61601a83556133655c11d1eb3dd3e04ff069e5f3c7"},
+    {file = "aiolimiter-1.2.1.tar.gz", hash = "sha256:e02a37ea1a855d9e832252a105420ad4d15011505512a1a1d814647451b5cca9"},
+]
+
+[[package]]
 name = "aiosignal"
 version = "1.3.2"
 description = "aiosignal: a list of registered asynchronous callbacks"
@@ -529,6 +540,67 @@ files = [
 ]
 
 [[package]]
+name = "picows"
+version = "1.7.2"
+description = "Ultra-fast websocket client and server for asyncio"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "picows-1.7.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d1ee1cfacbcd1a07ba2042097d4bf435e229c7df30376c683c25b99238890307"},
+    {file = "picows-1.7.2-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:c223ec8b6b5625b0583d382ef0b5d3b0ecdc860dc7f845cac8543f6eab88a5d4"},
+    {file = "picows-1.7.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c9045c078d9610e9c493a911b9aa5c80b801d16b00a01e81b95cf96f926faf78"},
+    {file = "picows-1.7.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c85bb55a5ef38bd5c968ea30cefeedfac5aa8019a8bb85cabed3ed438aef282e"},
+    {file = "picows-1.7.2-cp310-cp310-musllinux_1_2_aarch64.whl", hash = "sha256:53af32e92eed3e7490b6df97fc62e2b55e9977a8138c003b67c035ec77933d7b"},
+    {file = "picows-1.7.2-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:cf66d746e452509074a44bd97ab4d10524f657bcf9cb22401fb14f0e3666356c"},
+    {file = "picows-1.7.2-cp310-cp310-win32.whl", hash = "sha256:4243e860975a4ae5c146918ec0f06ddc59d190961c78ea26ff1e2263b862a376"},
+    {file = "picows-1.7.2-cp310-cp310-win_amd64.whl", hash = "sha256:6af73c5354cdffa292fc48394e56d49b0957188bee241ff1d54c2bbc4cb0f3e2"},
+    {file = "picows-1.7.2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:5e855a52a11e96963b43633c3d14e5f632ba791230ddd867aba196b6e667dd17"},
+    {file = "picows-1.7.2-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:1ab64a0fa9bb1080368bc66eba3434ddf60f797b11fafec08994cfdda9a731cf"},
+    {file = "picows-1.7.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4dfc3d920ae8fe7c688588154d05a1c7a32df4dd19e457a8956a7aaa1bc30fd6"},
+    {file = "picows-1.7.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e49088a6abcae171611feda6e35d2c448966c93dc1e0c019073a399126d634cf"},
+    {file = "picows-1.7.2-cp311-cp311-musllinux_1_2_aarch64.whl", hash = "sha256:bb6bb237972d29d3eaad47e55e7480f7f3e2d78a1edd6f325178674a4cca4d9a"},
+    {file = "picows-1.7.2-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:e179c389401f8f2b3c8ed72f988084fec0750020c333b14af782925460549e1e"},
+    {file = "picows-1.7.2-cp311-cp311-win32.whl", hash = "sha256:73f41e84b41295bb23944b602a637fceb133d193595c8758ecbdb0b6f505c4e8"},
+    {file = "picows-1.7.2-cp311-cp311-win_amd64.whl", hash = "sha256:4e7fbd479a135885788e4bd58f940946f227d9cc08a3cf0812656a69fca2a160"},
+    {file = "picows-1.7.2-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:9696d201be91ee32bfb0328d84a18b55e49d2303dd8d4f7d2f508b76baa6540c"},
+    {file = "picows-1.7.2-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:f733cf5d0589f78ce980f9dd9b5282a3532b0e4f08bdcdb053425144b43e74d2"},
+    {file = "picows-1.7.2-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:82fe0b4a8cceecb6c9a6fc01d95332080e291d3cdc72670d09ce0d6ea5b521c2"},
+    {file = "picows-1.7.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:fe45b5552af996e8f4a97b8a10123ede2c8c1717926fe56cea86831a997fbf9f"},
+    {file = "picows-1.7.2-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:0b19fbbf218c8b10b80d207f6745ccff51a884b48e7606684d79ed0d27f8d85e"},
+    {file = "picows-1.7.2-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:66b98e45662e915f7a878bce4dc395d57378c8fe4e2220c536c04708c2fe37e4"},
+    {file = "picows-1.7.2-cp312-cp312-win32.whl", hash = "sha256:8979db65a771b33daf9082452f253b8ad69ac4d0ecd792ec2e6615111e579c70"},
+    {file = "picows-1.7.2-cp312-cp312-win_amd64.whl", hash = "sha256:c5ea8cf9ddacc0e15ee1afd25e10b9f54fbc3f7b7a08464622d9a5d16fead6a0"},
+    {file = "picows-1.7.2-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:0d2468d9954cb25e0aa91866cdfb7f624b62948c02623f146ce6ee57627c6846"},
+    {file = "picows-1.7.2-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:2a89fb06da27add6eb34c824d099efc7f5a481ea1f3e5dfd0ccc45ab8274b757"},
+    {file = "picows-1.7.2-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:60bc7b211ffef2eae0d48b8e7cc45977e624143f51b20526832a4618d0d202a1"},
+    {file = "picows-1.7.2-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6a196e36980b31ecc20aeaf2223769b1bd6a4ac8214995ba3bae46c47e76af74"},
+    {file = "picows-1.7.2-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:a59bf5b19d245f8ca82ab65e3c93f8279710622653c829458ce7ac3cefeb7c23"},
+    {file = "picows-1.7.2-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:bcccac512c58bf07770d63cf93abe40eb64fc44ffe25cd3f8bb42180a9cc31de"},
+    {file = "picows-1.7.2-cp313-cp313-win32.whl", hash = "sha256:4e105c9007dee0ad05125f53665ee2fcc3a3155689a2b04ce3baae768667b519"},
+    {file = "picows-1.7.2-cp313-cp313-win_amd64.whl", hash = "sha256:c1c3e852090f8b54d855af5f1c5eaa6ff9620a9a3acbcf2666ecafedbb76fce2"},
+    {file = "picows-1.7.2-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:3f252757e845670e7730f5e96dac4b99d5c2618ed6ea971cd0424f0a216f4208"},
+    {file = "picows-1.7.2-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:b6eb9a00d35163a8acfe2c8f774c53d2d770b328bf30a24258a9ee45ecebe36e"},
+    {file = "picows-1.7.2-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:ec74f048c3e436ce69e784bef2aae128c10a95f00c9d4539b442be1375cf7940"},
+    {file = "picows-1.7.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a9444c438a4851d8cbdd4976b1dfc04c454f9ffbf16a8e8984e6e53578d8c323"},
+    {file = "picows-1.7.2-cp38-cp38-musllinux_1_2_aarch64.whl", hash = "sha256:43be421d29b761e4875e2bcc481b922e9da0a1dee965d57dd5a03c40a070817f"},
+    {file = "picows-1.7.2-cp38-cp38-musllinux_1_2_x86_64.whl", hash = "sha256:b04d8b2a4ee76186964f1b8b29e7515a8f479a26e08d8a3d174c32de4f4260da"},
+    {file = "picows-1.7.2-cp38-cp38-win32.whl", hash = "sha256:84fdf8fca2b5015e9ff27dd500c62bece17eb01f66dd057be694578fa5c7a564"},
+    {file = "picows-1.7.2-cp38-cp38-win_amd64.whl", hash = "sha256:d19f9b50b7b6dac5fc0e45444e889f6105c56a69c2106749eccfab31a7f0bafc"},
+    {file = "picows-1.7.2-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:fff7284652e7ac84d27f37bbe8c89e7970a8715ae0b5e0a74fb5c16d129a895e"},
+    {file = "picows-1.7.2-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:b36d60013ab399fe94ed2c0cb4e336b6b17f936de8cf95f7c22312b20bcadeaa"},
+    {file = "picows-1.7.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4763e458037e985187ca7d86688b11ef2e16173ec0a13dd3457f59e64e2e1730"},
+    {file = "picows-1.7.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4aeb3ff47c1b8291023c6a4ffbbd6238340fa5b119fcddbb1430055ec0b836f9"},
+    {file = "picows-1.7.2-cp39-cp39-musllinux_1_2_aarch64.whl", hash = "sha256:ab9f7f575f6d8d4e40df003b1a63f8c46b6eaea2733b0c005299b2f0d188ec9d"},
+    {file = "picows-1.7.2-cp39-cp39-musllinux_1_2_x86_64.whl", hash = "sha256:8bd1751409d4f34b853108c23c73554e84555d7f062f48d503d61645d878afc5"},
+    {file = "picows-1.7.2-cp39-cp39-win32.whl", hash = "sha256:0b389bc57de75ccfa098f9d4c325b93d10ba6828b91d6a8f413578754ea334f7"},
+    {file = "picows-1.7.2-cp39-cp39-win_amd64.whl", hash = "sha256:21316974db928c4c5025931385dd2fefa3e5ebd69f828597c89a4d8f4b38711b"},
+    {file = "picows-1.7.2.tar.gz", hash = "sha256:d277bd185ef7beeb9cba4b124e0fd4568f116edcfefad7faa1fadc0551e3aea4"},
+]
+
+[package.dependencies]
+multidict = "*"
+
+[[package]]
 name = "propcache"
 version = "0.2.1"
 description = "Accelerated property cache"
@@ -743,4 +815,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "cf29c9afde2de6910168b994f8a793262b4023d9201240158fe8e724419a3ca2"
+content-hash = "35cd521736a4434ae7bba567616f7487f05b56d6740a34638fc5af6e28f477ce"
