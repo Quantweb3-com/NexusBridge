@@ -161,6 +161,8 @@ class WSClient(ABC):
                     await self._resubscribe()
                 await self._transport.wait_disconnected()
             except asyncio.CancelledError:
+                self.disconnect()
+                await asyncio.sleep(0.5)
                 break
             except Exception as e:
                 self._log.error(f"Connection error: {e}")
