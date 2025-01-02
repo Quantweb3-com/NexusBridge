@@ -5,11 +5,9 @@ import certifi
 import orjson
 import ssl
 
-
 import asyncio
 from typing import Any
 from typing import Callable, Literal, Optional
-
 
 from aiolimiter import AsyncLimiter
 from picows import (
@@ -25,10 +23,10 @@ from nexus.utils import Log, LiveClock
 
 class ApiClient(ABC):
     def __init__(
-        self,
-        api_key: str = None,
-        secret: str = None,
-        timeout: int = 10,
+            self,
+            api_key: str = None,
+            secret: str = None,
+            timeout: int = 10,
     ):
         self._api_key = api_key
         self._secret = secret
@@ -99,19 +97,19 @@ class Listener(WSListener):
 
 class WSClient(ABC):
     def __init__(
-        self,
-        url: str,
-        limiter: AsyncLimiter,
-        handler: Callable[..., Any],
-        specific_ping_msg: bytes = None,
-        reconnect_interval: int = 1,
-        ping_idle_timeout: int = 2,
-        ping_reply_timeout: int = 1,
-        auto_ping_strategy: Literal[
-            "ping_when_idle", "ping_periodically"
-        ] = "ping_when_idle",
-        enable_auto_ping: bool = True,
-        enable_auto_pong: bool = False,
+            self,
+            url: str,
+            limiter: AsyncLimiter,
+            handler: Callable[..., Any],
+            specific_ping_msg: bytes = None,
+            reconnect_interval: int = 1,
+            ping_idle_timeout: int = 2,
+            ping_reply_timeout: int = 1,
+            auto_ping_strategy: Literal[
+                "ping_when_idle", "ping_periodically"
+            ] = "ping_when_idle",
+            enable_auto_ping: bool = True,
+            enable_auto_pong: bool = False,
     ):
         self._clock = LiveClock()
         self._url = url
@@ -138,7 +136,8 @@ class WSClient(ABC):
 
     async def _connect(self):
         if not self.connected:
-            WSListenerFactory = lambda: Listener(self._log, handler=self._handler, specific_ping_msg=self._specific_ping_msg)  # noqa: E731
+            WSListenerFactory = lambda: Listener(self._log, handler=self._handler,
+                                                 specific_ping_msg=self._specific_ping_msg)  # noqa: E731
             self._transport, self._listener = await ws_connect(
                 WSListenerFactory,
                 self._url,
