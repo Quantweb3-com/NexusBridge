@@ -1,16 +1,15 @@
 from enum import Enum, unique
 
 
-
 class OkxUrl(Enum):
     LIVE = 0
     AWS = 1
     DEMO = 2
-    
+
     @property
     def base_url(self):
         return REST_URLS[self]
-    
+
     @property
     def is_testnet(self):
         return self == OkxUrl.DEMO
@@ -23,7 +22,6 @@ REST_URLS = {
 }
 
 
-
 class OkxInstrumentType(Enum):
     SPOT = "SPOT"
     MARGIN = "MARGIN"
@@ -32,10 +30,12 @@ class OkxInstrumentType(Enum):
     OPTION = "OPTION"
     ANY = "ANY"
 
+
 class OkxInstrumentFamily(Enum):
     FUTURES = "FUTURES"
     SWAP = "SWAP"
     OPTION = "OPTION"
+
 
 @unique
 class OkxTdMode(Enum):
@@ -51,6 +51,7 @@ class OkxPositionSide(Enum):
     SHORT = "short"
     NET = "net"
     NONE = ""
+
 
 @unique
 class OkxOrderSide(Enum):
@@ -85,3 +86,34 @@ class OkxOrderStatus(Enum):  # "state"
     PARTIALLY_FILLED = "partially_filled"
     FILLED = "filled"
     MMP_CANCELED = "mmp_canceled"
+
+
+class OkxAccountType(Enum):
+    LIVE = 0
+    AWS = 1
+    DEMO = 2
+
+    @property
+    def exchange_id(self):
+        return "okx"
+
+    @property
+    def is_testnet(self):
+        return self == OkxAccountType.DEMO
+
+    @property
+    def stream_url(self):
+        return STREAM_URLS[self]
+
+
+class ChannelKind(Enum):
+    PUBLIC = "public"
+    PRIVATE = "private"
+    BUSINESS = "business"
+
+
+STREAM_URLS = {
+    OkxAccountType.LIVE: "wss://ws.okx.com:8443/ws",
+    OkxAccountType.AWS: "wss://wsaws.okx.com:8443/ws",
+    OkxAccountType.DEMO: "wss://wspap.okx.com:8443/ws",
+}
