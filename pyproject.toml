@@ -16,6 +16,7 @@ dynaconf = "^3.2.6"
 certifi = "^2024.12.14"
 picows = "^1.7.2"
 aiolimiter = "^1.2.1"
+pycryptodome = "^3.21.0"
 
 
 [build-system]
