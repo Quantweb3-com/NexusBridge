@@ -35,3 +35,25 @@ class SpotTradingApi(BinanceApiClient):
 
     # Trading endpoints
     from nexus.binance.spot.trading import post_api_v3_order
+    from nexus.binance.spot.trading import post_api_v3_order_test
+    from nexus.binance.spot.trading import get_api_v3_order
+    from nexus.binance.spot.trading import delete_api_v3_order
+    from nexus.binance.spot.trading import delete_api_v3_open_orders
+    from nexus.binance.spot.trading import post_api_v3_order_cancel_replace
+    from nexus.binance.spot.trading import get_api_v3_open_orders
+    from nexus.binance.spot.trading import get_api_v3_all_orders
+    from nexus.binance.spot.trading import post_api_v3_order_oco
+    from nexus.binance.spot.trading import post_api_v3_sor_order
+
+    # Account Endpoints
+    from nexus.binance.spot.account import get_api_v3_account
+    from nexus.binance.spot.account import get_api_v3_my_trades
+    from nexus.binance.spot.account import get_api_v3_rate_limit_order
+    from nexus.binance.spot.account import get_api_v3_my_prevented_matches
+    from nexus.binance.spot.account import get_api_v3_my_allocations
+    from nexus.binance.spot.account import get_api_v3_account_commission
+
+    # User data stream endpoints
+    from nexus.binance.spot.user_data_stream import post_api_v3_user_data_stream
+    from nexus.binance.spot.user_data_stream import put_api_v3_user_data_stream
+    from nexus.binance.spot.user_data_stream import delete_api_v3_user_data_stream

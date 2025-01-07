@@ -1,4 +1,6 @@
 import asyncio
+import json
+
 import aiohttp
 
 from typing import Any, Dict
@@ -39,42 +41,43 @@ class BinanceApiClient(ApiClient):
             return rsa_signature(self.secret, payload, self.private_key_pass)
         return hmac_hashing(self.secret, payload)
 
-    async def _fetch(
-            self,
-            method: str,
-            endpoint: str,
-            payload: Dict[str, Any] = None,
-            signed: bool = False,
-            timestamp: bool = False
-    ):
+    def _prepare_payload(self, payload: Dict[str, Any], signed: bool) -> str:
+        """Prepare payload by encoding and optionally signing."""
+        payload = {k: str(v).lower() if isinstance(v, bool) else v for k, v in payload.items()}
+        if signed:
+            payload["timestamp"] = self._clock.timestamp_ms()
+            encoded_payload = urlencode(payload)
+            signature = self._get_sign(encoded_payload)
+            return f"{encoded_payload}&signature={signature}"
+        return urlencode(payload)
+
+    async def _fetch(self, method: str, endpoint: str, payload: Dict[str, Any] = None, signed: bool = False):
+        """Make an asynchronous HTTP request."""
         self._init_session()
 
         url = urljoin(self.base_url, endpoint)
         payload = payload or {}
-        if timestamp:
-            payload["timestamp"] = self._clock.timestamp_ms()
-        if signed:
-            payload = urlencode(payload)
-            signature = self._get_sign(payload)
-            payload += f"&signature={signature}"
-        payload_str = (
-            unquote(urlencode(payload))
-            if method == "GET"
-            else orjson.dumps(payload).decode("utf-8")
-        )
+        encoded_payload = self._prepare_payload(payload, signed)
 
-        if method == "GET":
-            url += f"?{payload_str}"
-            payload_str = None
-        self._log.debug(f"Request: {url}")
+        if method.upper() == "GET":
+            url = f"{url}?{encoded_payload}"
+            data = None
+        else:
+            data = encoded_payload
+
+        self._log.debug(f"Request: {method} {url}")
+
         try:
-            response = await self._session.request(
-                method=method,
-                url=url,
-                headers=self._headers,
-                data=payload_str
-            )
-            return orjson.loads(await response.read())
+            async with self._session.request(
+                    method=method.upper(),
+                    url=url,
+                    headers=self._headers,
+                    data=data
+            ) as response:
+                response_text = await response.text()
+                self._log.debug(f"Response: {response_text}")
+                return orjson.loads(response_text)
+
         except aiohttp.ClientError as e:
             self._log.error(f"Client Error {method} Url: {url} {e}")
             raise
