@@ -27,6 +27,7 @@ class BinanceUrl(Enum):
 
 
 class BinanceInstrumentType(Enum):
+    Derivatives_PM = "Derivatives_PM"
     Derivatives_UM = "Derivatives_UM"
     Derivatives_CM = "Derivatives_CM"
     SPOT = "SPOT"
@@ -50,7 +51,13 @@ ALL_URL = {
         testnet_ws_url="wss://testnet.binance.vision/ws-api/v3",
         main_rest_url="https://api.binance.com",
         main_ws_url="wss://ws-api.binance.com:443/ws-api/v3",
-    )
+    ),
+    BinanceInstrumentType.Derivatives_PM: BaseUrl(
+        testnet_rest_url=None,
+        testnet_ws_url=None,
+        main_rest_url="https://papi.binance.com",
+        main_ws_url=None,
+    ),
 }
 
 

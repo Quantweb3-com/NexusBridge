@@ -4,7 +4,7 @@ from nexus.binance.base import BinanceApiClient
 from nexus.binance.constants import BinanceUrl, ALL_URL, BinanceInstrumentType
 
 
-class UsdmTradingApi(BinanceApiClient):
+class UmTradingApi(BinanceApiClient):
     def __init__(
             self,
             key=None,
