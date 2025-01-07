@@ -18,3 +18,6 @@ class UsdmTradingApi(BinanceApiClient):
     # Market Data endpoints
     from nexus.binance.um.market_data import get_fapi_v1_ping
     from nexus.binance.um.market_data import get_fapi_v1_time
+
+    # Trading endpoints
+    from nexus.binance.um.trade import fapi_v1_order
