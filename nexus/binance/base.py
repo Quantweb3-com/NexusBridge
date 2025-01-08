@@ -10,7 +10,7 @@ import orjson
 
 from nexus.base import ApiClient
 from nexus.binance.authentication import rsa_signature, hmac_hashing
-
+from nexus.binance.error import BinanceClientError, BinanceServerError
 
 class BinanceApiClient(ApiClient):
     def __init__(
@@ -68,15 +68,20 @@ class BinanceApiClient(ApiClient):
         self._log.debug(f"Request: {method} {url}")
 
         try:
-            async with self._session.request(
-                    method=method.upper(),
-                    url=url,
-                    headers=self._headers,
-                    data=data
-            ) as response:
-                response_text = await response.text()
-                self._log.debug(f"Response: {response_text}")
-                return orjson.loads(response_text)
+            response = await self._session.request(
+                method=method,
+                url=url,
+                headers=self._headers,
+                data=data,
+            )
+            status = response.status
+            raw = await response.read()
+            self._log.debug(f"Response: {raw}")
+            if 400 <= status < 500:
+                raise BinanceClientError(status, response.text(), self._headers)
+            elif status >= 500:
+                raise BinanceServerError(status, response.text(), self._headers)
+            return orjson.loads(raw)
 
         except aiohttp.ClientError as e:
             self._log.error(f"Client Error {method} Url: {url} {e}")
@@ -87,5 +92,3 @@ class BinanceApiClient(ApiClient):
         except Exception as e:
             self._log.error(f"Error {method} Url: {url} {e}")
             raise
-        finally:
-            await self.close_session()

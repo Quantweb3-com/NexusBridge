@@ -162,8 +162,6 @@ class OkxApiClient(ApiClient):
         except Exception as e:
             self._log.error(f"Error {method} Url: {url} {e}")
             raise
-        finally:
-            await self.close_session()
 
     def __getattr__(self, name):
         if hasattr(self.trade_api, name):
