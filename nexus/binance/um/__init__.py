@@ -74,3 +74,38 @@ class UmTradingApi(BinanceApiClient):
     from nexus.binance.um.trade import get_fapi_v1_position_margin_history
     from nexus.binance.um.trade import post_fapi_v1_order_test
 
+    # User Data Streams endpoints
+    from nexus.binance.um.user_data_stream import post_fapi_v1_listen_key
+    from nexus.binance.um.user_data_stream import put_fapi_v1_listen_key
+    from nexus.binance.um.user_data_stream import delete_fapi_v1_listen_key
+
+    # Account endpoints
+    from nexus.binance.um.account import get_fapi_v3_balance
+    from nexus.binance.um.account import get_fapi_v2_balance
+    from nexus.binance.um.account import get_fapi_v3_account
+    from nexus.binance.um.account import get_fapi_v2_account
+    from nexus.binance.um.account import get_fapi_v1_commission_rate
+    from nexus.binance.um.account import get_fapi_v1_account_config
+    from nexus.binance.um.account import get_fapi_v1_symbol_config
+    from nexus.binance.um.account import get_fapi_v1_rate_limit_order
+    from nexus.binance.um.account import get_fapi_v1_leverage_bracket
+    from nexus.binance.um.account import get_fapi_v1_multi_assets_margin
+    from nexus.binance.um.account import get_fapi_v1_position_side_dual
+    from nexus.binance.um.account import get_fapi_v1_income
+    from nexus.binance.um.account import get_fapi_v1_api_trading_status
+    from nexus.binance.um.account import get_fapi_v1_income_asyn
+    from nexus.binance.um.account import get_fapi_v1_income_asyn_id
+    from nexus.binance.um.account import get_fapi_v1_order_asyn
+    from nexus.binance.um.account import get_fapi_v1_order_asyn_id
+    from nexus.binance.um.account import get_fapi_v1_trade_asyn
+    from nexus.binance.um.account import get_fapi_v1_trade_asyn_id
+    from nexus.binance.um.account import post_fapi_v1_fee_burn
+    from nexus.binance.um.account import get_fapi_v1_fee_burn
+    from nexus.binance.um.account import get_fapi_v1_pm_account_info
+
+
+    # Convert endpoints
+    from nexus.binance.um.convert import get_fapi_v1_convert_exchange_info
+    from nexus.binance.um.convert import post_fapi_v1_convert_get_quote
+    from nexus.binance.um.convert import post_fapi_v1_convert_accept_quote
+    from nexus.binance.um.convert import get_fapi_v1_convert_order_status
