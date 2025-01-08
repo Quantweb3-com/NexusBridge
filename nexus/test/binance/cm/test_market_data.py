@@ -123,3 +123,85 @@ class TestGeneralClient(IsolatedAsyncioTestCase):
         # 执行异步 API 请求
         result = await self.client.get_dapi_v1_ticker_24hr()
         print(result)
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_get_dapi_v1_ticker_price(self, mock_get):
+        # 执行异步 API 请求
+        result = await self.client.get_dapi_v1_ticker_price(symbol="BTCUSD_PERP")
+        print(result)
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_get_dapi_v1_ticker_book_ticker(self, mock_get):
+        # 执行异步 API 请求
+        result = await self.client.get_dapi_v1_ticker_book_ticker(symbol="BTCUSD_PERP")
+        print(result)
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_get_dapi_v1_open_interest(self, mock_get):
+        # 执行异步 API 请求
+        result = await self.client.get_dapi_v1_open_interest(symbol="BTCUSD_PERP")
+        print(result)
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_get_dapi_v1_open_interest_hist(self, mock_get):
+        # 执行异步 API 请求
+        result = await self.client.get_futures_data_open_interest_hist(
+            pair="BTCUSD_PERP",
+            period="1d",
+            contract_type=ContractType.PERPETUAL
+        )
+        print(result)
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_get_dapi_v1_top_long_short_position_ratio(self, mock_get):
+        # 执行异步 API 请求
+        result = await self.client.get_futures_data_top_long_short_position_ratio(
+            pair="BTCUSD_PERP",
+            period="1d",
+            contract_type=ContractType.PERPETUAL
+        )
+        print(result)
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_get_dapi_v1_top_long_short_account_ratio(self, mock_get):
+        # 执行异步 API 请求
+        result = await self.client.get_futures_data_top_long_short_account_ratio(
+            pair="BTCUSD_PERP",
+            period="1d",
+        )
+        print(result)
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_get_dapi_v1_global_long_short_account_ratio(self, mock_get):
+        # 执行异步 API 请求
+        result = await self.client.get_futures_data_global_long_short_account_ratio(
+            pair="BTCUSD_PERP",
+            period="1d",
+        )
+        print(result)
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_get_dapi_v1_taker_buy_sell_vol(self, mock_get):
+        # 执行异步 API 请求
+        result = await self.client.get_futures_data_taker_buy_sell_vol(
+            pair="BTCUSD_PERP",
+            period="1d",
+            contract_type=ContractType.ALL
+        )
+        print(result)
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_get_futures_data_basis(self, mock_get):
+        # 执行异步 API 请求
+        result = await self.client.get_futures_data_basis(
+            pair="BTCUSD_PERP",
+            period="1d",
+            contract_type=ContractType.CURRENT_QUARTER
+        )
+        print(result)
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_get_dapi_v1_constituents(self, mock_get):
+        # 执行异步 API 请求
+        result = await self.client.get_dapi_v1_constituents(symbol="BTCUSD")
+        print(result)

@@ -98,3 +98,4 @@ class ContractType(Enum):
     PERPETUAL = "PERPETUAL"
     CURRENT_QUARTER = "CURRENT_QUARTER"
     NEXT_QUARTER = "NEXT_QUARTER"
+    ALL = "ALL"
