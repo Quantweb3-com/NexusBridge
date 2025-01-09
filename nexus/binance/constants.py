@@ -2,7 +2,8 @@ from enum import Enum
 
 
 class BaseUrl:
-    def __init__(self, testnet_rest_url: str, main_rest_url: str, main_ws_url: str, testnet_ws_url: str):
+    def __init__(self, testnet_rest_url: str | None, main_rest_url: str, main_ws_url: str | None,
+                 testnet_ws_url: str | None):
         self.testnet_rest_url = testnet_rest_url
         self.main_rest_url = main_rest_url
         self.main_ws_url = main_ws_url
@@ -56,7 +57,7 @@ ALL_URL = {
         testnet_rest_url=None,
         testnet_ws_url=None,
         main_rest_url="https://papi.binance.com",
-        main_ws_url=None,
+        main_ws_url="wss://fstream.binance.com/pm",
     ),
 }
 
