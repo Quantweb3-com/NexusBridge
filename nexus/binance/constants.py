@@ -51,7 +51,7 @@ ALL_URL = {
         testnet_rest_url="https://testnet.binance.vision/api",
         testnet_ws_url="wss://testnet.binance.vision/ws-api/v3",
         main_rest_url="https://api.binance.com",
-        main_ws_url="wss://ws-api.binance.com:443/ws-api/v3",
+        main_ws_url="wss://stream.binance.com:9443/ws",
     ),
     BinanceInstrumentType.Derivatives_PM: BaseUrl(
         testnet_rest_url=None,

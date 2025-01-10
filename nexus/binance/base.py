@@ -97,63 +97,93 @@ class BinanceApiClient(ApiClient):
 
 
 class BinanceWSClient(WSClient):
-    def __init__(self, url: str, handler: Callable[..., Any], **kwargs):
+    def __init__(
+        self,
+        url: str,
+        handler: Callable[..., Any],
+    ):
         super().__init__(
             url,
-            limiter=AsyncLimiter(max_rate=300, time_period=300),
+            limiter=AsyncLimiter(max_rate=3, time_period=1),
             handler=handler,
-            **kwargs
         )
 
-    async def _subscribe(self, params: str | list[str], subscription_id: str | None = None):
-        if isinstance(params, str):
-            params = [params]
-
-        new_params = [param for param in params if param not in self._subscriptions]
-        if not new_params:
-            return
-
-        subscription_id = subscription_id or self._clock.timestamp_ms()
-        await self._connect()
-        payload = {
-            "method": "SUBSCRIBE",
-            "params": new_params,
-            "id": subscription_id,
-        }
-        self._subscriptions[subscription_id] = payload
-        await self._send(payload)
-        self._subscriptions.update({param: subscription_id for param in new_params})
-        self._log.info(f"Subscribed to {subscription_id} with params: {new_params}")
-
-    async def _unsubscribe(self, params: str | list[str], subscription_id: int):
-        if isinstance(params, str):
-            params = [params]
-
-        valid_params = [param for param in params if param in self._subscriptions]
-        if not valid_params:
-            return
-
-        await self._connect()
-        payload = {
-            "method": "UNSUBSCRIBE",
-            "params": valid_params,
-            "id": subscription_id,
-        }
-        await self._send(payload)
-        for param in valid_params:
-            self._subscriptions.pop(param, None)
-        self._log.info(f"Unsubscribed from {subscription_id} with params: {valid_params}")
-
-    async def send(self, method: str, params: list[Any] | None = None, _id: str | None = None):
-        await self.connect()
-        payload = {
-            "method": method,
-            "id": _id or self._clock.timestamp_ms(),
-        }
-        if params:
-            payload["params"] = params
-        await self._send(payload)
+    async def _subscribe(self, params: str, subscription_id: str):
+        if subscription_id not in self._subscriptions:
+            await self._connect()
+            id = self._clock.timestamp_ms()
+            payload = {
+                "method": "SUBSCRIBE",
+                "params": [params],
+                "id": id,
+            }
+            self._subscriptions[subscription_id] = payload
+            await self._send(payload)
+            self._log.info(f"Subscribing to {subscription_id}...")
+        else:
+            self._log.info(f"Already subscribed to {subscription_id}")
 
     async def _resubscribe(self):
         for _, payload in self._subscriptions.items():
             await self._send(payload)
+# class BinanceWSClient(WSClient):
+#     def __init__(self, url: str, handler: Callable[..., Any], **kwargs):
+#         super().__init__(
+#             url,
+#             limiter=AsyncLimiter(max_rate=300, time_period=300),
+#             handler=handler,
+#             **kwargs
+#         )
+
+#     async def _subscribe(self, params: str | list[str], subscription_id: str | None = None):
+#         if isinstance(params, str):
+#             params = [params]
+
+#         new_params = [param for param in params if param not in self._subscriptions]
+#         if not new_params:
+#             return
+
+#         subscription_id = subscription_id or self._clock.timestamp_ms()
+#         await self._connect()
+#         payload = {
+#             "method": "SUBSCRIBE",
+#             "params": new_params,
+#             "id": subscription_id,
+#         }
+#         self._subscriptions[subscription_id] = payload
+#         await self._send(payload)
+#         self._subscriptions.update({param: subscription_id for param in new_params})
+#         self._log.info(f"Subscribed to {subscription_id} with params: {new_params}")
+
+#     async def _unsubscribe(self, params: str | list[str], subscription_id: int):
+#         if isinstance(params, str):
+#             params = [params]
+
+#         valid_params = [param for param in params if param in self._subscriptions]
+#         if not valid_params:
+#             return
+
+#         await self._connect()
+#         payload = {
+#             "method": "UNSUBSCRIBE",
+#             "params": valid_params,
+#             "id": subscription_id,
+#         }
+#         await self._send(payload)
+#         for param in valid_params:
+#             self._subscriptions.pop(param, None)
+#         self._log.info(f"Unsubscribed from {subscription_id} with params: {valid_params}")
+
+#     async def send(self, method: str, params: list[Any] | None = None, _id: str | None = None):
+#         await self.connect()
+#         payload = {
+#             "method": method,
+#             "id": _id or self._clock.timestamp_ms(),
+#         }
+#         if params:
+#             payload["params"] = params
+#         await self._send(payload)
+
+#     async def _resubscribe(self):
+#         for _, payload in self._subscriptions.items():
+#             await self._send(payload)
