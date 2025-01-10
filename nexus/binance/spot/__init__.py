@@ -71,3 +71,4 @@ class BinanceSpotWSClient(BinanceWSClient):
         super().__init__(url=url, handler=handler, **kwargs)
     
     from nexus.binance.spot.ws_api import subscribe_agg_trade
+    from nexus.binance.spot.ws_api import subscribe_trade

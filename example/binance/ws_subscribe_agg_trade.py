@@ -9,7 +9,7 @@ async def main():
    
 
     client = BinanceSpotWSClient(handler=handler)
-    await client.subscribe_agg_trade("BTCUSDT")
+    await client.subscribe_trade("BTCUSDT")
     await client.connect()
 
 
