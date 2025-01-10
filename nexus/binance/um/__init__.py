@@ -1,6 +1,6 @@
-from typing import Literal
+from typing import Literal, Callable, Any
 
-from nexus.binance.base import BinanceApiClient
+from nexus.binance.base import BinanceApiClient, BinanceWSClient
 from nexus.binance.constants import BinanceUrl, ALL_URL, BinanceInstrumentType
 
 
@@ -103,9 +103,24 @@ class UmTradingApi(BinanceApiClient):
     from nexus.binance.um.account import get_fapi_v1_fee_burn
     from nexus.binance.um.account import get_fapi_v1_pm_account_info
 
-
     # Convert endpoints
     from nexus.binance.um.convert import get_fapi_v1_convert_exchange_info
     from nexus.binance.um.convert import post_fapi_v1_convert_get_quote
     from nexus.binance.um.convert import post_fapi_v1_convert_accept_quote
     from nexus.binance.um.convert import get_fapi_v1_convert_order_status
+
+
+class UmTradingWebsocket(BinanceWSClient):
+    def __init__(
+            self,
+            handler: Callable[..., Any],
+            key=None,
+            secret=None,
+            binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
+            **kwargs
+    ):
+        if "base_url" not in kwargs:
+            self.baseUrl = ALL_URL[BinanceInstrumentType.SPOT].get_url(binance_url)
+        else:
+            self.baseUrl = kwargs["base_url"]
+        super().__init__(url=self.baseUrl, handler=handler, key=key, secret=secret, **kwargs)

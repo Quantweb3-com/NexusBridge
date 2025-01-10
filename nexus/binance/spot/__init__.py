@@ -1,6 +1,6 @@
-from typing import Literal
+from typing import Literal, Callable, Any
 
-from nexus.binance.base import BinanceApiClient
+from nexus.binance.base import BinanceApiClient, BinanceWSClient
 from nexus.binance.constants import BinanceUrl, ALL_URL, BinanceInstrumentType
 
 
@@ -57,3 +57,35 @@ class SpotTradingApi(BinanceApiClient):
     from nexus.binance.spot.user_data_stream import post_api_v3_user_data_stream
     from nexus.binance.spot.user_data_stream import put_api_v3_user_data_stream
     from nexus.binance.spot.user_data_stream import delete_api_v3_user_data_stream
+
+
+class SpotTradingWebsocket(BinanceWSClient):
+    def __init__(
+            self,
+            handler: Callable[..., Any],
+            key=None,
+            secret=None,
+            binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
+            **kwargs
+    ):
+        if "base_url" not in kwargs:
+            self.baseUrl = ALL_URL[BinanceInstrumentType.SPOT].get_url(binance_url)
+        else:
+            self.baseUrl = kwargs["base_url"]
+        super().__init__(url=self.baseUrl, handler=handler, **kwargs)
+
+    async def agg_trade(
+            self,
+            symbol: str,
+            subscription: bool = True,
+            _id: int | None = None
+    ):
+        """
+        The Aggregate Trade Streams push trade information that is aggregated for a single taker order.
+        https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#aggregate-trade-streams
+        """
+        stream_name = "{}@aggTrade".format(symbol.lower())
+        if subscription:
+            await self._subscribe(stream_name, _id)
+        else:
+            await self._unsubscribe(stream_name, _id)

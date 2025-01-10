@@ -1,6 +1,6 @@
-from typing import Literal
+from typing import Literal, Callable, Any
 
-from nexus.binance.base import BinanceApiClient
+from nexus.binance.base import BinanceApiClient, BinanceWSClient
 from nexus.binance.constants import BinanceUrl, ALL_URL, BinanceInstrumentType
 
 
@@ -87,3 +87,19 @@ class CmTradingApi(BinanceApiClient):
     from nexus.binance.cm.account import get_dapi_v1_trade_asyn
     from nexus.binance.cm.account import get_dapi_v1_trade_asyn_id
     from nexus.binance.cm.account import get_dapi_v1_pm_account_info
+
+
+class CmTradingWebsocket(BinanceWSClient):
+    def __init__(
+            self,
+            handler: Callable[..., Any],
+            key=None,
+            secret=None,
+            binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
+            **kwargs
+    ):
+        if "base_url" not in kwargs:
+            self.baseUrl = ALL_URL[BinanceInstrumentType.SPOT].get_url(binance_url)
+        else:
+            self.baseUrl = kwargs["base_url"]
+        super().__init__(url=self.baseUrl, handler=handler, key=key, secret=secret, **kwargs)

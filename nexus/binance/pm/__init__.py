@@ -1,6 +1,6 @@
-from typing import Literal
+from typing import Literal, Callable, Any
 
-from nexus.binance.base import BinanceApiClient
+from nexus.binance.base import BinanceApiClient, BinanceWSClient
 from nexus.binance.constants import BinanceUrl, ALL_URL, BinanceInstrumentType
 
 
@@ -122,3 +122,19 @@ class PmTradingApi(BinanceApiClient):
     from nexus.binance.pm.account import get_papi_v1_um_income_asyn
     from nexus.binance.pm.account import get_papi_v1_um_income_asyn_id
     from nexus.binance.pm.account import get_papi_v1_rate_limit_order
+
+
+class PmTradingWebsocket(BinanceWSClient):
+    def __init__(
+            self,
+            handler: Callable[..., Any],
+            key=None,
+            secret=None,
+            binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
+            **kwargs
+    ):
+        if "base_url" not in kwargs:
+            self.baseUrl = ALL_URL[BinanceInstrumentType.SPOT].get_url(binance_url)
+        else:
+            self.baseUrl = kwargs["base_url"]
+        super().__init__(url=self.baseUrl, handler=handler, key=key, secret=secret, **kwargs)
