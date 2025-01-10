@@ -3,7 +3,7 @@ from unittest import IsolatedAsyncioTestCase
 from unittest.mock import patch, AsyncMock
 
 from nexus.binance.constants import BinanceUrl
-from nexus.binance.spot import SpotTradingWebsocket
+from nexus.binance.spot import BinanceSpotWSClient
 
 
 class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
@@ -13,9 +13,9 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
         def handler(msg):
             print(msg)
 
-        self.client = SpotTradingWebsocket(
-            handler,
-            binance_url=BinanceUrl.WS
+        self.client = BinanceSpotWSClient(
+            binance_url=BinanceUrl.WS,
+            handler=handler,
         )
 
     async def asyncTearDown(self):
@@ -25,7 +25,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_agg_trade(self, mock_get):
         await self.client.agg_trade(
-            "btcusd_perp",
+            "BTCUSDT",
             _id=1
         )
         await self.client.connect()
