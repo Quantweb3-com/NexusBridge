@@ -120,9 +120,8 @@ class BinanceWSClient(WSClient):
             "params": new_params,
             "id": subscription_id,
         }
-        self._subscriptions[subscription_id] = payload
         await self._send(payload)
-        self._subscriptions.update({param: subscription_id for param in new_params})
+        self._subscriptions.update({param: payload for param in new_params})
         self._log.info(f"Subscribed to {subscription_id} with params: {new_params}")
 
     async def _unsubscribe(self, params: str | list[str], subscription_id: int):
@@ -144,14 +143,19 @@ class BinanceWSClient(WSClient):
             self._subscriptions.pop(param, None)
         self._log.info(f"Unsubscribed from {subscription_id} with params: {valid_params}")
 
-    async def send(self, method: str, params: list[Any] | None = None, _id: str | None = None):
-        await self.connect()
+    async def send(
+            self,
+            method: str,
+            params: list[Any] | None = None,
+            _id: str | None = None):
+        await self._connect()
         payload = {
             "method": method,
             "id": _id or self._clock.timestamp_ms(),
         }
         if params:
             payload["params"] = params
+
         await self._send(payload)
 
     async def _resubscribe(self):

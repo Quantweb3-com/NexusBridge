@@ -65,6 +65,7 @@ class BinanceSpotWSClient(BinanceWSClient):
             handler: Callable[..., Any],
             key=None,
             secret=None,
+            listen_key=None,
             binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
             **kwargs
     ):
@@ -72,20 +73,30 @@ class BinanceSpotWSClient(BinanceWSClient):
             self.baseUrl = ALL_URL[BinanceInstrumentType.SPOT].get_url(binance_url)
         else:
             self.baseUrl = kwargs["base_url"]
+            kwargs.pop("base_url", None)
+        if listen_key:
+            self.baseUrl = f"{self.baseUrl}/{listen_key}"
         super().__init__(url=self.baseUrl, handler=handler, **kwargs)
 
-    async def agg_trade(
-            self,
-            symbol: str,
-            subscription: bool = True,
-            _id: int | None = None
-    ):
-        """
-        The Aggregate Trade Streams push trade information that is aggregated for a single taker order.
-        https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#aggregate-trade-streams
-        """
-        stream_name = "{}@aggTrade".format(symbol.lower())
-        if subscription:
-            await self._subscribe(stream_name, _id)
-        else:
-            await self._unsubscribe(stream_name, _id)
+    # wss://stream.binance.com:443
+    from nexus.binance.spot.web_socket_stream import agg_trade
+    from nexus.binance.spot.web_socket_stream import trade
+    from nexus.binance.spot.web_socket_stream import kline
+    from nexus.binance.spot.web_socket_stream import ui_kline
+    from nexus.binance.spot.web_socket_stream import mini_ticker
+    from nexus.binance.spot.web_socket_stream import mini_ticker_arr
+    from nexus.binance.spot.web_socket_stream import ticker
+    from nexus.binance.spot.web_socket_stream import ticker_arr
+    from nexus.binance.spot.web_socket_stream import ticker_window
+    from nexus.binance.spot.web_socket_stream import ticker_window_arr
+    from nexus.binance.spot.web_socket_stream import book_ticker
+    from nexus.binance.spot.web_socket_stream import avg_price
+    from nexus.binance.spot.web_socket_stream import depth
+    from nexus.binance.spot.web_socket_stream import diff_depth
+
+    # wss://ws-api.binance.com:443/ws-api/v3
+    from nexus.binance.spot.web_socket_stream import order_book
+    from nexus.binance.spot.web_socket_stream import recent_trades
+    from nexus.binance.spot.web_socket_stream import historical_trades
+    from nexus.binance.spot.web_socket_stream import agg_trades
+    from nexus.binance.spot.web_socket_stream import klines
