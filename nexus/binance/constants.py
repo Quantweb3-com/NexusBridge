@@ -27,6 +27,12 @@ class BinanceUrl(Enum):
     TEST_WS = 3
 
 
+class KeyType(Enum):
+    HMAC = 0  # "HMAC-SHA-256"
+    RSA = 1  # "RSA"
+    Ed = 2  # "Ed25519"
+
+
 class BinanceInstrumentType(Enum):
     Derivatives_PM = "Derivatives_PM"
     Derivatives_UM = "Derivatives_UM"

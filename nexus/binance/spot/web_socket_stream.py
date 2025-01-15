@@ -1,6 +1,8 @@
 from typing import Literal
+from urllib.parse import urlencode
 
-from nexus.binance.constants import Interval
+from nexus.binance.authentication import hmac_hashing, rsa_signature, ed_25519
+from nexus.binance.constants import Interval, OrderType
 
 
 async def agg_trade(
@@ -245,7 +247,7 @@ async def diff_depth(
         await self._unsubscribe(stream_name, _id)
 
 
-async def order_book(
+async def order_book_api(
         self,
         symbol: str,
         limit: int = 100,
@@ -263,7 +265,7 @@ async def order_book(
     return
 
 
-async def recent_trades(
+async def recent_trades_api(
         self,
         symbol: str,
         limit: int = 100,
@@ -281,7 +283,7 @@ async def recent_trades(
     return
 
 
-async def historical_trades(
+async def historical_trades_api(
         self,
         symbol: str,
         _id: int | None = None,
@@ -299,7 +301,7 @@ async def historical_trades(
     return await self.send("trades.historical", params=payload, _id=_id)
 
 
-async def agg_trades(
+async def agg_trades_api(
         self,
         symbol: str,
         _id: int | None = None,
@@ -316,7 +318,7 @@ async def agg_trades(
     return await self.send("trades.aggregate", params=payload, _id=_id)
 
 
-async def klines(
+async def klines_api(
         self,
         symbol: str,
         interval: Interval,
@@ -333,3 +335,191 @@ async def klines(
         **kwargs
     }
     return await self.send("klines", params=payload, _id=_id)
+
+
+async def ui_klines_api(
+        self,
+        symbol: str,
+        interval: Interval,
+        _id: int | None = None,
+        **kwargs
+):
+    """
+    Get klines (candlestick bars) optimized for presentation.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/market-data-requests#ui-klines
+    """
+    payload = {
+        "symbol": symbol,
+        "interval": interval.value,
+        **kwargs
+    }
+    return await self.send("uiKlines", params=payload, _id=_id)
+
+
+async def avg_price_api(
+        self,
+        symbol: str,
+        _id: int | None = None,
+):
+    """
+    Get current average price for a symbol.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/market-data-requests#current-average-price
+    """
+    payload = {
+        "symbol": symbol,
+    }
+    return await self.send("avgPrice", params=payload, _id=_id)
+
+
+async def ticker_24hr_api(
+        self,
+        symbol: str,
+        _id: int | None = None,
+):
+    """
+    Get 24-hour rolling window price change statistics.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/market-data-requests#24hr-ticker-price-change-statistics
+    """
+    payload = {
+        "symbol": symbol,
+    }
+    return await self.send("ticker.24hr", params=payload, _id=_id)
+
+
+async def ticker_trading_day_api(
+        self,
+        symbol: str | list[str],
+        _id: int | None = None,
+):
+    """
+    Price change statistics for a trading day.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/market-data-requests#trading-day-ticker
+    """
+    payload = {}
+    if isinstance(symbol, str):
+        payload["symbol"] = symbol
+    else:
+        payload["symbols"] = symbol
+    return await self.send("ticker.tradingDay", params=payload, _id=_id)
+
+
+async def ticker_api(
+        self,
+        symbol: str | list[str],
+        _id: int | None = None,
+        **kwargs
+):
+    """
+    Get rolling window price change statistics with a custom window.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/market-data-requests#rolling-window-price-change-statistics
+    """
+    payload = {
+        **kwargs
+    }
+    if isinstance(symbol, str):
+        payload["symbol"] = symbol
+    else:
+        payload["symbols"] = symbol
+    return await self.send("ticker", params=payload, _id=_id)
+
+
+async def ticker_price_api(
+        self,
+        symbol: str | list[str],
+        _id: int | None = None,
+):
+    """
+    Get the latest market price for a symbol.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/market-data-requests#symbol-price-ticker
+    """
+    payload = {}
+    if isinstance(symbol, str):
+        payload["symbol"] = symbol
+    else:
+        payload["symbols"] = symbol
+    return await self.send("ticker.price", params=payload, _id=_id)
+
+
+async def ticker_book_api(
+        self,
+        symbol: str | list[str],
+        _id: int | None = None,
+):
+    """
+    Get the current best price and quantity on the order book.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/market-data-requests#symbol-order-book-ticker
+    """
+    payload = {}
+    if isinstance(symbol, str):
+        payload["symbol"] = symbol
+    else:
+        payload["symbols"] = symbol
+    return await self.send("ticker.book", params=payload, _id=_id)
+
+
+async def session_logon_api(
+        self,
+        _id: int | None = None,
+        **kwargs
+):
+    """
+    Authenticate WebSocket connection using the provided API key.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/authentication-requests#log-in-with-api-key-signed
+    """
+    payload = {
+        "apiKey": self.key,
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    encoded_payload = urlencode(payload)
+    payload["signature"] = ed_25519(self.private_key, encoded_payload, self.private_key_passphrase)
+    return await self.send("session.logon", params=payload, _id=_id)
+
+
+async def session_status_api(
+        self,
+        _id: int | None = None,
+):
+    """
+    Query the status of the WebSocket connection, inspecting which API key (if any) is used to authorize requests.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/authentication-requests#query-session-status
+    """
+    return await self.send("session.status", _id=_id)
+
+
+async def session_logout_api(
+        self,
+        _id: int | None = None,
+):
+    """
+    Forget the API key previously authenticated. If the connection is not authenticated, this request does nothing.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/authentication-requests#log-out-of-the-session
+    """
+    return await self.send("session.logout", _id=_id)
+
+
+async def order_place_api(
+        self,
+        symbol: str,
+        side: Literal["BUY", "SELL"],
+        _type: OrderType,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Send in a new order.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/trading-requests
+    """
+    payload = {
+        "symbol": symbol,
+        "side": side,
+        "type": _type.value,
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("order.place", params=payload, _id=_id)

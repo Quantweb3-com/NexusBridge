@@ -58,6 +58,7 @@ class Listener(WSListener):
         self._log = logger
         self._specific_ping_msg = specific_ping_msg
         self._callback = handler
+        self._clock = LiveClock()
 
     def send_user_specific_ping(self, transport: WSTransport):
         if self._specific_ping_msg:

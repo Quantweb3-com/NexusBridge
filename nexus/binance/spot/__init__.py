@@ -1,7 +1,7 @@
 from typing import Literal, Callable, Any
 
 from nexus.binance.base import BinanceApiClient, BinanceWSClient
-from nexus.binance.constants import BinanceUrl, ALL_URL, BinanceInstrumentType
+from nexus.binance.constants import BinanceUrl, ALL_URL, BinanceInstrumentType, KeyType
 
 
 class SpotTradingApi(BinanceApiClient):
@@ -66,6 +66,9 @@ class BinanceSpotWSClient(BinanceWSClient):
             key=None,
             secret=None,
             listen_key=None,
+            private_key=None,
+            private_key_passphrase=None,
+            key_type: KeyType = KeyType.HMAC,
             binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
             **kwargs
     ):
@@ -76,7 +79,20 @@ class BinanceSpotWSClient(BinanceWSClient):
             kwargs.pop("base_url", None)
         if listen_key:
             self.baseUrl = f"{self.baseUrl}/{listen_key}"
-        super().__init__(url=self.baseUrl, handler=handler, **kwargs)
+        self.key = key
+        self.secret = secret
+        self.private_key = private_key
+        self.private_key_passphrase = private_key_passphrase
+        self.key_type = key_type
+        super().__init__(
+            url=self.baseUrl,
+            key=key,
+            key_type=self.key_type,
+            handler=handler,
+            private_key=self.private_key,
+            private_key_passphrase=self.private_key_passphrase,
+            secret=secret,
+            **kwargs)
 
     # wss://stream.binance.com:443
     from nexus.binance.spot.web_socket_stream import agg_trade
@@ -95,8 +111,19 @@ class BinanceSpotWSClient(BinanceWSClient):
     from nexus.binance.spot.web_socket_stream import diff_depth
 
     # wss://ws-api.binance.com:443/ws-api/v3
-    from nexus.binance.spot.web_socket_stream import order_book
-    from nexus.binance.spot.web_socket_stream import recent_trades
-    from nexus.binance.spot.web_socket_stream import historical_trades
-    from nexus.binance.spot.web_socket_stream import agg_trades
-    from nexus.binance.spot.web_socket_stream import klines
+    from nexus.binance.spot.web_socket_stream import order_book_api
+    from nexus.binance.spot.web_socket_stream import recent_trades_api
+    from nexus.binance.spot.web_socket_stream import historical_trades_api
+    from nexus.binance.spot.web_socket_stream import agg_trades_api
+    from nexus.binance.spot.web_socket_stream import klines_api
+    from nexus.binance.spot.web_socket_stream import ui_klines_api
+    from nexus.binance.spot.web_socket_stream import avg_price_api
+    from nexus.binance.spot.web_socket_stream import ticker_24hr_api
+    from nexus.binance.spot.web_socket_stream import ticker_trading_day_api
+    from nexus.binance.spot.web_socket_stream import ticker_api
+    from nexus.binance.spot.web_socket_stream import ticker_price_api
+    from nexus.binance.spot.web_socket_stream import ticker_book_api
+    from nexus.binance.spot.web_socket_stream import session_logon_api
+    from nexus.binance.spot.web_socket_stream import session_status_api
+    from nexus.binance.spot.web_socket_stream import session_logout_api
+    from nexus.binance.spot.web_socket_stream import order_place_api

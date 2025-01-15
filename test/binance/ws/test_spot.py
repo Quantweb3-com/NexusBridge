@@ -2,7 +2,7 @@ import json
 from unittest import IsolatedAsyncioTestCase
 from unittest.mock import patch, AsyncMock
 
-from nexus.binance.constants import BinanceUrl, Interval
+from nexus.binance.constants import BinanceUrl, Interval, KeyType, OrderType
 from nexus.binance.spot import BinanceSpotWSClient
 
 
@@ -13,10 +13,24 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
         def handler(msg):
             print(msg)
 
+        self.api_key = "QFI15rQZWHqhQaySv1C1GGr93hoz2oR7teting7OZxCpyHsTYfmPCzJo5u1t9FvG"
+        self.api_secret = "H49uCZ9tM67m8QfkNwzsaDfg05zwstuvbfdlrTGVmn7iE5FEzqj3F5lhPbbFwFcj"
         self.client = BinanceSpotWSClient(
             binance_url=BinanceUrl.WS,
             handler=handler,
-            base_url="wss://ws-api.binance.com:443/ws-api/v3"
+            base_url="wss://testnet.binance.vision/ws-api/v3",
+            key=self.api_key,
+            key_type=KeyType.Ed,
+            secret=self.api_secret,
+            private_key_passphrase="your-secure-password",
+            private_key="""
+-----BEGIN ENCRYPTED PRIVATE KEY-----
+MIGjMF8GCSqGSIb3DQEFDTBSMDEGCSqGSIb3DQEFDDAkBBCdhRl9oHlXZHyHeSdc
+NkZ3AgIIADAMBggqhkiG9w0CCQUAMB0GCWCGSAFlAwQBKgQQma5Nvb9IAFcNOteb
+EYRmsARABq2pMe4StSq6dAtgZrSq2V4vdFsU7GCxBjTcY1XbjJ7A84b5hSi6jmhG
+Oo8PfGbOXze9/x756HgtuzEgrX9X2A==
+-----END ENCRYPTED PRIVATE KEY-----
+            """.strip()
         )
 
     async def asyncTearDown(self):
@@ -135,7 +149,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_order_book(self, mock_get):
-        await self.client.order_book(
+        await self.client.order_book_api(
             "BTCUSDT",
             _id=1
         )
@@ -143,7 +157,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_recent_trades(self, mock_get):
-        await self.client.recent_trades(
+        await self.client.recent_trades_api(
             "BTCUSDT",
             _id=1
         )
@@ -151,7 +165,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_historical_trades(self, mock_get):
-        await self.client.historical_trades(
+        await self.client.historical_trades_api(
             "BTCUSDT",
             _id=1
         )
@@ -159,7 +173,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v3_agg_trades(self, mock_get):
-        await self.client.agg_trades(
+        await self.client.agg_trades_api(
             "BTCUSDT",
             _id=1
         )
@@ -167,9 +181,119 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_klines(self, mock_get):
-        await self.client.klines(
+        await self.client.klines_api(
             "BTCUSDT",
             Interval.MINUTE_1,
             _id=1
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_ui_klines(self, mock_get):
+        await self.client.ui_klines_api(
+            "BTCUSDT",
+            Interval.MINUTE_1,
+            _id=1
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_avg_price_api(self, mock_get):
+        await self.client.avg_price_api(
+            "BTCUSDT",
+            _id=1
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_ticker_24hr_api(self, mock_get):
+        await self.client.ticker_24hr_api(
+            "BTCUSDT",
+            _id=1
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_ticker_trading_day_api(self, mock_get):
+        await self.client.ticker_trading_day_api(
+            ["BTCUSDT", "BNBBTC"],
+            _id=1
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_ticker_api(self, mock_get):
+        await self.client.ticker_api(
+            "BTCUSDT",
+            _id=1
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_ticker_price_api(self, mock_get):
+        await self.client.ticker_price_api(
+            "BTCUSDT",
+            _id=1
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_ticker_book_api(self, mock_get):
+        await self.client.ticker_book_api(
+            "BTCUSDT",
+            _id=1
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_session_logon_api(self, mock_get):
+        await self.client.session_logon_api(
+            _id=1
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_session_status_api(self, mock_get):
+        await self.client.session_status_api(
+            _id=1
+        )
+        await self.client.session_logon_api(
+            _id=1
+        )
+        await self.client.session_status_api(
+            _id=1
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_session_logout_api(self, mock_get):
+        await self.client.session_status_api(
+            _id=1
+        )
+        await self.client.session_logon_api(
+            _id=2
+        )
+        await self.client.session_status_api(
+            _id=3
+        )
+        await self.client.session_logout_api(
+            _id=4
+        )
+        await self.client.session_status_api(
+            _id=5
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_order_place_api(self, mock_get):
+        await self.client.order_place_api(
+            "BTCUSDT",
+            "BUY",
+            OrderType.LIMIT,
+            price=0.1,
+            quantity=10000,
+            _id=1,
+            sign=True,
+            timeInForce="GTC"
         )
         await self.client.connect()

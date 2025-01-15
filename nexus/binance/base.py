@@ -10,7 +10,8 @@ import orjson
 from aiolimiter import AsyncLimiter
 
 from nexus.base import ApiClient, WSClient
-from nexus.binance.authentication import rsa_signature, hmac_hashing
+from nexus.binance.authentication import rsa_signature, hmac_hashing, ed_25519
+from nexus.binance.constants import KeyType
 from nexus.binance.error import BinanceClientError, BinanceServerError
 
 
@@ -40,7 +41,7 @@ class BinanceApiClient(ApiClient):
 
     def _get_sign(self, payload):
         if self.private_key:
-            return rsa_signature(self.secret, payload, self.private_key_pass)
+            return rsa_signature(self.private_key, payload, self.private_key_pass)
         return hmac_hashing(self.secret, payload)
 
     def _prepare_payload(self, payload: Dict[str, Any], signed: bool) -> str:
@@ -97,13 +98,41 @@ class BinanceApiClient(ApiClient):
 
 
 class BinanceWSClient(WSClient):
-    def __init__(self, url: str, handler: Callable[..., Any], **kwargs):
+    def __init__(
+            self,
+            url: str,
+            handler: Callable[..., Any],
+            key=None,
+            secret=None,
+            listen_key=None,
+            private_key=None,
+            key_type: KeyType = None,
+            private_key_passphrase=None,
+            **kwargs):
+        self.key_type = key_type
+        self.key = key
+        self.secret = secret
+        self.private_key = private_key
+        self.private_key_passphrase = private_key_passphrase
+        self.key_type = key_type,
+        listen_key = listen_key
         super().__init__(
             url,
             limiter=AsyncLimiter(max_rate=300, time_period=300),
             handler=handler,
             **kwargs
         )
+
+    def _get_sign(self, payload):
+        pairs = payload.split('&')
+        pairs.sort()
+        payload = '&'.join(pairs)
+        if self.key_type[0] == KeyType.RSA:
+            return rsa_signature(self.private_key, payload, self.private_key_passphrase)
+        elif self.key_type[0] == KeyType.Ed:
+            return ed_25519(self.private_key, payload, self.private_key_passphrase)
+        else:
+            return hmac_hashing(self.secret, payload)
 
     async def _subscribe(self, params: str | list[str], subscription_id: str | None = None):
         if isinstance(params, str):
