@@ -13,15 +13,15 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
         def handler(msg):
             print(msg)
 
-        self.api_key = "QFI15rQZWHqhQaySv1C1GGr93hoz2oR7teting7OZxCpyHsTYfmPCzJo5u1t9FvG"
+        self.api_key = "xRYAmLMJYZlUxmgEo3fAvVyWDFpRtx3YTXoY2bDNs3yvKmv2kt1eCjToKY0dTkJm"
         self.api_secret = "H49uCZ9tM67m8QfkNwzsaDfg05zwstuvbfdlrTGVmn7iE5FEzqj3F5lhPbbFwFcj"
         self.client = BinanceSpotWSClient(
             binance_url=BinanceUrl.WS,
             handler=handler,
-            base_url="wss://testnet.binance.vision/ws-api/v3",
             key=self.api_key,
-            key_type=KeyType.Ed,
+            key_type=KeyType.HMAC,
             secret=self.api_secret,
+            listen_key="E3vcnJBJGnDnNn4wjvQmM0BPBIipBH34Lh4Wl7dEakXM2CsLTUe20ibEZkLI",
             private_key_passphrase="your-secure-password",
             private_key="""
 -----BEGIN ENCRYPTED PRIVATE KEY-----
@@ -295,5 +295,154 @@ Oo8PfGbOXze9/x756HgtuzEgrX9X2A==
             _id=1,
             sign=True,
             timeInForce="GTC"
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_order_test_api(self, mock_get):
+        await self.client.order_test_api(
+            "BTCUSDT",
+            "BUY",
+            OrderType.LIMIT,
+            price=23416.10000000,
+            quantity=0.00847000,
+            _id=1,
+            sign=True,
+            timeInForce="GTC"
+        )
+        await self.client.connect()
+
+    async def test_order_status_api(self):
+        await self.client.order_status_api(
+            "BTCUSDT",
+            order_id=12569099453,
+            sign=True
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_order_cancel_api(self, mock_get):
+        await self.client.order_cancel_api(
+            "BTCUSDT",
+            order_id=12569099453,
+            sign=True
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_order_cancel_replace_api(self, mock_get):
+        await self.client.order_cancel_replace_api(
+            "BTCUSDT",
+            order_id=12569099453,
+            price=23416.10000000,
+            quantity=0.00847000,
+            sign=True,
+            timeInForce="GTC"
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_open_orders_status_api(self, mock_get):
+        await self.client.open_orders_status_api(
+            "BTCUSDT",
+            sign=True
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_open_orders_cancel_all_api(self, mock_get):
+        await self.client.open_orders_cancel_all_api(
+            "BTCUSDT",
+            sign=True
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_order_list_place_api(self, mock_get):
+        await self.client.order_list_place_api(
+            "BTCUSDT",
+            "BUY",
+            OrderType.LIMIT,
+            price=0.1,
+            quantity=10000,
+            _id=1,
+            sign=True,
+            timeInForce="GTC"
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_order_place(self, mock_get):
+        await self.client.order_place(
+            "BTCUSDT",
+            "BUY",
+            OrderType.LIMIT,
+            price=0.1,
+            quantity=10000,
+            _id=1,
+            sign=True,
+            timeInForce="GTC"
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_account_status_api(self, mock_get):
+        await self.client.account_status_api(
+            sign=True
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_rate_limit_order_api(self, mock_get):
+        await self.client.rate_limit_order_api(
+            sign=True
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_all_orders_api(self, mock_get):
+        await self.client.all_orders_api(
+            "BTCUSDT",
+            sign=True
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_all_order_lists_api(self, mock_get):
+        await self.client.all_order_lists_api(
+            sign=True
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_my_trades_api(self, mock_get):
+        await self.client.my_trades_api(
+            "BTCUSDT",
+            sign=True
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_my_prevented_matches_api(self, mock_get):
+        await self.client.my_prevented_matches_api(
+            "BTCUSDT",
+            sign=True,
+            orderId=35,
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_my_allocations_api(self, mock_get):
+        await self.client.my_allocations_api(
+            "BTCUSDT",
+            sign=True,
+        )
+        await self.client.connect()
+
+    @patch('aiohttp.ClientSession.get')
+    async def test_account_commission_api(self, mock_get):
+        await self.client.account_commission_api(
+            "BTCUSDT",
+            sign=True,
         )
         await self.client.connect()

@@ -523,3 +523,401 @@ async def order_place_api(
         encoded_payload = urlencode(payload)
         payload["signature"] = self._get_sign(encoded_payload)
     return await self.send("order.place", params=payload, _id=_id)
+
+
+async def order_test_api(
+        self,
+        symbol: str,
+        side: Literal["BUY", "SELL"],
+        _type: OrderType,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Test order placement.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/trading-requests#test-new-order-trade
+    """
+    payload = {
+        "symbol": symbol,
+        "side": side,
+        "type": _type.value,
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("order.test", params=payload, _id=_id)
+
+
+async def order_status_api(
+        self,
+        symbol: str,
+        order_id: int | None = None,
+        orig_client_order_id: str | None = None,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Check execution status of an order.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/trading-requests#query-order-user_data
+    """
+    payload = {
+        "symbol": symbol,
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if order_id:
+        payload["orderId"] = order_id
+    if orig_client_order_id:
+        payload["origClientOrderId"] = orig_client_order_id
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("order.status", params=payload, _id=_id)
+
+
+async def order_cancel_api(
+        self,
+        symbol: str,
+        order_id: int | None = None,
+        orig_client_order_id: str | None = None,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    order.cancel
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/trading-requests#cancel-order-trade
+    """
+    payload = {
+        "symbol": symbol,
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if order_id:
+        payload["orderId"] = order_id
+    if orig_client_order_id:
+        payload["origClientOrderId"] = orig_client_order_id
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("order.cancel", params=payload, _id=_id)
+
+
+async def order_cancel_replace_api(
+        self,
+        symbol: str,
+        side: Literal["BUY", "SELL"],
+        _type: OrderType,
+        cancel_replace_mode: Literal["STOP_ON_FAILURE", "ALLOW_FAILURE"],
+        order_id: int | None = None,
+        orig_client_order_id: str | None = None,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Cancel an existing order and immediately place a new order instead of the canceled one.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/trading-requests#cancel-and-replace-order-trade
+    """
+    payload = {
+        "symbol": symbol,
+        "timestamp": self._clock.timestamp_ms(),
+        "side": side,
+        "type": _type.value,
+        "cancelReplaceMode": cancel_replace_mode,
+        **kwargs
+    }
+    if order_id:
+        payload["orderId"] = order_id
+    if orig_client_order_id:
+        payload["origClientOrderId"] = orig_client_order_id
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("order.cancelReplace", params=payload, _id=_id)
+
+
+async def open_orders_status_api(
+        self,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Query execution status of all open orders.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/trading-requests#current-open-orders-user_data
+    """
+    payload = {
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("openOrders.status", params=payload, _id=_id)
+
+
+async def open_orders_cancel_all_api(
+        self,
+        symbol: str,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Cancel all open orders on a symbol. This includes orders that are part of an order list.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/trading-requests#cancel-open-orders-trade
+    """
+    payload = {
+        "symbol": symbol,
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("openOrders.cancelAll", params=payload, _id=_id)
+
+
+async def order_list_place_api(
+        self,
+        symbol: str,
+        side: Literal["BUY", "SELL"],
+        price: float,
+        _type: OrderType,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Send in a new one-cancels-the-other (OCO) pair: LIMIT_MAKER + STOP_LOSS/STOP_LOSS_LIMIT orders (called legs), where activation of one order immediately cancels the other.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/trading-requests#order-lists
+    """
+    payload = {
+        "symbol": symbol,
+        "price": price,
+        "side": side,
+        "type": _type.value,
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("orderList.place", params=payload, _id=_id)
+
+
+async def order_place(
+        self,
+        symbol: str,
+        side: Literal["BUY", "SELL"],
+        _type: OrderType,
+        quantity: float,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Place new order using SOR (TRADE)
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/trading-requests#sor
+    """
+    payload = {
+        "symbol": symbol,
+        "side": side,
+        "type": _type.value,
+        "timestamp": self._clock.timestamp_ms(),
+        "quantity": quantity,
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("order.place", params=payload, _id=_id)
+
+
+async def account_status_api(
+        self,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Query information about your account.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/account-requests#account-information-user_data
+    """
+    payload = {
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("account.status", params=payload, _id=_id)
+
+
+async def rate_limit_order_api(
+        self,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Query your current unfilled order count for all intervals.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/account-requests#unfilled-order-count-user_data
+    """
+    payload = {
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("account.rateLimits.orders", params=payload, _id=_id)
+
+
+async def all_orders_api(
+        self,
+        symbol: str,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Query information about all your orders – active, canceled, filled – filtered by time range.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/account-requests#account-order-history-user_data
+    """
+    payload = {
+        "symbol": symbol,
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("allOrders", params=payload, _id=_id)
+
+
+async def all_order_lists_api(
+        self,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Query information about all your order lists, filtered by time range.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/account-requests#account-order-list-history-user_data
+    """
+    payload = {
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("allOrderLists", params=payload, _id=_id)
+
+
+async def my_trades_api(
+        self,
+        symbol: str,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Query information about all your trades, filtered by time range.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/account-requests#account-trade-history-user_data
+    """
+    payload = {
+        "symbol": symbol,
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("myTrades", params=payload, _id=_id)
+
+
+async def my_prevented_matches_api(
+        self,
+        symbol: str,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Displays the list of orders that were expired due to STP.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/account-requests#account-prevented-matches-user_data
+    """
+    payload = {
+        "symbol": symbol,
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("myPreventedMatches", params=payload, _id=_id)
+
+
+async def my_allocations_api(
+        self,
+        symbol: str,
+        _id: int | None = None,
+        sign: bool = False,
+        **kwargs
+):
+    """
+    Retrieves allocations resulting from SOR order placement.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/account-requests#account-allocations-user_data
+    """
+    payload = {
+        "symbol": symbol,
+        "timestamp": self._clock.timestamp_ms(),
+        **kwargs
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("myAllocations", params=payload, _id=_id)
+
+
+async def account_commission_api(
+        self,
+        symbol: str,
+        _id: int | None = None,
+        sign: bool = False,
+):
+    """
+    Get current account commission rates.
+    https://developers.binance.com/docs/binance-spot-api-docs/web-socket-api/account-requests#account-commission-rates-user_data
+    """
+    payload = {
+        "symbol": symbol,
+        "timestamp": self._clock.timestamp_ms(),
+    }
+    if sign:
+        payload["apiKey"] = self.key
+        encoded_payload = urlencode(payload)
+        payload["signature"] = self._get_sign(encoded_payload)
+    return await self.send("account.commission", params=payload, _id=_id)

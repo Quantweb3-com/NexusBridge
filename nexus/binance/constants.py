@@ -48,10 +48,10 @@ ALL_URL = {
         main_ws_url="wss://ws-fapi.binance.com/ws-fapi/v1",
     ),
     BinanceInstrumentType.Derivatives_CM: BaseUrl(
-        testnet_rest_url="https://testnet.binancefuture.com",
-        testnet_ws_url="wss://dstream.binancefuture.com",
+        testnet_rest_url="https://testnet.binancefuture.com/ws",
+        testnet_ws_url="wss://dstream.binancefuture.com/ws",
         main_rest_url="https://dapi.binance.com",
-        main_ws_url="wss://dstream.binance.com",
+        main_ws_url="wss://dstream.binance.com/ws",
     ),
     BinanceInstrumentType.SPOT: BaseUrl(
         testnet_rest_url="https://testnet.binance.vision/api",

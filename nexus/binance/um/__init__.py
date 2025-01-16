@@ -1,7 +1,7 @@
 from typing import Literal, Callable, Any
 
 from nexus.binance.base import BinanceApiClient, BinanceWSClient
-from nexus.binance.constants import BinanceUrl, ALL_URL, BinanceInstrumentType
+from nexus.binance.constants import BinanceUrl, ALL_URL, BinanceInstrumentType, KeyType
 
 
 class UmTradingApi(BinanceApiClient):
@@ -116,11 +116,69 @@ class UmTradingWebsocket(BinanceWSClient):
             handler: Callable[..., Any],
             key=None,
             secret=None,
+            listen_key=None,
+            private_key=None,
+            private_key_passphrase=None,
+            key_type: KeyType = KeyType.HMAC,
             binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
             **kwargs
     ):
         if "base_url" not in kwargs:
-            self.baseUrl = ALL_URL[BinanceInstrumentType.SPOT].get_url(binance_url)
+            self.baseUrl = ALL_URL[BinanceInstrumentType.Derivatives_UM].get_url(binance_url)
         else:
             self.baseUrl = kwargs["base_url"]
-        super().__init__(url=self.baseUrl, handler=handler, key=key, secret=secret, **kwargs)
+            kwargs.pop("base_url", None)
+        if listen_key:
+            self.baseUrl = f"{self.baseUrl}/{listen_key}"
+        self.key = key
+        self.secret = secret
+        self.private_key = private_key
+        self.private_key_passphrase = private_key_passphrase
+        self.key_type = key_type
+        super().__init__(
+            url=self.baseUrl,
+            key=key,
+            key_type=self.key_type,
+            handler=handler,
+            private_key=self.private_key,
+            private_key_passphrase=self.private_key_passphrase,
+            secret=secret,
+            **kwargs)
+
+    # wss://ws-fapi.binance.com/ws-fapi/v1
+    from nexus.binance.um.web_socket_stream import depth
+    from nexus.binance.um.web_socket_stream import ticker_price
+    from nexus.binance.um.web_socket_stream import ticker_book
+    from nexus.binance.um.web_socket_stream import order_place
+    from nexus.binance.um.web_socket_stream import order_modify
+    from nexus.binance.um.web_socket_stream import order_cancel
+    from nexus.binance.um.web_socket_stream import order_status
+    from nexus.binance.um.web_socket_stream import account_position_v2
+    from nexus.binance.um.web_socket_stream import account_position
+    from nexus.binance.um.web_socket_stream import user_data_stream_start
+    from nexus.binance.um.web_socket_stream import user_data_stream_ping
+    from nexus.binance.um.web_socket_stream import user_data_stream_stop
+    from nexus.binance.um.web_socket_stream import account_balance_v2
+    from nexus.binance.um.web_socket_stream import account_balance
+    from nexus.binance.um.web_socket_stream import account_status_v2
+    from nexus.binance.um.web_socket_stream import account_status
+
+    # wss://fstream.binance.com/ws
+    from nexus.binance.um.web_socket_stream import agg_trade
+    from nexus.binance.um.web_socket_stream import mark_price
+    from nexus.binance.um.web_socket_stream import mark_price_arr
+    from nexus.binance.um.web_socket_stream import kline
+    from nexus.binance.um.web_socket_stream import continuous_kline
+    from nexus.binance.um.web_socket_stream import mini_ticker
+    from nexus.binance.um.web_socket_stream import ticker_arr
+    from nexus.binance.um.web_socket_stream import ticker
+    from nexus.binance.um.web_socket_stream import mini_ticker_arr
+    from nexus.binance.um.web_socket_stream import book_ticker
+    from nexus.binance.um.web_socket_stream import book_ticker_arr
+    from nexus.binance.um.web_socket_stream import force_orders
+    from nexus.binance.um.web_socket_stream import force_orders_arr
+    from nexus.binance.um.web_socket_stream import depth_levels
+    from nexus.binance.um.web_socket_stream import diff_depth
+    from nexus.binance.um.web_socket_stream import composite_index
+    from nexus.binance.um.web_socket_stream import contract_info
+    from nexus.binance.um.web_socket_stream import asset_index

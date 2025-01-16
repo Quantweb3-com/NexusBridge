@@ -127,3 +127,20 @@ class BinanceSpotWSClient(BinanceWSClient):
     from nexus.binance.spot.web_socket_stream import session_status_api
     from nexus.binance.spot.web_socket_stream import session_logout_api
     from nexus.binance.spot.web_socket_stream import order_place_api
+    from nexus.binance.spot.web_socket_stream import order_test_api
+    from nexus.binance.spot.web_socket_stream import order_status_api
+    from nexus.binance.spot.web_socket_stream import order_cancel_api
+    from nexus.binance.spot.web_socket_stream import order_cancel_replace_api
+    from nexus.binance.spot.web_socket_stream import open_orders_status_api
+    from nexus.binance.spot.web_socket_stream import open_orders_cancel_all_api
+    from nexus.binance.spot.web_socket_stream import order_list_place_api
+    from nexus.binance.spot.web_socket_stream import order_place
+    from nexus.binance.spot.web_socket_stream import account_status_api
+    from nexus.binance.spot.web_socket_stream import rate_limit_order_api
+    from nexus.binance.spot.web_socket_stream import all_orders_api
+    from nexus.binance.spot.web_socket_stream import all_order_lists_api
+    from nexus.binance.spot.web_socket_stream import my_trades_api
+    from nexus.binance.spot.web_socket_stream import my_prevented_matches_api
+    from nexus.binance.spot.web_socket_stream import my_allocations_api
+    from nexus.binance.spot.web_socket_stream import account_commission_api
+
