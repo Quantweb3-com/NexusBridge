@@ -1,0 +1,211 @@
+# Nexus
+
+![License](https://img.shields.io/badge/license-MIT-blue.svg)![Python](https://img.shields.io/badge/python-3.10%2B-blue)![Version](https://img.shields.io/badge/version-1.0.0-blue)
+
+- **Support**: [quantweb3.ai@gmail.com](mailto:quantweb3.ai@gmail.com)
+
+## Introduction
+
+Nexus is a professional-grade development toolthat provides **deep optimization** for **exchange API and WebSocket interfaces**, offering **high-performance**, **highly stable SDK encapsulation**, making it an **ideal choice for real-world trading**.
+
+## Overview
+
+### Core Advantages
+
+1. **Professional Performance Optimization：** Comprehensive optimization of major exchanges' underlying API and WebSocket interfaces, delivering performance and stability significantly superior to official exchange SDKs, meeting demanding real-world requirements.
+2. **Lightweight Encapsulation Strategy：** Following minimal encapsulation principles to avoid complexity issues from over-encapsulation. The system stably supports simultaneous WebSocket subscription for hundreds of trading pairs, providing efficient and stable order data streaming.
+3. **Precise Debugging Support：** Preserves complete error messages returned by exchanges, enabling users to quickly locate and resolve issues, significantly improving development efficiency.
+
+### Why Nexus Is More Efficient?
+
+- **Efficient Data Processing**: Utilizing [orjson](https://github.com/ijl/orjson) for JSON serialization and deserialization, NexusTrader achieves unmatched efficiency, being 10 times faster than the standard json library while maintaining a lower memory footprint.
+
+- **High-Performance WebSocket Framework**: Built with [picows](https://github.com/tarasko/picows), a Cython-based WebSocket library that matches the speed of C++'s Boost.Beast, significantly outperforming Python alternatives like websockets and aiohttp.
+
+- **Smart Memory Management**: Employing object pool technology for object reuse, NexusTrader reduces garbage collection pressure and minimizes memory fragmentation, ensuring efficient resource utilization.
+
+- **Advanced Concurrency Control**: Orders are managed efficiently using `asyncio.Queue`, with intelligent rate limiting and an optimized task scheduler to handle high volumes seamlessly.
+
+- **Modular Architecture**: NexusTrader's flexible framework allows for easy integration of new exchanges, instruments, or custom strategies, ensuring scalability and adaptability to changing market conditions.
+
+### Features
+- 🌐 Multi-Exchange Support: Seamlessly integrate with Binance, OKX, and Bybit through a unified API interface, with extensible architecture for more exchanges.
+
+- ⚡ Real-Time Processing: High-performance WebSocket implementation supporting 1000+ simultaneous trading pair subscriptions with minimal latency.
+
+- 📊 Market Data Streaming: Efficient handling of orderbook updates, trades, and klines using optimized data structures and memory management.
+
+- 💼 Advanced Trading: Complete order management system supporting various order types, position tracking, and risk control mechanisms.
+
+- 🛡️ Reliability Focus: Comprehensive error handling, detailed logging, and production-validated stability for mission-critical operations.
+
+- 🔄 Smart Concurrency: Intelligent rate limiting and request batching to optimize API usage while maintaining high throughput.
+
+- 📈 Scalable Architecture: Modular design supporting easy integration of new features and custom trading strategies.
+
+- 🔍 Debug Friendly: Preserves complete exchange error messages and provides detailed tracking for efficient troubleshooting.
+
+- 🧪 Quality Assured: Extensive unit test coverage and production environment validation for enterprise-grade reliability.
+
+### Supported Exchanges
+
+| OKX                                                          | **Binance**                                                  | BYBIT                                                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="https://www.okx.com/cdn/assets/imgs/226/EB771F0EE8994DD5.png" width="100"> | <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" width="100"> | <img src="https://raw.githubusercontent.com/bybit-web3/bybit-web3.github.io/main/docs/images/bybit-logo.png" width="100"> |
+
+## Getting Started
+
+### Installation (From PyPI)
+
+We recommend using the latest supported version of Python and setting
+up [nexus](https://pypi.org/project/nexus/) in a virtual environment to isolate dependencies
+
+To install the latest binary wheel (or sdist package) from PyPI using Pythons pip package manager:
+
+    pip install -U nexus
+
+### Quick Start
+
+This is a basic example of how to use nexus, demonstrating how to submit an order using the OKX API。
+
+```python
+import asyncio
+from nexus.okx.restapi import OkxApiClient
+from nexus.okx.constants import OkxUrl
+from nexus.config import settings
+
+API_KEY = settings.OKX.DEMO.api_key
+PASSPHRASE = settings.OKX.DEMO.passphrase
+SECRET = settings.OKX.DEMO.secret
+
+
+async def main():
+    try:
+        client = OkxApiClient(
+            api_key=API_KEY,
+            secret=SECRET,
+            passphrase=PASSPHRASE,
+            url=OkxUrl.DEMO,
+        )
+        response = await client.trade_api.post_api_v5_trade_order(
+            inst_id="BTC-USDT-SWAP",
+            td_mode="cross",
+            side="sell",
+            ord_type="market",
+            sz="1",
+        )
+        print(response)
+    except Exception as e:
+        print(e)
+    finally:
+        await client.close_session()
+    
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+```
+
+Submit orders using OKX websocket
+
+```python
+import asyncio
+from nexus.okx.restapi import OkxApiClient
+from nexus.okx.constants import OkxUrl, OkxAccountType, ChannelKind
+from nexus.config import settings
+from nexus.okx.wsapi import OkxWSClient
+
+
+async def main():
+    try:
+        def handler(msg):
+            print(msg)
+
+        client = OkxWSClient(
+            OkxAccountType.DEMO,
+            handler,
+            secret="",
+            api_key="",
+            passphrase="",
+            channel_kind=ChannelKind.PUBLIC,
+        )
+        await client.private_place_order(
+            "BTC-USDT",
+            "isolated",
+            "buy",
+            "market",
+            "1",
+        )
+        await client.connect()
+    except Exception as e:
+        print(e)
+    finally:
+        await client.disconnect()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+```
+
+
+
+## Contributing
+
+Thank you for considering contributing to nexus! We greatly appreciate any effort to help improve the project. If
+you have an idea for an enhancement or a bug fix, the first step is to open
+an [issue](https://github.com/Quantweb3-ai/nexus/issues) on GitHub. This allows us to discuss your proposal and
+ensure it aligns with the project's goals, while also helping to avoid duplicate efforts.
+
+When you're ready to start working on your contribution, please review the guidelines in
+the [CONTRIBUTING.md](CONTRIBUTING.md) file. Depending on the nature of your contribution, you may also need to sign a
+Contributor License Agreement (CLA) to ensure it can be included in the project.
+
+> **Note**
+> Pull requests should be directed to the `main` branch (the default branch), where new features and improvements are
+> integrated before release.
+
+Thank you again for your interest in nexus! We look forward to reviewing your contributions and collaborating with
+you to make the project even better.
+
+## VIP Privileges
+
+Trading on our platform is free. Become a VIP customer to enjoy exclusive technical support privileges for $499 per month ([Subscription Here](https://quantweb3.ai/subscribe/ ))—or get VIP status at no cost by opening an account through our partnership links.
+
+Our partners include global leading trading platforms like Bybit, OKX, ZFX, Bison and others. By opening an account through our referral links, you'll enjoy these benefits:
+
+Instant Account Benefits
+
+1. Trading Fee Discounts: Exclusive discounts to lower your trading costs.
+2. VIP Service Support: Contact us after opening your account to become our VIP customer. Enjoy exclusive events and benefits for the ultimate VIP experience.
+
+Act now and join our VIP program!
+
+> Click the links below to register
+
+- [Bybit](https://partner.bybit.com/b/90899)
+- [OKX](http://www.okx.com/join/80353297)
+- [ZFX](https://zfx.link/46dFByp)
+- [Bison](https://m.bison.com/#/register?invitationCode=1002)
+
+## Social
+
+Connect with us on your favorite platforms:
+
+[![X (Twitter)](https://img.shields.io/badge/X_(Twitter)-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/quantweb3_ai) Stay updated with our latest news, features, and announcements.
+
+[![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/BR8VGRrXFr) Join our community to discuss ideas, get support, and connect with other users.
+
+[![Telegram](https://img.shields.io/badge/Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/+6e2MtXxoibM2Yzlk) Receive instant updates and engage in real-time discussions.
+
+## See Also
+
+We recommend exploring related tools and projects that can enhance your trading workflows:
+
+- [NexusTrader](https://github.com/RiverTrading/NexusTrader): The Most Professional Open-Source Quantitative Trading Platform for Large-Scale Capital 
+
+## License
+
+Nexus is available on GitHub under the MIT License. Contributions to the project are welcome and require the
+completion of a Contributor License Agreement (CLA). Please review the contribution guidelines and submit a pull
+request. See the [LICENSE](LICENSE) file for details.
