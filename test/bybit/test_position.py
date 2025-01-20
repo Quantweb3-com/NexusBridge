@@ -18,7 +18,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_position_list(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.position_api.get_v5_position_list(
+        result = await self.client.get_v5_position_list(
             category="inverse",
             symbol="BTCUSD",
         )
@@ -29,7 +29,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_position_set_leverage(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.position_api.post_v5_position_set_leverage(
+        result = await self.client.post_v5_position_set_leverage(
             category="linear",
             symbol="BTCUSDT",
             buy_leverage="6",
@@ -42,7 +42,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_position_switch_isolated(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.position_api.post_v5_position_switch_isolated(
+        result = await self.client.post_v5_position_switch_isolated(
             category="linear",
             symbol="ETHUSDT",
             trade_mode=1,
@@ -56,7 +56,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_position_switch_mode(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.position_api.post_v5_position_switch_mode(
+        result = await self.client.post_v5_position_switch_mode(
             category="inverse",
             symbol="BTCUSDH23",
             mode=0,
@@ -68,7 +68,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_position_trading_stop(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.position_api.post_v5_position_trading_stop(
+        result = await self.client.post_v5_position_trading_stop(
             category="linear",
             symbol="XRPUSDT",
             takeProfit="0.6",
@@ -91,7 +91,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_position_set_auto_add_margin(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.position_api.post_v5_position_set_auto_add_margin(
+        result = await self.client.post_v5_position_set_auto_add_margin(
             category="linear",
             symbol="BTCUSDT",
             auto_add_margin=1,
@@ -103,7 +103,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_position_add_margin(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.position_api.post_v5_position_add_margin(
+        result = await self.client.post_v5_position_add_margin(
             category="linear",
             symbol="BTCUSDT",
             margin="10"
@@ -115,7 +115,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_position_closed_pnl(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.position_api.get_v5_position_closed_pnl(
+        result = await self.client.get_v5_position_closed_pnl(
             category="linear",
             limit=1,
         )
@@ -126,7 +126,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_position_move_positions(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.position_api.post_v5_position_move_positions(
+        result = await self.client.post_v5_position_move_positions(
             "100307601",
             "592324",
             [
@@ -146,7 +146,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_position_move_history(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.position_api.get_v5_position_move_history(
+        result = await self.client.get_v5_position_move_history(
             limit="1",
             status="Filled"
         )
@@ -157,7 +157,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_position_confirm_pending_mmr(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.position_api.post_v5_position_confirm_pending_mmr(
+        result = await self.client.post_v5_position_confirm_pending_mmr(
             symbol="BTCUSDT",
             category="linear",
         )
@@ -168,7 +168,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_position_set_tpsl_mode(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.position_api.post_v5_position_set_tpsl_mode(
+        result = await self.client.post_v5_position_set_tpsl_mode(
             symbol="XRPUSDT",
             category="linear",
             tp_sl_mode="Full",
@@ -180,7 +180,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_position_set_risk_limit(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.position_api.post_v5_position_set_risk_limit(
+        result = await self.client.post_v5_position_set_risk_limit(
             category="linear",
             symbol="BTCUSDT",
             risk_id=4,

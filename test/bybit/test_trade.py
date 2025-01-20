@@ -18,7 +18,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_order_create(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trade_api.post_v5_order_create(
+        result = await self.client.post_v5_order_create(
             category="spot",
             symbol="BTCUSDT",
             side="Sell",
@@ -37,7 +37,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_order_amend(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trade_api.post_v5_order_amend(
+        result = await self.client.post_v5_order_amend(
             category="linear",
             symbol="ETHPERP",
             orderLinkId="linear-004",
@@ -54,7 +54,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_order_cancel(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trade_api.post_v5_order_cancel(
+        result = await self.client.post_v5_order_cancel(
             category="linear",
             symbol="BTCPERP",
             orderId="c6f055d9-7f21-4079-913d-e6523a9cfffa",
@@ -66,7 +66,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_order_realtime(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trade_api.get_v5_order_realtime(
+        result = await self.client.get_v5_order_realtime(
             category="linear",
             symbol="ETHUSDT",
             openOnly=0,
@@ -79,7 +79,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_order_cancel_all(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trade_api.post_v5_order_cancel_all(
+        result = await self.client.post_v5_order_cancel_all(
             category="linear",
             settleCoin="USDT",
         )
@@ -90,7 +90,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_order_history(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trade_api.get_v5_order_history(
+        result = await self.client.get_v5_order_history(
             category="linear",
             limit=1,
         )
@@ -101,7 +101,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_execution_list(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trade_api.get_v5_execution_list(
+        result = await self.client.get_v5_execution_list(
             category="linear",
             limit=1,
         )
@@ -112,7 +112,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_order_create_batch(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trade_api.post_v5_order_create_batch(
+        result = await self.client.post_v5_order_create_batch(
             category="spot",
             request=[
                 {
@@ -144,7 +144,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_order_amend_batch(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trade_api.post_v5_order_amend_batch(
+        result = await self.client.post_v5_order_amend_batch(
             category="option",
             request=[
                 {
@@ -168,7 +168,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_order_cancel_batch(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trade_api.post_v5_order_cancel_batch(
+        result = await self.client.post_v5_order_cancel_batch(
             category="spot",
             request=[
                 {
@@ -188,7 +188,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_order_spot_borrow_check(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trade_api.get_v5_order_spot_borrow_check(
+        result = await self.client.get_v5_order_spot_borrow_check(
             category="spot",
             symbol="BTCUSDT",
             side="Buy",
@@ -200,7 +200,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_order_disconnected_cancel_all(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trade_api.post_v5_order_disconnected_cancel_all(
+        result = await self.client.post_v5_order_disconnected_cancel_all(
             time_window=40,
         )
         # 断言返回值

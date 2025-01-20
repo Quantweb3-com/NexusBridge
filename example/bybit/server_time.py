@@ -4,7 +4,7 @@ import asyncio
 async def main():
     try:
         client = BybitApiClient()
-        time = await client.market.get_v5_market_time()
+        time = await client.get_v5_market_time()
         
         print(time)
     except Exception as e:

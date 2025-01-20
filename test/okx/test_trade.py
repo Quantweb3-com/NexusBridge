@@ -12,7 +12,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
         self.api_secret = "221D78AFB68CB539865A11101D603CE7"
         self.passphrase = "@Or2452020438"
         self.client = OkxApiClient(self.api_key, self.api_secret, self.passphrase)
-    
+
     async def asyncTearDown(self):
         """测试结束，asyncTearDown 用于异步的结束"""
         await self.client.close_session()

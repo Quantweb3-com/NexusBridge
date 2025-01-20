@@ -6,51 +6,74 @@
 
 ## Introduction
 
-Nexus is a professional-grade development toolthat provides **deep optimization** for **exchange API and WebSocket interfaces**, offering **high-performance**, **highly stable SDK encapsulation**, making it an **ideal choice for real-world trading**.
+Nexus is a professional-grade development toolthat provides **deep optimization** for **exchange API and WebSocket
+interfaces**, offering **high-performance**, **highly stable SDK encapsulation**, making it an **ideal choice for
+real-world trading**.
 
 ## Overview
 
 ### Core Advantages
 
-1. **Professional Performance Optimization：** Comprehensive optimization of major exchanges' underlying API and WebSocket interfaces, delivering performance and stability significantly superior to official exchange SDKs, meeting demanding real-world requirements.
-2. **Lightweight Encapsulation Strategy：** Following minimal encapsulation principles to avoid complexity issues from over-encapsulation. The system stably supports simultaneous WebSocket subscription for hundreds of trading pairs, providing efficient and stable order data streaming.
-3. **Precise Debugging Support：** Preserves complete error messages returned by exchanges, enabling users to quickly locate and resolve issues, significantly improving development efficiency.
+1. **Professional Performance Optimization：** Comprehensive optimization of major exchanges' underlying API and
+   WebSocket interfaces, delivering performance and stability significantly superior to official exchange SDKs, meeting
+   demanding real-world requirements.
+2. **Lightweight Encapsulation Strategy：** Following minimal encapsulation principles to avoid complexity issues from
+   over-encapsulation. The system stably supports simultaneous WebSocket subscription for hundreds of trading pairs,
+   providing efficient and stable order data streaming.
+3. **Precise Debugging Support：** Preserves complete error messages returned by exchanges, enabling users to quickly
+   locate and resolve issues, significantly improving development efficiency.
 
 ### Why Nexus Is More Efficient?
 
-- **Efficient Data Processing**: Utilizing [orjson](https://github.com/ijl/orjson) for JSON serialization and deserialization, NexusTrader achieves unmatched efficiency, being 10 times faster than the standard json library while maintaining a lower memory footprint.
+- **Efficient Data Processing**: Utilizing [orjson](https://github.com/ijl/orjson) for JSON serialization and
+  deserialization, NexusTrader achieves unmatched efficiency, being 10 times faster than the standard json library while
+  maintaining a lower memory footprint.
 
-- **High-Performance WebSocket Framework**: Built with [picows](https://github.com/tarasko/picows), a Cython-based WebSocket library that matches the speed of C++'s Boost.Beast, significantly outperforming Python alternatives like websockets and aiohttp.
+- **High-Performance WebSocket Framework**: Built with [picows](https://github.com/tarasko/picows), a Cython-based
+  WebSocket library that matches the speed of C++'s Boost.Beast, significantly outperforming Python alternatives like
+  websockets and aiohttp.
 
-- **Smart Memory Management**: Employing object pool technology for object reuse, NexusTrader reduces garbage collection pressure and minimizes memory fragmentation, ensuring efficient resource utilization.
+- **Smart Memory Management**: Employing object pool technology for object reuse, NexusTrader reduces garbage collection
+  pressure and minimizes memory fragmentation, ensuring efficient resource utilization.
 
-- **Advanced Concurrency Control**: Orders are managed efficiently using `asyncio.Queue`, with intelligent rate limiting and an optimized task scheduler to handle high volumes seamlessly.
+- **Advanced Concurrency Control**: Orders are managed efficiently using `asyncio.Queue`, with intelligent rate limiting
+  and an optimized task scheduler to handle high volumes seamlessly.
 
-- **Modular Architecture**: NexusTrader's flexible framework allows for easy integration of new exchanges, instruments, or custom strategies, ensuring scalability and adaptability to changing market conditions.
+- **Modular Architecture**: NexusTrader's flexible framework allows for easy integration of new exchanges, instruments,
+  or custom strategies, ensuring scalability and adaptability to changing market conditions.
 
 ### Features
-- 🌐 Multi-Exchange Support: Seamlessly integrate with Binance, OKX, and Bybit through a unified API interface, with extensible architecture for more exchanges.
 
-- ⚡ Real-Time Processing: High-performance WebSocket implementation supporting 1000+ simultaneous trading pair subscriptions with minimal latency.
+- 🌐 Multi-Exchange Support: Seamlessly integrate with Binance, OKX, and Bybit through a unified API interface, with
+  extensible architecture for more exchanges.
 
-- 📊 Market Data Streaming: Efficient handling of orderbook updates, trades, and klines using optimized data structures and memory management.
+- ⚡ Real-Time Processing: High-performance WebSocket implementation supporting 1000+ simultaneous trading pair
+  subscriptions with minimal latency.
 
-- 💼 Advanced Trading: Complete order management system supporting various order types, position tracking, and risk control mechanisms.
+- 📊 Market Data Streaming: Efficient handling of orderbook updates, trades, and klines using optimized data structures
+  and memory management.
 
-- 🛡️ Reliability Focus: Comprehensive error handling, detailed logging, and production-validated stability for mission-critical operations.
+- 💼 Advanced Trading: Complete order management system supporting various order types, position tracking, and risk
+  control mechanisms.
 
-- 🔄 Smart Concurrency: Intelligent rate limiting and request batching to optimize API usage while maintaining high throughput.
+- 🛡️ Reliability Focus: Comprehensive error handling, detailed logging, and production-validated stability for
+  mission-critical operations.
+
+- 🔄 Smart Concurrency: Intelligent rate limiting and request batching to optimize API usage while maintaining high
+  throughput.
 
 - 📈 Scalable Architecture: Modular design supporting easy integration of new features and custom trading strategies.
 
-- 🔍 Debug Friendly: Preserves complete exchange error messages and provides detailed tracking for efficient troubleshooting.
+- 🔍 Debug Friendly: Preserves complete exchange error messages and provides detailed tracking for efficient
+  troubleshooting.
 
-- 🧪 Quality Assured: Extensive unit test coverage and production environment validation for enterprise-grade reliability.
+- 🧪 Quality Assured: Extensive unit test coverage and production environment validation for enterprise-grade
+  reliability.
 
 ### Supported Exchanges
 
-| OKX                                                          | **Binance**                                                  | BYBIT                                                        |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| OKX                                                                                  | **Binance**                                                                    | BYBIT                                                                                                                     |
+|--------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
 | <img src="https://www.okx.com/cdn/assets/imgs/226/EB771F0EE8994DD5.png" width="100"> | <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png" width="100"> | <img src="https://raw.githubusercontent.com/bybit-web3/bybit-web3.github.io/main/docs/images/bybit-logo.png" width="100"> |
 
 ## Getting Started
@@ -87,7 +110,7 @@ async def main():
             passphrase=PASSPHRASE,
             url=OkxUrl.DEMO,
         )
-        response = await client.trade_api.post_api_v5_trade_order(
+        response = await client.post_api_v5_trade_order(
             inst_id="BTC-USDT-SWAP",
             td_mode="cross",
             side="sell",
@@ -99,7 +122,7 @@ async def main():
         print(e)
     finally:
         await client.close_session()
-    
+
 
 if __name__ == "__main__":
     asyncio.run(main())
@@ -148,7 +171,27 @@ if __name__ == "__main__":
 
 ```
 
+#### Function Names and API Endpoint Mapping
 
+Below are some commonly used function names and their corresponding API endpoints and methods:
+
+##### OKX
+
+- **Function Name:** `post_api_v5_trade_order`
+- **Corresponding API:** `POST /api/v5/trade/order`
+- **Example:**
+
+  ```python
+  order_response = okx_client.post_api_v5_trade_order({
+      'symbol': 'BTCUSD',
+      'side': 'Buy',
+      'order_type': 'Limit',
+      'qty': 0.01,
+      'price': 30000
+  })
+  print(order_response)
+
+API parameters may vary between exchanges. Refer to their official documentation for detailed information.
 
 ## Contributing
 
@@ -170,14 +213,18 @@ you to make the project even better.
 
 ## VIP Privileges
 
-Trading on our platform is free. Become a VIP customer to enjoy exclusive technical support privileges for $499 per month ([Subscription Here](https://quantweb3.ai/subscribe/ ))—or get VIP status at no cost by opening an account through our partnership links.
+Trading on our platform is free. Become a VIP customer to enjoy exclusive technical support privileges for $499 per
+month ([Subscription Here](https://quantweb3.ai/subscribe/ ))—or get VIP status at no cost by opening an account through
+our partnership links.
 
-Our partners include global leading trading platforms like Bybit, OKX, ZFX, Bison and others. By opening an account through our referral links, you'll enjoy these benefits:
+Our partners include global leading trading platforms like Bybit, OKX, ZFX, Bison and others. By opening an account
+through our referral links, you'll enjoy these benefits:
 
 Instant Account Benefits
 
 1. Trading Fee Discounts: Exclusive discounts to lower your trading costs.
-2. VIP Service Support: Contact us after opening your account to become our VIP customer. Enjoy exclusive events and benefits for the ultimate VIP experience.
+2. VIP Service Support: Contact us after opening your account to become our VIP customer. Enjoy exclusive events and
+   benefits for the ultimate VIP experience.
 
 Act now and join our VIP program!
 
@@ -192,17 +239,21 @@ Act now and join our VIP program!
 
 Connect with us on your favorite platforms:
 
-[![X (Twitter)](https://img.shields.io/badge/X_(Twitter)-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/quantweb3_ai) Stay updated with our latest news, features, and announcements.
+[![X (Twitter)](https://img.shields.io/badge/X_(Twitter)-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/quantweb3_ai)
+Stay updated with our latest news, features, and announcements.
 
-[![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/BR8VGRrXFr) Join our community to discuss ideas, get support, and connect with other users.
+[![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/BR8VGRrXFr)
+Join our community to discuss ideas, get support, and connect with other users.
 
-[![Telegram](https://img.shields.io/badge/Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/+6e2MtXxoibM2Yzlk) Receive instant updates and engage in real-time discussions.
+[![Telegram](https://img.shields.io/badge/Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/+6e2MtXxoibM2Yzlk)
+Receive instant updates and engage in real-time discussions.
 
 ## See Also
 
 We recommend exploring related tools and projects that can enhance your trading workflows:
 
-- [NexusTrader](https://github.com/RiverTrading/NexusTrader): The Most Professional Open-Source Quantitative Trading Platform for Large-Scale Capital 
+- [NexusTrader](https://github.com/RiverTrading/NexusTrader): The Most Professional Open-Source Quantitative Trading
+  Platform for Large-Scale Capital
 
 ## License
 

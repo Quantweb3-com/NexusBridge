@@ -18,7 +18,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_delivery_record(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_delivery_record(
+        result = await self.client.get_v5_asset_delivery_record(
             category="option",
         )
         # 断言返回值
@@ -28,7 +28,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_settlement_record(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_settlement_record(
+        result = await self.client.get_v5_asset_settlement_record(
             category="linear",
         )
         # 断言返回值
@@ -38,7 +38,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_exchange_order_record(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_exchange_order_record(
+        result = await self.client.get_v5_asset_exchange_order_record(
             limit=10,
         )
         # 断言返回值
@@ -48,7 +48,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_coin_query_info(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_coin_query_info(
+        result = await self.client.get_v5_asset_coin_query_info(
             coin="ETH",
         )
         # 断言返回值
@@ -58,7 +58,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_transfer_query_sub_member_list(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_transfer_query_sub_member_list()
+        result = await self.client.get_v5_asset_transfer_query_sub_member_list()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -66,7 +66,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_transfer_query_asset_info(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_transfer_query_asset_info(
+        result = await self.client.get_v5_asset_transfer_query_asset_info(
             account_type="FUND",
             coin="USDC",
         )
@@ -77,7 +77,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_transfer_query_account_coins_balance(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_transfer_query_account_coins_balance(
+        result = await self.client.get_v5_asset_transfer_query_account_coins_balance(
             account_type="FUND",
             coin="USDC",
         )
@@ -88,7 +88,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_transfer_query_account_coin_balance(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_transfer_query_account_coin_balance(
+        result = await self.client.get_v5_asset_transfer_query_account_coin_balance(
             account_type="UNIFIED",
             coin="BTC",
             memberId=592324,
@@ -100,7 +100,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_withdraw_withdrawable_amount(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_withdraw_withdrawable_amount(
+        result = await self.client.get_v5_asset_withdraw_withdrawable_amount(
             coin="BTC",
         )
         # 断言返回值
@@ -110,7 +110,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_transfer_query_transfer_coin_list(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_transfer_query_transfer_coin_list(
+        result = await self.client.get_v5_asset_transfer_query_transfer_coin_list(
             from_account_type="UNIFIED",
             to_account_type="CONTRACT",
         )
@@ -121,7 +121,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_v5_asset_transfer_inter_transfer(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.post_v5_asset_transfer_inter_transfer(
+        result = await self.client.post_v5_asset_transfer_inter_transfer(
             transfer_id="42c0cfb0-6bca-c242-bc76-4e6df6cbcb16",
             coin="BTC",
             amount="0.05",
@@ -135,7 +135,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_transfer_query_inter_transfer_list(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_transfer_query_inter_transfer_list(
+        result = await self.client.get_v5_asset_transfer_query_inter_transfer_list(
             coin="USDT",
             limit=1,
         )
@@ -146,7 +146,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_asset_transfer_universal_transfer(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.asset_api.post_v5_asset_transfer_universal_transfer(
+        result = await self.client.post_v5_asset_transfer_universal_transfer(
             transfer_id="be7a2462-1138-4e27-80b1-62653f24925e",
             coin="ETH",
             amount="0.5",
@@ -162,7 +162,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_transfer_query_universal_transfer_list(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_transfer_query_universal_transfer_list(
+        result = await self.client.get_v5_asset_transfer_query_universal_transfer_list(
             limit=1,
             cursor="eyJtaW5JRCI6MTc5NjU3OCwibWF4SUQiOjE3OTY1Nzh9",
         )
@@ -173,7 +173,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_deposit_query_allowed_list(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_deposit_query_allowed_list(
+        result = await self.client.get_v5_asset_deposit_query_allowed_list(
             coin="ETH",
             chain="ETH",
         )
@@ -184,7 +184,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_asset_deposit_to_account(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.asset_api.post_v5_asset_deposit_to_account(
+        result = await self.client.post_v5_asset_deposit_to_account(
             account_type="CONTRACT",
         )
         # 断言返回值
@@ -194,7 +194,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_deposit_query_record(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_deposit_query_record(
+        result = await self.client.get_v5_asset_deposit_query_record(
             coin="USDT",
         )
         # 断言返回值
@@ -204,7 +204,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_deposit_query_sub_member_record(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_deposit_query_sub_member_record(
+        result = await self.client.get_v5_asset_deposit_query_sub_member_record(
             coin="USDT",
             limit=1,
             sub_member_id=592334,
@@ -216,7 +216,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_deposit_query_internal_record(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_deposit_query_internal_record(
+        result = await self.client.get_v5_asset_deposit_query_internal_record(
             startTime=1667260800000,
             endTime=1667347200000,
         )
@@ -227,7 +227,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_deposit_query_address(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_deposit_query_address(
+        result = await self.client.get_v5_asset_deposit_query_address(
             coin="USDT",
             chain_type="ETH",
         )
@@ -238,7 +238,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_deposit_query_sub_member_address(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_deposit_query_sub_member_address(
+        result = await self.client.get_v5_asset_deposit_query_sub_member_address(
             coin="USDT",
             chain_type="TRX",
             sub_member_id=592334,
@@ -250,7 +250,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_withdraw_query_record(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_withdraw_query_record(
+        result = await self.client.get_v5_asset_withdraw_query_record(
             coin="USDT",
             withdrawType=2,
             limit=2,
@@ -262,7 +262,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_withdraw_query_vasp_list(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_withdraw_query_vasp_list(
+        result = await self.client.get_v5_asset_withdraw_query_vasp_list(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -271,7 +271,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_asset_withdraw_create(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.asset_api.post_v5_asset_withdraw_create(
+        result = await self.client.post_v5_asset_withdraw_create(
             coin="USDT",
             chain="ETH",
             address="0x99ced129603abc771c0dabe935c326ff6c86645d",
@@ -287,7 +287,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_asset_withdraw_cancel(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.asset_api.post_v5_asset_withdraw_cancel(
+        result = await self.client.post_v5_asset_withdraw_cancel(
             _id="10197",
         )
         # 断言返回值
@@ -297,7 +297,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_exchange_query_coin_list(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_exchange_query_coin_list(
+        result = await self.client.get_v5_asset_exchange_query_coin_list(
             account_type="eb_convert_funding",
             size=0,
         )
@@ -308,7 +308,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_asset_exchange_quote_apply(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.asset_api.post_v5_asset_exchange_quote_apply(
+        result = await self.client.post_v5_asset_exchange_quote_apply(
             from_coin="ETH",
             to_coin="BTC",
             request_amount="0.1",
@@ -325,7 +325,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_asset_exchange_convert_execute(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.asset_api.post_v5_asset_exchange_convert_execute(
+        result = await self.client.post_v5_asset_exchange_convert_execute(
             "10100108106409343501030232064"
         )
         # 断言返回值
@@ -335,7 +335,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_exchange_convert_result_query(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_exchange_convert_result_query(
+        result = await self.client.get_v5_asset_exchange_convert_result_query(
             "10100108106409343501030232064",
             "eb_convert_funding"
         )
@@ -346,7 +346,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_exchange_query_convert_history(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.asset_api.get_v5_asset_exchange_query_convert_history(
+        result = await self.client.get_v5_asset_exchange_query_convert_history(
             account_type="eb_convert_uta,eb_convert_funding",
         )
         # 断言返回值

@@ -12,7 +12,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
         self.api_secret = "221D78AFB68CB539865A11101D603CE7"
         self.passphrase = "@Or2452020438"
         self.client = OkxApiClient(self.api_key, self.api_secret, self.passphrase)
-    
+
     async def asyncTearDown(self):
         """测试结束，asyncTearDown 用于异步的结束"""
         await self.client.close_session()
@@ -20,7 +20,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_trading_bot_grid_order_algo(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.grid_trading_api.post_api_v5_trading_bot_grid_order_algo(
+        result = await self.client.post_api_v5_trading_bot_grid_order_algo(
             "BTC-USDT",
             "grid",
             "5000",
@@ -54,7 +54,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_trading_bot_grid_amend_order_algo(self, mock_post):
-        result = await self.client.grid_trading_api.post_api_v5_trading_bot_grid_amend_order_algo(
+        result = await self.client.post_api_v5_trading_bot_grid_amend_order_algo(
             "BTC-USDT-SWAP",
             "448965992920907776",
             [
@@ -70,7 +70,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_trading_bot_grid_stop_order_algo(self, mock_post):
-        result = await self.client.grid_trading_api.post_api_v5_trading_bot_grid_stop_order_algo(
+        result = await self.client.post_api_v5_trading_bot_grid_stop_order_algo(
             [
                 {
                     "algoId": "448965992920907776",
@@ -85,7 +85,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_trading_bot_grid_close_position(self, mock_post):
-        result = await self.client.grid_trading_api.post_api_v5_trading_bot_grid_close_position(
+        result = await self.client.post_api_v5_trading_bot_grid_close_position(
             "448965992920907776",
             True
         )
@@ -94,7 +94,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_trading_bot_grid_cancel_close_order(self, mock_post):
-        result = await self.client.grid_trading_api.post_api_v5_trading_bot_grid_cancel_close_order(
+        result = await self.client.post_api_v5_trading_bot_grid_cancel_close_order(
             "448965992920907776",
             "570627699870375936"
         )
@@ -103,7 +103,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_trading_bot_grid_order_instant_trigger(self, mock_post):
-        result = await self.client.grid_trading_api.post_api_v5_trading_bot_grid_order_instant_trigger(
+        result = await self.client.post_api_v5_trading_bot_grid_order_instant_trigger(
             "561564133246894080"
         )
         self.assertIsInstance(result, dict)
@@ -111,7 +111,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_trading_bot_grid_orders_algo_pending(self, mock_get):
-        result = await self.client.grid_trading_api.get_api_v5_trading_bot_grid_orders_algo_pending(
+        result = await self.client.get_api_v5_trading_bot_grid_orders_algo_pending(
             "grid",
         )
         self.assertIsInstance(result, dict)
@@ -119,7 +119,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_trading_bot_grid_orders_algo_history(self, mock_get):
-        result = await self.client.grid_trading_api.get_api_v5_trading_bot_grid_orders_algo_history(
+        result = await self.client.get_api_v5_trading_bot_grid_orders_algo_history(
             "grid",
         )
         self.assertIsInstance(result, dict)
@@ -127,7 +127,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_trading_bot_grid_orders_algo_details(self, mock_get):
-        result = await self.client.grid_trading_api.get_api_v5_trading_bot_grid_orders_algo_details(
+        result = await self.client.get_api_v5_trading_bot_grid_orders_algo_details(
             "448965992920907776",
             "grid"
         )
@@ -136,7 +136,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_trading_bot_grid_sub_orders(self, mock_get):
-        result = await self.client.grid_trading_api.get_api_v5_trading_bot_grid_sub_orders(
+        result = await self.client.get_api_v5_trading_bot_grid_sub_orders(
             "123456",
             "grid",
             "live",
@@ -146,7 +146,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_trading_bot_grid_positions(self, mock_get):
-        result = await self.client.grid_trading_api.get_api_v5_trading_bot_grid_positions(
+        result = await self.client.get_api_v5_trading_bot_grid_positions(
             "448965992920907776",
             "contract_grid"
         )
@@ -155,7 +155,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_trading_bot_grid_withdraw_income(self, mock_get):
-        result = await self.client.grid_trading_api.post_api_v5_trading_bot_grid_withdraw_income(
+        result = await self.client.post_api_v5_trading_bot_grid_withdraw_income(
             "448965992920907776"
         )
         self.assertIsInstance(result, dict)
@@ -163,7 +163,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_trading_bot_grid_compute_margin_balance(self, mock_post):
-        result = await self.client.grid_trading_api.post_api_v5_trading_bot_grid_compute_margin_balance(
+        result = await self.client.post_api_v5_trading_bot_grid_compute_margin_balance(
             "448965992920907776",
             "add",
             "10"
@@ -173,7 +173,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_trading_bot_grid_margin_balance(self, mock_post):
-        result = await self.client.grid_trading_api.post_api_v5_trading_bot_grid_margin_balance(
+        result = await self.client.post_api_v5_trading_bot_grid_margin_balance(
             "123456",
             "add",
             amt="10"
@@ -183,7 +183,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_trading_bot_grid_adjust_investment(self, mock_post):
-        result = await self.client.grid_trading_api.post_api_v5_trading_bot_grid_adjust_investment(
+        result = await self.client.post_api_v5_trading_bot_grid_adjust_investment(
             "448965992920907776",
             "12"
         )
@@ -192,7 +192,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_trading_bot_grid_ai_params(self, mock_get):
-        result = await self.client.grid_trading_api.get_api_v5_trading_bot_grid_ai_param(
+        result = await self.client.get_api_v5_trading_bot_grid_ai_param(
             "grid",
             "BTC-USDT"
         )
@@ -201,7 +201,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_trading_bot_grid_min_investment(self, mock_get):
-        result = await self.client.grid_trading_api.post_api_v5_trading_bot_grid_min_investment(
+        result = await self.client.post_api_v5_trading_bot_grid_min_investment(
             "ETH-USDT",
             "grid",
             "5000",
@@ -224,7 +224,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_trading_bot_rsi_back_testing(self, mock_get):
-        result = await self.client.grid_trading_api.get_api_v5_trading_bot_rsi_back_testing(
+        result = await self.client.get_api_v5_trading_bot_rsi_back_testing(
             "BTC-USDT",
             "3m",
             "30",
@@ -235,7 +235,7 @@ class TestGridTradeApiClient(IsolatedAsyncioTestCase):
 
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_trading_bot_grid_quantity(self, mock_get):
-        result = await self.client.grid_trading_api.get_api_v5_trading_bot_grid_quantity(
+        result = await self.client.get_api_v5_trading_bot_grid_quantity(
             "BTC-USDT-SWAP",
             "1",
             "contract_grid",

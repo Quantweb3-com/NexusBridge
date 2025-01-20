@@ -19,7 +19,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_instruments(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_instruments("SPOT")
+        result = await self.client.get_api_v5_account_instruments("SPOT")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -27,7 +27,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_balance(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_balance("BTC,ETH")
+        result = await self.client.get_api_v5_account_balance("BTC,ETH")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -35,7 +35,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_positions(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_positions(
+        result = await self.client.get_api_v5_account_positions(
             instId="BTC-USDT"
         )
         # 断言返回值
@@ -45,7 +45,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_positions_history(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_positions_history(
+        result = await self.client.get_api_v5_account_positions_history(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -54,7 +54,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_position_risk(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_position_risk(
+        result = await self.client.get_api_v5_account_position_risk(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -63,7 +63,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_bills(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_bills(
+        result = await self.client.get_api_v5_account_bills(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -72,7 +72,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_bills_archive(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_bills_archive(
+        result = await self.client.get_api_v5_account_bills_archive(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -81,7 +81,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_bills_history_archive(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_bills_history_archive(
+        result = await self.client.post_api_v5_account_bills_history_archive(
             "2024",
             "Q1"
         )
@@ -92,7 +92,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_bills_history_archive(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_bills_history_archive(
+        result = await self.client.get_api_v5_account_bills_history_archive(
             "2024",
             "Q1"
         )
@@ -103,7 +103,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_config(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_config(
+        result = await self.client.get_api_v5_account_config(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -112,7 +112,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_set_position_mode(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_set_position_mode(
+        result = await self.client.post_api_v5_account_set_position_mode(
             "long_short_mode"
         )
         # 断言返回值
@@ -122,7 +122,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_set_leverage(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_set_leverage(
+        result = await self.client.post_api_v5_account_set_leverage(
             "cross",
             "5",
             "SPOT",
@@ -135,7 +135,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_max_size(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_max_size(
+        result = await self.client.get_api_v5_account_max_size(
             "BTC-USDT",
             "isolated"
         )
@@ -146,7 +146,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_max_avail_size(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_max_avail_size(
+        result = await self.client.get_api_v5_account_max_avail_size(
             "BTC-USDT",
             "cross",
             ccy="BTC"
@@ -158,7 +158,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_position_margin_balance(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_position_margin_balance(
+        result = await self.client.post_api_v5_account_position_margin_balance(
             "BTC-USDT-200626",
             "short",
             "add",
@@ -171,7 +171,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_leverage_info(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_leverage_info(
+        result = await self.client.get_api_v5_account_leverage_info(
             "cross",
             instId="BTC-USDT-SWAP"
         )
@@ -182,7 +182,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_adjust_leverage_info(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_adjust_leverage_info(
+        result = await self.client.get_api_v5_account_adjust_leverage_info(
             "MARGIN",
             "isolated",
             "3",
@@ -195,7 +195,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_max_loan(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_max_loan(
+        result = await self.client.get_api_v5_account_max_loan(
             "cross",
             instId="BTC-USDT"
         )
@@ -206,7 +206,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_trade_fee(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_trade_fee(
+        result = await self.client.get_api_v5_account_trade_fee(
             "SPOT",
             instId="BTC-USDT"
         )
@@ -217,7 +217,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_interest_accrued(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_interest_accrued(
+        result = await self.client.get_api_v5_account_interest_accrued(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -226,7 +226,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_interest_rate(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_interest_rate()
+        result = await self.client.get_api_v5_account_interest_rate()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -234,7 +234,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_set_greeks(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_set_greeks(
+        result = await self.client.post_api_v5_account_set_greeks(
             "PA"
         )
         # 断言返回值
@@ -244,7 +244,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_set_isolated_mode(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_set_isolated_mode(
+        result = await self.client.post_api_v5_account_set_isolated_mode(
             "MARGIN"
         )
         # 断言返回值
@@ -254,7 +254,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_max_withdrawal(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_max_withdrawal(
+        result = await self.client.get_api_v5_account_max_withdrawal(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -263,7 +263,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_risk_state(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_risk_state(
+        result = await self.client.get_api_v5_account_risk_state(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -272,7 +272,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_quick_margin_borrow_repay(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_quick_margin_borrow_repay(
+        result = await self.client.post_api_v5_account_quick_margin_borrow_repay(
             "BTC-USDT",
             "USDT",
             "100",
@@ -285,7 +285,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_quick_margin_borrow_repay_history(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_quick_margin_borrow_repay_history()
+        result = await self.client.get_api_v5_account_quick_margin_borrow_repay_history()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -293,7 +293,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_interest_limits(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_interest_limits(
+        result = await self.client.get_api_v5_account_interest_limits(
             "1",
             "BTC"
         )
@@ -304,7 +304,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_fixed_loan_borrowing_limit(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_fixed_loan_borrowing_limit(
+        result = await self.client.get_api_v5_account_fixed_loan_borrowing_limit(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -313,7 +313,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_fixed_loan_borrowing_quote(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_fixed_loan_borrowing_quote(
+        result = await self.client.get_api_v5_account_fixed_loan_borrowing_quote(
             "normal",
             ccy="BTC",
             maxRate="0.1",
@@ -327,7 +327,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_fixed_loan_borrowing_order(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_fixed_loan_borrowing_order(
+        result = await self.client.post_api_v5_account_fixed_loan_borrowing_order(
             "BTC",
             "0.1",
             "0.01",
@@ -341,7 +341,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_fixed_loan_amend_borrowing_order(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_fixed_loan_amend_borrowing_order(
+        result = await self.client.post_api_v5_account_fixed_loan_amend_borrowing_order(
             "2405162053378222",
             reborrow=True,
             renewMaxRate="0.01"
@@ -353,7 +353,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_fixed_loan_manual_reborrow(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_fixed_loan_manual_reborrow(
+        result = await self.client.post_api_v5_account_fixed_loan_manual_reborrow(
             "2405162053378222",
             "0.01"
         )
@@ -364,7 +364,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_fixed_loan_repay_borrowing_order(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_fixed_loan_repay_borrowing_order(
+        result = await self.client.post_api_v5_account_fixed_loan_repay_borrowing_order(
             "2405162053378222",
         )
         # 断言返回值
@@ -374,7 +374,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_fixed_loan_convert_to_market_loan(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_fixed_loan_convert_to_market_loan(
+        result = await self.client.post_api_v5_account_fixed_loan_convert_to_market_loan(
             "2409141848234868",
         )
         # 断言返回值
@@ -384,7 +384,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_fixed_loan_reduce_liabilities(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_fixed_loan_reduce_liabilities(
+        result = await self.client.post_api_v5_account_fixed_loan_reduce_liabilities(
             "2409141802194350",
             True
         )
@@ -395,7 +395,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_fixed_loan_borrowing_orders_list(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_fixed_loan_borrowing_orders_list()
+        result = await self.client.get_api_v5_account_fixed_loan_borrowing_orders_list()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -403,7 +403,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_spot_manual_borrow_repay(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_spot_manual_borrow_repay(
+        result = await self.client.post_api_v5_account_spot_manual_borrow_repay(
             "USDT",
             "100",
             "borrow",
@@ -415,7 +415,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_set_auto_repay(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_set_auto_repay(
+        result = await self.client.post_api_v5_account_set_auto_repay(
             True
         )
         # 断言返回值
@@ -425,7 +425,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_spot_borrow_repay_history(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_spot_borrow_repay_history()
+        result = await self.client.get_api_v5_account_spot_borrow_repay_history()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -433,7 +433,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_position_builder(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_position_builder(
+        result = await self.client.post_api_v5_account_position_builder(
             inclRealPosAndEq=False,
             simPos=[
                 {
@@ -461,7 +461,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_set_risk_offset_amt(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_set_risk_offset_amt(
+        result = await self.client.post_api_v5_account_set_risk_offset_amt(
             "0.5",
             "BTC"
         )
@@ -472,7 +472,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_get_api_v5_account_greeks(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_greeks(
+        result = await self.client.get_api_v5_account_greeks(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -481,7 +481,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_position_tiers(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_position_tiers(
+        result = await self.client.get_api_v5_account_position_tiers(
             "SWAP",
             uly="BTC-USDT"
         )
@@ -492,7 +492,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_set_risk_offset_type(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_set_risk_offset_type(
+        result = await self.client.post_api_v5_account_set_risk_offset_type(
             "1"
         )
         # 断言返回值
@@ -502,7 +502,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_activate_option(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_activate_option(
+        result = await self.client.post_api_v5_account_activate_option(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -511,7 +511,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_api_v5_account_set_auto_loan(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_set_auto_loan(
+        result = await self.client.post_api_v5_account_set_auto_loan(
             True
         )
         # 断言返回值
@@ -521,7 +521,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_account_level_switch_preset(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_account_level_switch_preset(
+        result = await self.client.post_api_v5_account_account_level_switch_preset(
             "3"
         )
         # 断言返回值
@@ -531,7 +531,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_set_account_switch_precheck(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_set_account_switch_precheck(
+        result = await self.client.get_api_v5_account_set_account_switch_precheck(
             "3"
         )
         # 断言返回值
@@ -541,7 +541,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_set_account_level_switch(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_set_account_level(
+        result = await self.client.post_api_v5_account_set_account_level(
             "1"
         )
         # 断言返回值
@@ -551,7 +551,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_mmp_reset(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_mmp_reset(
+        result = await self.client.post_api_v5_account_mmp_reset(
             "BTC-USD"
         )
         # 断言返回值
@@ -561,7 +561,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_api_v5_account_mmp_config(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.post_api_v5_account_mmp_config(
+        result = await self.client.post_api_v5_account_mmp_config(
             "BTC-USD",
             "5000",
             "2000",
@@ -574,7 +574,7 @@ class TestTradingAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_account_mmp_config(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.trading_account_api.get_api_v5_account_mmp_config(
+        result = await self.client.get_api_v5_account_mmp_config(
             "BTC-USD"
         )
         # 断言返回值

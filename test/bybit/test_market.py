@@ -18,7 +18,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_get_v5_market_time(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_time()
+        result = await self.client.get_v5_market_time()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -26,7 +26,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_kline(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_kline(
+        result = await self.client.get_v5_market_kline(
             "BTCUSD",
             "60",
             category="inverse",
@@ -40,7 +40,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_mark_price_kline(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_mark_price_kline(
+        result = await self.client.get_v5_market_mark_price_kline(
             category="linear",
             symbol="BTCUSDT",
             interval=15,
@@ -55,7 +55,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_index_price_kline(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_index_price_kline(
+        result = await self.client.get_v5_market_index_price_kline(
             category="inverse",
             symbol="BTCUSDZ22",
             interval=1,
@@ -70,7 +70,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_premium_index_price_kline(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_premium_index_price_kline(
+        result = await self.client.get_v5_market_premium_index_price_kline(
             category="linear",
             symbol="BTCUSDT",
             interval="D",
@@ -84,7 +84,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_instruments_info(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_instruments_info(
+        result = await self.client.get_v5_market_instruments_info(
             category="linear",
             symbol="BTCUSDT",
         )
@@ -95,7 +95,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_orderbook(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_orderbook(
+        result = await self.client.get_v5_market_orderbook(
             category="linear",
             symbol="BTCUSDT",
         )
@@ -106,7 +106,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_tickers(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_tickers(
+        result = await self.client.get_v5_market_tickers(
             category="inverse",
             symbol="BTCUSD",
         )
@@ -117,7 +117,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_funding_history(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_funding_history(
+        result = await self.client.get_v5_market_funding_history(
             category="linear",
             symbol="ETHPERP",
             limit=1,
@@ -129,7 +129,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_recent_trade(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_recent_trade(
+        result = await self.client.get_v5_market_recent_trade(
             category="spot",
             symbol="BTCUSDT",
             limit=1,
@@ -141,7 +141,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_open_interest(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_open_interest(
+        result = await self.client.get_v5_market_open_interest(
             category="inverse",
             symbol="BTCUSD",
             interval_time="5min",
@@ -155,7 +155,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_historical_volatility(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_historical_volatility(
+        result = await self.client.get_v5_market_historical_volatility(
             category="option",
             baseCoin="ETH",
             period=30,
@@ -167,7 +167,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_insurance(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_insurance(
+        result = await self.client.get_v5_market_insurance(
             coin="ETH",
         )
         # 断言返回值
@@ -177,7 +177,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_risk_limit(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_risk_limit(
+        result = await self.client.get_v5_market_risk_limit(
             category="inverse",
             symbol="BTCUSD",
         )
@@ -188,7 +188,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_delivery_price(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_delivery_price(
+        result = await self.client.get_v5_market_delivery_price(
             category="option",
             symbol="ETH-26DEC22-1400-C",
         )
@@ -199,7 +199,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_market_account_ratio(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_api.get_v5_market_account_ratio(
+        result = await self.client.get_v5_market_account_ratio(
             "linear",
             "BTCUSDT",
             "1h",

@@ -20,7 +20,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_instruments(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_instruments(
+        result = await self.client.get_api_v5_public_instruments(
             inst_type="SPOT"
         )
         # 断言返回值
@@ -30,7 +30,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_delivery_exercise_history(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_delivery_exercise_history(
+        result = await self.client.get_api_v5_public_delivery_exercise_history(
             inst_type="FUTURES",
             uly="BTC-USD"
         )
@@ -41,7 +41,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_open_interest(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_open_interest(
+        result = await self.client.get_api_v5_public_open_interest(
             inst_type="SWAP",
         )
         # 断言返回值
@@ -51,7 +51,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_funding_rate(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_funding_rate(
+        result = await self.client.get_api_v5_public_funding_rate(
             inst_id="BTC-USD-SWAP",
         )
         # 断言返回值
@@ -61,7 +61,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_funding_rate_history(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_funding_rate_history(
+        result = await self.client.get_api_v5_public_funding_rate_history(
             inst_id="BTC-USD-SWAP",
         )
         # 断言返回值
@@ -71,7 +71,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_price_limit(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_price_limit(
+        result = await self.client.get_api_v5_public_price_limit(
             inst_id="BTC-USD-SWAP",
         )
         # 断言返回值
@@ -81,7 +81,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_opt_summary(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_opt_summary(
+        result = await self.client.get_api_v5_public_opt_summary(
             uly="BTC-USD",
         )
         # 断言返回值
@@ -91,7 +91,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_estimated_price(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_estimated_price(
+        result = await self.client.get_api_v5_public_estimated_price(
             inst_id="BTC-USDT-220916",
         )
         # 断言返回值
@@ -101,7 +101,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_discount_rate_interest_free_quota(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_discount_rate_interest_free_quota(
+        result = await self.client.get_api_v5_public_discount_rate_interest_free_quota(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -110,7 +110,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_time(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_time()
+        result = await self.client.get_api_v5_public_time()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -118,7 +118,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_mark_price(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_mark_price(
+        result = await self.client.get_api_v5_public_mark_price(
             inst_id="SWAP",
         )
         # 断言返回值
@@ -128,7 +128,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_position_tiers(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_position_tiers(
+        result = await self.client.get_api_v5_public_position_tiers(
             inst_type="SWAP",
             td_mode="cross",
             uly="BTC-USD"
@@ -140,7 +140,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_interest_rate_loan_quota(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_interest_rate_loan_quota(
+        result = await self.client.get_api_v5_public_interest_rate_loan_quota(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -149,7 +149,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_underlying(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_underlying(
+        result = await self.client.get_api_v5_public_underlying(
             inst_type="FUTURES"
         )
         # 断言返回值
@@ -159,7 +159,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_insurance_fund(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_insurance_fund(
+        result = await self.client.get_api_v5_public_insurance_fund(
             inst_type="SWAP",
             uly="BTC-USD"
         )
@@ -170,7 +170,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_convert_contract_coin(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_convert_contract_coin(
+        result = await self.client.get_api_v5_public_convert_contract_coin(
             inst_id="BTC-USD-SWAP",
             px="35000",
             sz="0.888"
@@ -182,7 +182,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_instrument_tick_bands(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_instrument_tick_bands(
+        result = await self.client.get_api_v5_public_instrument_tick_bands(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -191,7 +191,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_premium_history(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_premium_history(
+        result = await self.client.get_api_v5_public_premium_history(
             inst_id="BTC-USDT-SWAP",
         )
         # 断言返回值
@@ -201,7 +201,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_index_tickers(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_market_index_tickers(
+        result = await self.client.get_api_v5_market_index_tickers(
             instId="BTC-USDT"
         )
         # 断言返回值
@@ -211,7 +211,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_index_candles(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_market_index_candles(
+        result = await self.client.get_api_v5_market_index_candles(
             inst_id="BTC-USD"
         )
         # 断言返回值
@@ -221,7 +221,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_history_index_candles(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_market_history_index_candles(
+        result = await self.client.get_api_v5_market_history_index_candles(
             inst_id="BTC-USD",
         )
         # 断言返回值
@@ -231,7 +231,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_mark_price_candles(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_market_mark_price_candles(
+        result = await self.client.get_api_v5_market_mark_price_candles(
             inst_id="BTC-USD-SWAP"
         )
         # 断言返回值
@@ -241,7 +241,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_history_mark_price_candles(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_market_history_mark_price_candles(
+        result = await self.client.get_api_v5_market_history_mark_price_candles(
             inst_id="BTC-USD-SWAP",
         )
         # 断言返回值
@@ -251,7 +251,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_open_oracle(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_market_open_oracle(
+        result = await self.client.get_api_v5_market_open_oracle(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -260,7 +260,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_exchange_rate(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_market_exchange_rate(
+        result = await self.client.get_api_v5_market_exchange_rate(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -269,7 +269,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_index_components(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_market_index_components(
+        result = await self.client.get_api_v5_market_index_components(
             index="BTC-USD"
         )
         # 断言返回值
@@ -279,7 +279,7 @@ class TestPublicDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_economic_calendar(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.public_data_api.get_api_v5_public_economic_calendar(
+        result = await self.client.get_api_v5_public_economic_calendar(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)

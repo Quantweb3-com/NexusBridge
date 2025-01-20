@@ -10,8 +10,6 @@ from nexus.base import ApiClient
 from nexus.bybit.constants import BybitUrl
 from nexus.bybit.error import BybitError
 
-from nexus.bybit.api import AccountApi, PositionApi, TradeApi, MarketApi, AssetApi
-
 
 class BybitApiClient(ApiClient):
     def __init__(
@@ -53,12 +51,6 @@ class BybitApiClient(ApiClient):
 
         if api_key:
             self._headers["X-BAPI-API-KEY"] = api_key
-
-        self.trade_api = TradeApi(self._fetch)
-        self.account_api = AccountApi(self._fetch)
-        self.position_api = PositionApi(self._fetch)
-        self.market_api = MarketApi(self._fetch)
-        self.asset_api = AssetApi(self._fetch)
 
     def _generate_signature(self, payload: str) -> List[str]:
         timestamp = str(self._clock.timestamp_ms())
@@ -134,15 +126,102 @@ class BybitApiClient(ApiClient):
             self._log.error(f"Error {method} Url: {url} {e}")
             raise
 
-    def __getattr__(self, name):
-        if hasattr(self.trade_api, name):
-            return getattr(self.trade_api, name)
-        elif hasattr(self.position_api, name):
-            return getattr(self.position_api, name)
-        elif hasattr(self.account_api, name):
-            return getattr(self.account_api, name)
-        elif hasattr(self.market_api, name):
-            return getattr(self.market_api, name)
-        elif hasattr(self.asset_api, name):
-            return getattr(self.asset_api, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
+    # Account
+    from nexus.bybit.api.account import get_v5_account_wallet_balance
+    from nexus.bybit.api.account import get_v5_account_withdrawal
+    from nexus.bybit.api.account import post_v5_account_upgrade_to_uta
+    from nexus.bybit.api.account import get_v5_account_borrow_history
+    from nexus.bybit.api.account import post_v5_account_quick_repayment
+    from nexus.bybit.api.account import post_v5_account_set_collateral_switch
+    from nexus.bybit.api.account import post_v5_account_set_collateral_switch_batch
+    from nexus.bybit.api.account import get_v5_account_collateral_info
+    from nexus.bybit.api.account import get_v5_asset_coin_greeks
+    from nexus.bybit.api.account import get_v5_account_fee_rate
+    from nexus.bybit.api.account import get_v5_account_info
+    from nexus.bybit.api.account import get_v5_account_query_dcp_info
+    from nexus.bybit.api.account import get_v5_account_transaction_log
+    from nexus.bybit.api.account import get_v5_account_contract_transaction_log
+    from nexus.bybit.api.account import get_v5_account_smp_group
+    from nexus.bybit.api.account import post_v5_account_set_margin_mode
+    from nexus.bybit.api.account import post_v5_account_set_hedging_mode
+    from nexus.bybit.api.account import post_v5_account_mmp_modify
+    from nexus.bybit.api.account import post_v5_account_mmp_reset
+    from nexus.bybit.api.account import get_v5_account_mmp_state
+
+    # Asset
+    from nexus.bybit.api.asset import get_v5_asset_delivery_record
+    from nexus.bybit.api.asset import get_v5_asset_settlement_record
+    from nexus.bybit.api.asset import get_v5_asset_exchange_order_record
+    from nexus.bybit.api.asset import get_v5_asset_coin_query_info
+    from nexus.bybit.api.asset import get_v5_asset_transfer_query_sub_member_list
+    from nexus.bybit.api.asset import get_v5_asset_transfer_query_asset_info
+    from nexus.bybit.api.asset import get_v5_asset_transfer_query_account_coin_balance
+    from nexus.bybit.api.asset import get_v5_asset_withdraw_withdrawable_amount
+    from nexus.bybit.api.asset import get_v5_asset_transfer_query_transfer_coin_list
+    from nexus.bybit.api.asset import post_v5_asset_transfer_inter_transfer
+    from nexus.bybit.api.asset import get_v5_asset_transfer_query_inter_transfer_list
+    from nexus.bybit.api.asset import post_v5_asset_transfer_universal_transfer
+    from nexus.bybit.api.asset import get_v5_asset_transfer_query_universal_transfer_list
+    from nexus.bybit.api.asset import get_v5_asset_deposit_query_allowed_list
+    from nexus.bybit.api.asset import post_v5_asset_deposit_to_account
+    from nexus.bybit.api.asset import get_v5_asset_deposit_query_record
+    from nexus.bybit.api.asset import get_v5_asset_deposit_query_sub_member_record
+    from nexus.bybit.api.asset import get_v5_asset_deposit_query_internal_record
+    from nexus.bybit.api.asset import get_v5_asset_deposit_query_address
+    from nexus.bybit.api.asset import get_v5_asset_deposit_query_sub_member_address
+    from nexus.bybit.api.asset import get_v5_asset_withdraw_query_record
+    from nexus.bybit.api.asset import get_v5_asset_withdraw_query_vasp_list
+    from nexus.bybit.api.asset import post_v5_asset_withdraw_create
+    from nexus.bybit.api.asset import post_v5_asset_withdraw_cancel
+    from nexus.bybit.api.asset import get_v5_asset_exchange_query_coin_list
+    from nexus.bybit.api.asset import post_v5_asset_exchange_quote_apply
+    from nexus.bybit.api.asset import post_v5_asset_exchange_convert_execute
+    from nexus.bybit.api.asset import get_v5_asset_exchange_convert_result_query
+    from nexus.bybit.api.asset import get_v5_asset_exchange_query_convert_history
+
+    # Market
+    from nexus.bybit.api.market import get_v5_market_time
+    from nexus.bybit.api.market import get_v5_market_kline
+    from nexus.bybit.api.market import get_v5_market_mark_price_kline
+    from nexus.bybit.api.market import get_v5_market_index_price_kline
+    from nexus.bybit.api.market import get_v5_market_premium_index_price_kline
+    from nexus.bybit.api.market import get_v5_market_instruments_info
+    from nexus.bybit.api.market import get_v5_market_orderbook
+    from nexus.bybit.api.market import get_v5_market_tickers
+    from nexus.bybit.api.market import get_v5_market_funding_history
+    from nexus.bybit.api.market import get_v5_market_recent_trade
+    from nexus.bybit.api.market import get_v5_market_open_interest
+    from nexus.bybit.api.market import get_v5_market_historical_volatility
+    from nexus.bybit.api.market import get_v5_market_insurance
+    from nexus.bybit.api.market import get_v5_market_risk_limit
+    from nexus.bybit.api.market import get_v5_market_delivery_price
+    from nexus.bybit.api.market import get_v5_market_account_ratio
+
+    # Position
+    from nexus.bybit.api.position import get_v5_position_list
+    from nexus.bybit.api.position import post_v5_position_set_leverage
+    from nexus.bybit.api.position import post_v5_position_switch_isolated
+    from nexus.bybit.api.position import post_v5_position_switch_mode
+    from nexus.bybit.api.position import post_v5_position_trading_stop
+    from nexus.bybit.api.position import post_v5_position_set_auto_add_margin
+    from nexus.bybit.api.position import post_v5_position_add_margin
+    from nexus.bybit.api.position import get_v5_position_closed_pnl
+    from nexus.bybit.api.position import post_v5_position_move_positions
+    from nexus.bybit.api.position import post_v5_position_confirm_pending_mmr
+    from nexus.bybit.api.position import post_v5_position_set_tpsl_mode
+    from nexus.bybit.api.position import post_v5_position_set_risk_limit
+    from nexus.bybit.api.position import get_v5_position_move_history
+
+    # Trade
+    from nexus.bybit.api.trade import post_v5_order_create
+    from nexus.bybit.api.trade import post_v5_order_amend
+    from nexus.bybit.api.trade import post_v5_order_cancel
+    from nexus.bybit.api.trade import get_v5_order_realtime
+    from nexus.bybit.api.trade import post_v5_order_cancel_all
+    from nexus.bybit.api.trade import get_v5_order_history
+    from nexus.bybit.api.trade import get_v5_execution_list
+    from nexus.bybit.api.trade import post_v5_order_create_batch
+    from nexus.bybit.api.trade import post_v5_order_amend_batch
+    from nexus.bybit.api.trade import post_v5_order_cancel_batch
+    from nexus.bybit.api.trade import get_v5_order_spot_borrow_check
+    from nexus.bybit.api.trade import post_v5_order_disconnected_cancel_all

@@ -18,7 +18,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_account_wallet_balance(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_account_wallet_balance(
+        result = await self.client.get_v5_account_wallet_balance(
             account_type="UNIFIED",
             coin="BTC",
         )
@@ -29,7 +29,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_account_withdrawal(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_account_withdrawal(
+        result = await self.client.get_v5_account_withdrawal(
             coin_name="USDT",
         )
         # 断言返回值
@@ -39,7 +39,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_account_upgrade_to_uta(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.account_api.post_v5_account_upgrade_to_uta()
+        result = await self.client.post_v5_account_upgrade_to_uta()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -47,7 +47,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_account_borrow_history(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_account_borrow_history(
+        result = await self.client.get_v5_account_borrow_history(
             currency="BTC",
             limit=1,
         )
@@ -58,7 +58,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_account_quick_repayment(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.account_api.post_v5_account_quick_repayment(
+        result = await self.client.post_v5_account_quick_repayment(
             "USDT"
         )
         # 断言返回值
@@ -68,7 +68,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_account_set_collateral_switch(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.account_api.post_v5_account_set_collateral_switch(
+        result = await self.client.post_v5_account_set_collateral_switch(
             coin="BTC",
             collateral_switch="ON"
         )
@@ -79,7 +79,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_account_set_collateral_switch_batch(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.account_api.post_v5_account_set_collateral_switch_batch(
+        result = await self.client.post_v5_account_set_collateral_switch_batch(
             [
                 {
                     "coin": "BTC",
@@ -98,7 +98,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_account_collateral_info(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_account_collateral_info(
+        result = await self.client.get_v5_account_collateral_info(
             currency="BTC",
         )
         # 断言返回值
@@ -108,7 +108,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_asset_coin_greeks(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_asset_coin_greeks(
+        result = await self.client.get_v5_asset_coin_greeks(
             base_coin="BTC",
         )
         # 断言返回值
@@ -118,7 +118,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_account_fee_rate(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_account_fee_rate(
+        result = await self.client.get_v5_account_fee_rate(
             symbol="ETHUSDT",
         )
         # 断言返回值
@@ -128,7 +128,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_account_info(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_account_info()
+        result = await self.client.get_v5_account_info()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -136,7 +136,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_account_query_dcp_info(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_account_query_dcp_info()
+        result = await self.client.get_v5_account_query_dcp_info()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -144,7 +144,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_account_transaction_log(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_account_transaction_log(
+        result = await self.client.get_v5_account_transaction_log(
             accountType="UNIFIED",
             category="linear",
             currency="USDT",
@@ -156,7 +156,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_account_contract_transaction_log(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_account_contract_transaction_log(
+        result = await self.client.get_v5_account_contract_transaction_log(
             limit=1,
             symbol="BTCUSD"
         )
@@ -167,7 +167,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_account_smp_group(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_account_smp_group(
+        result = await self.client.get_v5_account_smp_group(
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
@@ -176,7 +176,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_v5_account_set_margin_mode(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.post_v5_account_set_margin_mode(
+        result = await self.client.post_v5_account_set_margin_mode(
             "PORTFOLIO_MARGIN"
         )
         # 断言返回值
@@ -186,7 +186,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.post')
     async def test_post_v5_account_set_hedging_mode(self, mock_post):
         # 执行异步 API 请求
-        result = await self.client.account_api.post_v5_account_set_hedging_mode(
+        result = await self.client.post_v5_account_set_hedging_mode(
             "OFF"
         )
         # 断言返回值
@@ -196,7 +196,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_v5_account_mmp_modify(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.post_v5_account_mmp_modify(
+        result = await self.client.post_v5_account_mmp_modify(
             base_coin="ETH",
             window="5000",
             frozen_period="100000",
@@ -210,7 +210,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_post_v5_account_mmp_reset(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.post_v5_account_mmp_reset(
+        result = await self.client.post_v5_account_mmp_reset(
             base_coin="ETH",
         )
         # 断言返回值
@@ -220,7 +220,7 @@ class TestAccountApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_v5_account_mmp_state(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.account_api.get_v5_account_mmp_state(
+        result = await self.client.get_v5_account_mmp_state(
             base_coin="ETH",
         )
         # 断言返回值

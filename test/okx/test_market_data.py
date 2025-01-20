@@ -20,7 +20,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_tickers(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_market_tickers("SWAP")
+        result = await self.client.get_api_v5_market_tickers("SWAP")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -28,7 +28,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_ticker(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_market_ticker("BTC-USD-SWAP")
+        result = await self.client.get_api_v5_market_ticker("BTC-USD-SWAP")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -36,7 +36,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_books(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_market_books("BTC-USDT")
+        result = await self.client.get_api_v5_market_books("BTC-USDT")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -44,7 +44,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_books_full(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_market_books_full("BTC-USDT")
+        result = await self.client.get_api_v5_market_books_full("BTC-USDT")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -52,7 +52,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_candles(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_market_candles("BTC-USDT")
+        result = await self.client.get_api_v5_market_candles("BTC-USDT")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -60,7 +60,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_history_candles(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_market_history_candles("BTC-USDT")
+        result = await self.client.get_api_v5_market_history_candles("BTC-USDT")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -68,7 +68,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_trades(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_market_trades("BTC-USDT")
+        result = await self.client.get_api_v5_market_trades("BTC-USDT")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -76,7 +76,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_history_trades(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_market_history_trades("BTC-USDT")
+        result = await self.client.get_api_v5_market_history_trades("BTC-USDT")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -84,7 +84,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_option_instrument_family_trades(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_market_option_instrument_family_trades("BTC-USD")
+        result = await self.client.get_api_v5_market_option_instrument_family_trades("BTC-USD")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -92,7 +92,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_public_option_trades(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_public_option_trades(instFamily="BTC-USD")
+        result = await self.client.get_api_v5_public_option_trades(instFamily="BTC-USD")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -100,7 +100,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_platform_24_volume(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_market_platform_24_volume()
+        result = await self.client.get_api_v5_market_platform_24_volume()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
@@ -108,7 +108,7 @@ class TestMarketDataApiClient(IsolatedAsyncioTestCase):
     @patch('aiohttp.ClientSession.get')
     async def test_get_api_v5_market_call_auction_details(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.market_data_api.get_api_v5_market_call_auction_details("BTC-USD")
+        result = await self.client.get_api_v5_market_call_auction_details("BTC-USD")
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
