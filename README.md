@@ -1,8 +1,9 @@
 # Nexus
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)![Python](https://img.shields.io/badge/python-3.10%2B-blue)![Version](https://img.shields.io/badge/version-1.0.0-blue)
-
+<img width="944" alt="nexus_bridge" src="https://github.com/user-attachments/assets/41d53b57-cc94-4946-a589-a0057f59bd65" />
 - **Support**: [quantweb3.ai@gmail.com](mailto:quantweb3.ai@gmail.com)
+
 
 ## Introduction
 
