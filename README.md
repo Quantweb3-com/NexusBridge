@@ -1,4 +1,4 @@
-# Nexus
+# NexusBridge
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)![Python](https://img.shields.io/badge/python-3.10%2B-blue)![Version](https://img.shields.io/badge/version-1.0.0-blue)
 <img width="944" alt="nexus_bridge" src="https://github.com/user-attachments/assets/41d53b57-cc94-4946-a589-a0057f59bd65" />
@@ -7,7 +7,7 @@
 
 ## Introduction
 
-Nexus is a professional-grade development toolthat provides **deep optimization** for **exchange API and WebSocket
+NexusBridge is a professional-grade development toolthat provides **deep optimization** for **exchange API and WebSocket
 interfaces**, offering **high-performance**, **highly stable SDK encapsulation**, making it an **ideal choice for
 real-world trading**.
 
@@ -24,23 +24,23 @@ real-world trading**.
 3. **Precise Debugging Support：** Preserves complete error messages returned by exchanges, enabling users to quickly
    locate and resolve issues, significantly improving development efficiency.
 
-### Why Nexus Is More Efficient?
+### Why NexusBridge Is More Efficient?
 
 - **Efficient Data Processing**: Utilizing [orjson](https://github.com/ijl/orjson) for JSON serialization and
-  deserialization, NexusTrader achieves unmatched efficiency, being 10 times faster than the standard json library while
+  deserialization, NexusBridge achieves unmatched efficiency, being 10 times faster than the standard json library while
   maintaining a lower memory footprint.
 
 - **High-Performance WebSocket Framework**: Built with [picows](https://github.com/tarasko/picows), a Cython-based
   WebSocket library that matches the speed of C++'s Boost.Beast, significantly outperforming Python alternatives like
   websockets and aiohttp.
 
-- **Smart Memory Management**: Employing object pool technology for object reuse, NexusTrader reduces garbage collection
+- **Smart Memory Management**: Employing object pool technology for object reuse, NexusBridge reduces garbage collection
   pressure and minimizes memory fragmentation, ensuring efficient resource utilization.
 
 - **Advanced Concurrency Control**: Orders are managed efficiently using `asyncio.Queue`, with intelligent rate limiting
   and an optimized task scheduler to handle high volumes seamlessly.
 
-- **Modular Architecture**: NexusTrader's flexible framework allows for easy integration of new exchanges, instruments,
+- **Modular Architecture**: NexusBridge's flexible framework allows for easy integration of new exchanges, instruments,
   or custom strategies, ensuring scalability and adaptability to changing market conditions.
 
 ### Features
@@ -258,6 +258,6 @@ We recommend exploring related tools and projects that can enhance your trading 
 
 ## License
 
-Nexus is available on GitHub under the MIT License. Contributions to the project are welcome and require the
+NexusBridge is available on GitHub under the MIT License. Contributions to the project are welcome and require the
 completion of a Contributor License Agreement (CLA). Please review the contribution guidelines and submit a pull
 request. See the [LICENSE](LICENSE) file for details.
