@@ -442,7 +442,7 @@ async def get_fapi_v1_lvt_klines(
         **kwargs
     }
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
-    return
+    return raw
 
 
 async def get_fapi_v1_index_info(

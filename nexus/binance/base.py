@@ -32,8 +32,11 @@ class BinanceApiClient(ApiClient):
         self._headers = {
             "Content-Type": "application/json",
             "User-Agent": "TradingBot/1.0",
-            "X-MBX-APIKEY": key,
         }
+        
+        if key:
+            self._headers["X-MBX-APIKEY"] = key
+        
         self.private_key = private_key
         self.private_key_pass = private_key_passphrase
         self.secret = secret

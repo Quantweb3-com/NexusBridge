@@ -14,6 +14,9 @@ class CmTradingApi(BinanceApiClient):
         if "base_url" not in kwargs:
             kwargs["base_url"] = ALL_URL[BinanceInstrumentType.Derivatives_CM].get_url(binance_url)
         super().__init__(key=key, secret=secret, **kwargs)
+    
+    # General endpoints
+    from nexus.binance.cm.general import get_dapi_v1_exchangeInfo
 
     # Market Data endpoints
     from nexus.binance.cm.market_data import get_dapi_v1_ping

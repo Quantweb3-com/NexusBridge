@@ -14,6 +14,9 @@ class UmTradingApi(BinanceApiClient):
         if "base_url" not in kwargs:
             kwargs["base_url"] = ALL_URL[BinanceInstrumentType.Derivatives_UM].get_url(binance_url)
         super().__init__(key=key, secret=secret, **kwargs)
+    
+    # General endpoints
+    from nexus.binance.um.general import get_fapi_v1_exchangeInfo
 
     # Market Data endpoints
     from nexus.binance.um.market_data import get_fapi_v1_ping
