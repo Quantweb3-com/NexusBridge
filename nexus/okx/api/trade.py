@@ -25,6 +25,7 @@ async def post_api_v5_trade_order(
         "side": side,
         "ordType": ord_type,
         "sz": sz,
+        "tag": "f50cdd72d3b6BCDE", 
         **kwargs,
     }
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
@@ -61,6 +62,10 @@ async def post_api_v5_trade_batch_orders(
             {'arg': {'channel': 'orders', 'instType': 'ANY', 'uid': '611800569950521616'}, 'data': [{'instType': 'SWAP', 'instId': 'BTC-USDT-SWAP', 'tgtCcy': '', 'ccy': '', 'ordId': '1993784914940116992', 'clOrdId': '', 'algoClOrdId': '', 'algoId': '', 'tag': '', 'px': '80000', 'sz': '0.1', 'notionalUsd': '80.0128', 'ordType': 'limit', 'side': 'buy', 'posSide': 'long', 'tdMode': 'cross', 'accFillSz': '0', 'fillNotionalUsd': '', 'avgPx': '0', 'state': 'canceled', 'lever': '3', 'pnl': '0', 'feeCcy': 'USDT', 'fee': '0', 'rebateCcy': 'USDT', 'rebate': '0', 'category': 'normal', 'uTime': '1731921825881', 'cTime': '1731921820806', 'source': '', 'reduceOnly': 'false', 'cancelSource': '1', 'quickMgnType': '', 'stpId': '', 'stpMode': 'cancel_maker', 'attachAlgoClOrdId': '', 'lastPx': '91880', 'isTpLimit': 'false', 'slTriggerPx': '', 'slTriggerPxType': '', 'tpOrdPx': '', 'tpTriggerPx': '', 'tpTriggerPxType': '', 'slOrdPx': '', 'fillPx': '', 'tradeId': '', 'fillSz': '0', 'fillTime': '', 'fillPnl': '0', 'fillFee': '0', 'fillFeeCcy': '', 'execType': '', 'fillPxVol': '', 'fillPxUsd': '', 'fillMarkVol': '', 'fillFwdPx': '', 'fillMarkPx': '', 'amendSource': '', 'reqId': '', 'amendResult': '', 'code': '0', 'msg': '', 'pxType': '', 'pxUsd': '', 'pxVol': '', 'linkedAlgoOrd': {'algoId': ''}, 'attachAlgoOrds': []}]}
             """
     endpoint = "/api/v5/trade/batch-orders"
+    
+    for order in payload:
+        order["tag"] = "f50cdd72d3b6BCDE"
+    
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
@@ -125,6 +130,7 @@ async def post_api_v5_trade_close_position(
     payload = {
         "instId": inst_id,
         "mgnMode": mgn_mode,
+        "tag": "f50cdd72d3b6BCDE", 
         **kwargs,
     }
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)

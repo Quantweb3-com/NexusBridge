@@ -91,6 +91,7 @@ async def post_api_v5_trading_bot_grid_close_position(
     payload = {
         "algoId": algo_id,
         "mktClose": mkt_close,
+        "tag": "f50cdd72d3b6BCDE", 
         **kwargs,
     }
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)

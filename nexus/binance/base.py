@@ -121,7 +121,7 @@ class BinanceWSClient(WSClient):
         listen_key = listen_key
         super().__init__(
             url,
-            limiter=AsyncLimiter(max_rate=300, time_period=300),
+            limiter=AsyncLimiter(max_rate=3, time_period=1),
             handler=handler,
             **kwargs
         )
@@ -154,7 +154,7 @@ class BinanceWSClient(WSClient):
         }
         await self._send(payload)
         self._subscriptions.update({param: payload for param in new_params})
-        self._log.info(f"Subscribed to {subscription_id} with params: {new_params}")
+        self._log.info(f"Subscribed to {subscription_id} with payload: {payload}")
 
     async def _unsubscribe(self, params: str | list[str], subscription_id: int):
         if isinstance(params, str):
@@ -173,7 +173,7 @@ class BinanceWSClient(WSClient):
         await self._send(payload)
         for param in valid_params:
             self._subscriptions.pop(param, None)
-        self._log.info(f"Unsubscribed from {subscription_id} with params: {valid_params}")
+        self._log.info(f"Unsubscribed from {subscription_id} with payload: {payload}")
 
     async def send(
             self,

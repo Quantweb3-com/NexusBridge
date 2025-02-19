@@ -24,8 +24,8 @@ async def get_symbols_klines(api: UmTradingApi, symbols: list[str], interval: In
 def handler(msg):
     try:
         data = orjson.loads(msg)
-        if data['k']['x']:
-            print(data)
+        # if data['k']['x']:
+        print(data)
     except Exception as e:
         pass
 
@@ -38,7 +38,7 @@ async def main():
         info = await api.get_fapi_v1_exchangeInfo()
         symbols = [symbol['symbol'] for symbol in info['symbols'] if symbol['quoteAsset'] == 'USDT']
         
-        for symbol in symbols[:1]:
+        for symbol in symbols[:10]:
             await ws.kline(symbol, interval='1h')
         await ws.connect()
         

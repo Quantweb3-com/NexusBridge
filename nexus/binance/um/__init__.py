@@ -123,7 +123,7 @@ class UmTradingWebsocket(BinanceWSClient):
             private_key=None,
             private_key_passphrase=None,
             key_type: KeyType = KeyType.HMAC,
-            binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
+            binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS, BinanceUrl.WS_STREAM] = BinanceUrl.WS_STREAM,
             **kwargs
     ):
         if "base_url" not in kwargs:

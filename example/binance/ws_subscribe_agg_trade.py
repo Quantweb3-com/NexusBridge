@@ -18,7 +18,7 @@ def handler(msg):
 
 async def main():
     client = UmTradingWebsocket(handler=handler)
-    await client.kline("BTCUSDT", "1m")
+    await client.kline("BTCUSDT", "1h")
     await client.connect()
 
 

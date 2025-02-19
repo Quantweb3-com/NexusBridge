@@ -19,6 +19,7 @@ async def post_api_v5_trade_order_algo(
         "tdMode": td_mode,
         "side": side,
         "ordType": ord_type,
+        "tag": "f50cdd72d3b6BCDE", 
         **kwargs,
     }
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
@@ -158,6 +159,7 @@ async def post_api_v5_trading_bot_grid_order_algo(
         "side": side,
         "ordType": ord_type,
         "sz": sz,
+        "tag": "f50cdd72d3b6BCDE", 
         **kwargs,
     }
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
