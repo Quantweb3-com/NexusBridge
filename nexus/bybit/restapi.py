@@ -18,6 +18,7 @@ class BybitApiClient(ApiClient):
             secret: str = None,
             url: BybitUrl = BybitUrl.TESTNET,
             timeout: int = 10,
+            max_rate: int | None = None,
     ):
         """
         ### Testnet:
@@ -39,6 +40,7 @@ class BybitApiClient(ApiClient):
             api_key=api_key,
             secret=secret,
             timeout=timeout,
+            max_rate=max_rate,
         )
         self._recv_window = 5000
 
@@ -69,6 +71,9 @@ class BybitApiClient(ApiClient):
             payload: Dict[str, Any] = None,
             signed: bool = False,
     ):
+        if self._limiter:
+            await self._limiter.wait()
+            
         self._init_session()
 
         url = urljoin(self._base_url, endpoint)

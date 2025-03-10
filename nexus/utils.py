@@ -1,12 +1,10 @@
 import sys
 import time
-import signal
-import asyncio
-from typing import Dict
 from pathlib import Path
 from typing import Optional
 from loguru import logger
 from datetime import timezone, datetime
+
 
 
 class LiveClock:

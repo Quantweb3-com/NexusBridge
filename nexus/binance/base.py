@@ -1,10 +1,9 @@
 import asyncio
-import json
 
 import aiohttp
 
-from typing import Any, Dict, Literal, Callable
-from urllib.parse import urljoin, urlencode, unquote
+from typing import Any, Dict, Callable
+from urllib.parse import urljoin, urlencode
 
 import orjson
 from aiolimiter import AsyncLimiter
@@ -24,10 +23,12 @@ class BinanceApiClient(ApiClient):
             secret: str = None,
             key: str = None,
             timeout: int = 10,
+            max_rate: int | None = None,
     ):
         super().__init__(
             secret=secret,
             timeout=timeout,
+            max_rate=max_rate,
         )
         self._headers = {
             "Content-Type": "application/json",
@@ -59,6 +60,9 @@ class BinanceApiClient(ApiClient):
 
     async def _fetch(self, method: str, endpoint: str, payload: Dict[str, Any] = None, signed: bool = False):
         """Make an asynchronous HTTP request."""
+        if self._limiter:
+            await self._limiter.wait()
+            
         self._init_session()
 
         url = urljoin(self.base_url, endpoint)

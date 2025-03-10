@@ -19,11 +19,13 @@ class OkxApiClient(ApiClient):
             passphrase: str = None,
             url: OkxUrl = OkxUrl.DEMO,
             timeout: int = 10,
+            max_rate: int | None = None,
     ):
         super().__init__(
             api_key=api_key,
             secret=secret,
             timeout=timeout,
+            max_rate=max_rate,
         )
 
         self._base_url = url.base_url
@@ -86,6 +88,9 @@ class OkxApiClient(ApiClient):
             payload: list[Dict[str, Any]] | Dict[str, Any] = None,
             signed: bool = False,
     ) -> bytes:
+        if self._limiter:
+            await self._limiter.wait()
+            
         self._init_session()
         url = urljoin(self._base_url, endpoint)
         request_path = endpoint
@@ -371,3 +376,7 @@ class OkxApiClient(ApiClient):
     from nexus.okx.api.trading_account import post_api_v5_account_mmp_reset
     from nexus.okx.api.trading_account import post_api_v5_account_mmp_config
     from nexus.okx.api.trading_account import get_api_v5_account_mmp_config
+
+    # FinancialProductApi
+    from nexus.okx.api.financial_product import get_api_v5_finance_savings_lending_rate_history
+    from nexus.okx.api.financial_product import get_api_v5_finance_savings_lending_rate_summary

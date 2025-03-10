@@ -4,6 +4,7 @@ import aiohttp
 import certifi
 import orjson
 import ssl
+import asynciolimiter
 
 import asyncio
 from typing import Any
@@ -27,6 +28,7 @@ class ApiClient(ABC):
             api_key: str = None,
             secret: str = None,
             timeout: int = 10,
+            max_rate: int | None = None,
     ):
         self._api_key = api_key
         self._secret = secret
@@ -35,6 +37,11 @@ class ApiClient(ABC):
         self._ssl_context = ssl.create_default_context(cafile=certifi.where())
         self._session: Optional[aiohttp.ClientSession] = None
         self._clock = LiveClock()
+        
+        if max_rate:
+            self._limiter =  asynciolimiter.Limiter(rate=max_rate)
+        else:
+            self._limiter = None
 
     def _init_session(self):
         if self._session is None:
