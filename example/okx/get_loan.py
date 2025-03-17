@@ -1,5 +1,6 @@
 import asyncio
 import time
+import os
 import datetime
 from nexus.okx.restapi import OkxApiClient
 from nexus.okx.constants import OkxUrl
@@ -49,15 +50,17 @@ async def main():
         res = await client.get_api_v5_finance_savings_lending_rate_history()
         coins = [item["ccy"] for item in res["data"]]
         
-        
-        
-        
-        # start_time = int(datetime.datetime(2023, 1, 1, 0, 0).timestamp() * 1000)
-        # loan_rates = await get_loan_rate(client, "USDT", start_time=start_time)
-        # df = pd.DataFrame(loan_rates)
-        # df['timestamp'] = pd.to_datetime(df['ts'].astype(int), unit='ms')
-        # df.sort_values(by='timestamp', inplace=True)
-        # print(df)
+        for coin in coins:
+            
+            if os.path.exists(f"loan_data/{coin}.parquet"):
+                continue
+            
+            start_time = int(datetime.datetime(2023, 1, 1, 0, 0).timestamp() * 1000)
+            loan_rates = await get_loan_rate(client, coin, start_time=start_time)
+            df = pd.DataFrame(loan_rates)
+            df['timestamp'] = pd.to_datetime(df['ts'].astype(int), unit='ms')
+            df.sort_values(by='timestamp', inplace=True)
+            df.to_parquet(f"loan_data/{coin}.parquet")
     except Exception as e:
         print(e)
     finally:

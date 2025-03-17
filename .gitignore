@@ -3,3 +3,11 @@ logs/
 log/
 __pycache__/
 .idea
+loan_data/
+*.tar.gz
+*.tar.xz
+*.tar.bz2
+*.tar.7z
+*.tar.wim
+*.tar.zst
+*.tar.lzma

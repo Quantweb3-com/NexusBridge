@@ -88,9 +88,11 @@ class BinanceApiClient(ApiClient):
             raw = await response.read()
             self._log.debug(f"Response: {raw}")
             if 400 <= status < 500:
-                raise BinanceClientError(status, response.text(), self._headers)
+                text = await response.text()
+                raise BinanceClientError(status, text, self._headers)
             elif status >= 500:
-                raise BinanceServerError(status, response.text(), self._headers)
+                text = await response.text()
+                raise BinanceServerError(status, text, self._headers)
             return orjson.loads(raw)
 
         except aiohttp.ClientError as e:

@@ -3,8 +3,8 @@ from nexus.binance.constants import Interval
 from nexus.utils import Log
 import asyncio
 import pandas as pd
-import datetime
 import orjson
+
 Log.setup_logger(log_path="logs", log_level="INFO")
 
 
@@ -41,11 +41,6 @@ async def main():
         for symbol in symbols[:10]:
             await ws.kline(symbol, interval='1h')
         await ws.connect()
-        
-        
-        
-        
-        
     finally:
         await api.close_session()
 

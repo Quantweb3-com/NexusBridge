@@ -43,6 +43,7 @@ class BinanceInstrumentType(Enum):
     Derivatives_UM = "Derivatives_UM"
     Derivatives_CM = "Derivatives_CM"
     SPOT = "SPOT"
+    MARGIN = "MARGIN"
 
 
 ALL_URL = {
@@ -57,13 +58,15 @@ ALL_URL = {
         testnet_rest_url="https://testnet.binancefuture.com/ws",
         testnet_ws_url="wss://dstream.binancefuture.com/ws",
         main_rest_url="https://dapi.binance.com",
-        main_ws_url="wss://dstream.binance.com/ws",
+        main_ws_url="wss://ws-dapi.binance.com/ws-dapi/v1",
+        main_ws_stream_url="wss://dstream.binance.com/ws",
     ),
     BinanceInstrumentType.SPOT: BaseUrl(
         testnet_rest_url="https://testnet.binance.vision/api",
         testnet_ws_url="wss://testnet.binance.vision/ws-api/v3",
         main_rest_url="https://api.binance.com",
-        main_ws_url="wss://stream.binance.com:9443/ws",
+        main_ws_url="wss://ws-api.binance.com:9443/ws-api/v3",
+        main_ws_stream_url="wss://stream.binance.com:9443/ws",
     ),
     BinanceInstrumentType.Derivatives_PM: BaseUrl(
         testnet_rest_url=None,
@@ -71,6 +74,14 @@ ALL_URL = {
         main_rest_url="https://papi.binance.com",
         main_ws_url="wss://fstream.binance.com/pm",
     ),
+    BinanceInstrumentType.MARGIN: BaseUrl(
+        testnet_rest_url=None,
+        testnet_ws_url=None,
+        main_rest_url="https://api.binance.com",
+        main_ws_url="wss://ws-api.binance.com:9443/ws-api/v3",
+        main_ws_stream_url="wss://stream.binance.com:9443/ws",
+    ),
+ 
 }
 
 
