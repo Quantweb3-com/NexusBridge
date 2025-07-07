@@ -18,6 +18,8 @@ picows = "^1.7.2"
 aiolimiter = "^1.2.1"
 pycryptodome = "^3.21.0"
 asynciolimiter = "^1.1.1"
+httpx = "^0.28.1"
+anchorpy = "^0.21.0"
 
 
 [build-system]
