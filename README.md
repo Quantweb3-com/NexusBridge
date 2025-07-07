@@ -88,6 +88,131 @@ To install the latest binary wheel (or sdist package) from PyPI using Pythons pi
 
     pip install -U nexus
 
+### Jupiter Python SDK Usage
+
+```py
+import base58
+import base64
+import json
+
+from solders import message
+from solders.pubkey import Pubkey
+from solders.keypair import Keypair
+from solders.transaction import VersionedTransaction
+
+from solana.rpc.types import TxOpts
+from solana.rpc.async_api import AsyncClient
+from solana.rpc.commitment import Processed
+
+from jupiter_python_sdk.jupiter import Jupiter, Jupiter_DCA
+
+
+private_key = Keypair.from_bytes(base58.b58decode(os.getenv("PRIVATE-KEY"))) # Replace PRIVATE-KEY with your private key as string
+async_client = AsyncClient("SOLANA-RPC-ENDPOINT-URL") # Replace SOLANA-RPC-ENDPOINT-URL with your Solana RPC Endpoint URL
+jupiter = Jupiter(
+    async_client=async_client,
+    keypair=private_key,
+    quote_api_url="https://quote-api.jup.ag/v6/quote?",
+    swap_api_url="https://quote-api.jup.ag/v6/swap",
+    open_order_api_url="https://jup.ag/api/limit/v1/createOrder",
+    cancel_orders_api_url="https://jup.ag/api/limit/v1/cancelOrders",
+    query_open_orders_api_url="https://jup.ag/api/limit/v1/openOrders?wallet=",
+    query_order_history_api_url="https://jup.ag/api/limit/v1/orderHistory",
+    query_trade_history_api_url="https://jup.ag/api/limit/v1/tradeHistory"
+)
+
+
+"""
+EXECUTE A SWAP
+"""
+transaction_data = await jupiter.swap(
+    input_mint="So11111111111111111111111111111111111111112",
+    output_mint="EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    amount=5_000_000,
+    slippage_bps=1,
+)
+# Returns str: serialized transactions to execute the swap.
+
+raw_transaction = VersionedTransaction.from_bytes(base64.b64decode(transaction_data))
+signature = private_key.sign_message(message.to_bytes_versioned(raw_transaction.message))
+signed_txn = VersionedTransaction.populate(raw_transaction.message, [signature])
+opts = TxOpts(skip_preflight=False, preflight_commitment=Processed)
+result = await async_client.send_raw_transaction(txn=bytes(signed_txn), opts=opts)
+transaction_id = json.loads(result.to_json())['result']
+print(f"Transaction sent: https://explorer.solana.com/tx/{transaction_id}")
+
+
+"""
+OPEN LIMIT ORDER
+"""
+transaction_data = await jupiter.open_order(
+    input_mint=So11111111111111111111111111111111111111112",
+    output_mint=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    in_amount=5_000_000,
+    out_amount=100_000,
+)
+# Returns dict: {'transaction_data': serialized transactions to create the limit order, 'signature2': signature of the account that will be opened}
+
+raw_transaction = VersionedTransaction.from_bytes(base64.b64decode(transaction_data['transaction_data']))
+signature = private_key.sign_message(message.to_bytes_versioned(raw_transaction.message))
+signed_txn = VersionedTransaction.populate(raw_transaction.message, [signature, transaction_data['signature2']])
+opts = TxOpts(skip_preflight=False, preflight_commitment=Processed)
+result = await async_client.send_raw_transaction(txn=bytes(signed_txn), opts=opts)
+transaction_id = json.loads(result.to_json())['result']
+print(f"Transaction sent: https://explorer.solana.com/tx/{transaction_id}")
+
+
+"""
+CREATE DCA ACCOUNT
+"""
+create_dca_account = await jupiter.dca.create_dca(
+    input_mint=Pubkey.from_string("So11111111111111111111111111111111111111112"),
+    output_mint=Pubkey.from_string("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"),
+    total_in_amount=5_000_000,
+    in_amount_per_cycle=100_000,
+    cycle_frequency=60,
+    min_out_amount_per_cycle=0,
+    max_out_amount_per_cycle=0,
+    start=0
+)
+# Returns DCA Account Pubkey and transaction hash.
+
+
+"""
+CLOSE DCA ACCOUNT
+"""
+close_dca_account = await jupiter.dca.close_dca(
+    dca_pubkey=Pubkey.from_string("45iYdjmFUHSJCQHnNpWNFF9AjvzRcsQUP9FDBvJCiNS1")
+)
+# Returns transaction hash.
+```
+
+### Available Jupiter SDK Methods
+```py
+- quote
+- swap
+- open_order
+- cancel_orders
+- create_dca
+- close_dca
+- fetch_user_dca_accounts
+- fetch_dca_account_fills_history
+- get_available_dca_tokens
+- fetch_dca_data
+- query_open_orders
+- query_orders_history
+- query_trades_history
+- get_jupiter_stats
+- get_token_price
+- get_indexed_route_map
+- get_tokens_list
+- get_all_tickers
+- get_all_swap_pairs
+- get_swap_pairs
+- get_token_stats_by_date
+- program_id_to_label
+```
+
 ### Quick Start
 
 This is a basic example of how to use nexus, demonstrating how to submit an order using the OKX API。
