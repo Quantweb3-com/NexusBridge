@@ -50,7 +50,7 @@ class BinanceApiClient(ApiClient):
 
     def _prepare_payload(self, payload: Dict[str, Any], signed: bool) -> str:
         """Prepare payload by encoding and optionally signing."""
-        payload = {k: str(v).lower() if isinstance(v, bool) else v for k, v in payload.items()}
+        # payload = {k: str(v).lower() if isinstance(v, bool) else v for k, v in payload.items()}
         if signed:
             payload["timestamp"] = self._clock.timestamp_ms()
             encoded_payload = urlencode(payload)

@@ -464,7 +464,7 @@ async def mini_ticker_arr(
 
 async def book_ticker(
         self,
-        symbol: str,
+        symbol: str | list[str],
         subscription: bool = True,
         _id: int | None = None
 ):
@@ -472,7 +472,10 @@ async def book_ticker(
     Pushes any update to the best bid or ask's price or quantity in real-time for a specified symbol.
     https://developers.binance.com/docs/derivatives/usds-margined-futures/websocket-market-streams/Individual-Symbol-Book-Ticker-Streams
     """
-    stream_name = "{}@bookTicker".format(symbol.lower())
+    if isinstance(symbol, list):
+        stream_name = ["{}@bookTicker".format(s.lower()) for s in symbol]
+    if isinstance(symbol, str):
+        stream_name = "{}@bookTicker".format(symbol.lower())
     if subscription:
         await self._subscribe(stream_name, _id)
     else:

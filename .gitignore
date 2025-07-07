@@ -11,3 +11,4 @@ loan_data/
 *.tar.wim
 *.tar.zst
 *.tar.lzma
+.vscode/
