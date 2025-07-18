@@ -2,8 +2,8 @@ from unittest import IsolatedAsyncioTestCase
 
 import orjson
 from unittest.mock import patch
-from nexus.bybit.constants import BybitAccountType
-from nexus.bybit.wsapi import BybitWSClient, generate_topic
+from nexusbridge.bybit.constants import BybitAccountType
+from nexusbridge.bybit.wsapi import BybitWSClient, generate_topic
 
 
 class TestPositionApiClient(IsolatedAsyncioTestCase):

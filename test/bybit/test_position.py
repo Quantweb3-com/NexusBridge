@@ -1,7 +1,7 @@
 from unittest import IsolatedAsyncioTestCase
 from unittest.mock import patch
 
-from nexus.bybit.restapi import BybitApiClient
+from nexusbridge.bybit.restapi import BybitApiClient
 
 
 class TestPositionApiClient(IsolatedAsyncioTestCase):

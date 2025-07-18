@@ -86,7 +86,7 @@ up [nexus](https://pypi.org/project/nexus/) in a virtual environment to isolate 
 
 To install the latest binary wheel (or sdist package) from PyPI using Pythons pip package manager:
 
-    pip install -U nexus
+    pip install -U nexusbridge
 
 ### Jupiter Python SDK Usage
 

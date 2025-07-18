@@ -2,8 +2,8 @@ import json
 from unittest import IsolatedAsyncioTestCase
 from unittest.mock import patch, AsyncMock
 
-from nexus.binance.constants import BinanceUrl
-from nexus.binance.spot import SpotTradingApi
+from nexusbridge.binance.constants import BinanceUrl
+from nexusbridge.binance.spot import SpotTradingApi
 
 
 class TestGeneralClient(IsolatedAsyncioTestCase):

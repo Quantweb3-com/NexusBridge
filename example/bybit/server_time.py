@@ -1,4 +1,4 @@
-from nexus.bybit.restapi import BybitApiClient
+from nexusbridge.bybit.restapi import BybitApiClient
 import asyncio
 
 async def main():

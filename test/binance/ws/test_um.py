@@ -2,9 +2,9 @@ import json
 from unittest import IsolatedAsyncioTestCase
 from unittest.mock import patch, AsyncMock
 
-from nexus.binance.constants import BinanceUrl, Interval, KeyType, OrderType
-from nexus.binance.spot import BinanceSpotWSClient
-from nexus.binance.um import UmTradingWebsocket
+from nexusbridge.binance.constants import BinanceUrl, Interval, KeyType, OrderType
+from nexusbridge.binance.spot import BinanceSpotWSClient
+from nexusbridge.binance.um import UmTradingWebsocket
 
 
 class TestUMWebsocketClient(IsolatedAsyncioTestCase):

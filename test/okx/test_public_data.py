@@ -2,7 +2,7 @@ import json
 from unittest import IsolatedAsyncioTestCase
 from unittest.mock import patch, AsyncMock
 
-from nexus.okx.restapi import OkxApiClient
+from nexusbridge.okx.restapi import OkxApiClient
 
 
 class TestPublicDataApiClient(IsolatedAsyncioTestCase):

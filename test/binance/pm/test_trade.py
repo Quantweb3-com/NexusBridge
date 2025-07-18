@@ -1,8 +1,8 @@
 from unittest import IsolatedAsyncioTestCase
 from unittest.mock import patch
 
-from nexus.binance.constants import Side
-from nexus.binance.pm import PmTradingApi
+from nexusbridge.binance.constants import Side
+from nexusbridge.binance.pm import PmTradingApi
 
 
 class TestGeneralClient(IsolatedAsyncioTestCase):

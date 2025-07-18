@@ -1,7 +1,7 @@
 import asyncio
 import orjson
-from nexus.bybit.wsapi import BybitWSClient
-from nexus.bybit.constants import BybitAccountType
+from nexusbridge.bybit.wsapi import BybitWSClient
+from nexusbridge.bybit.constants import BybitAccountType
 
 
 async def main():

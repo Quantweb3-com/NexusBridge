@@ -1,7 +1,7 @@
 import asyncio
 import cysimdjson
-from nexus.binance.um import UmTradingWebsocket
-from nexus.utils import Log
+from nexusbridge.binance.um import UmTradingWebsocket
+from nexusbridge.utils import Log
 import sys
 Log.setup_logger(log_level="INFO")
 

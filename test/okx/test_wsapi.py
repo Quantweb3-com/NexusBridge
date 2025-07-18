@@ -2,8 +2,8 @@ import json
 from unittest import IsolatedAsyncioTestCase
 from unittest.mock import patch, AsyncMock
 
-from nexus.okx.constants import OkxAccountType, ChannelKind
-from nexus.okx.wsapi import OkxWSClient
+from nexusbridge.okx.constants import OkxAccountType, ChannelKind
+from nexusbridge.okx.wsapi import OkxWSClient
 
 
 class TestTradingAccountApiClient(IsolatedAsyncioTestCase):

@@ -1,6 +1,6 @@
 import asyncio
-from nexus.binance.margin import MarginTradingApi
-from nexus.utils import Log
+from nexusbridge.binance.margin import MarginTradingApi
+from nexusbridge.utils import Log
 import pandas as pd
 
 Log.setup_logger(log_level="DEBUG")

@@ -1,6 +1,6 @@
-from nexus.binance.um import UmTradingApi, UmTradingWebsocket
-from nexus.binance.constants import Interval
-from nexus.utils import Log
+from nexusbridge.binance.um import UmTradingApi, UmTradingWebsocket
+from nexusbridge.binance.constants import Interval
+from nexusbridge.utils import Log
 import asyncio
 import pandas as pd
 import orjson

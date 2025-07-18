@@ -1,7 +1,7 @@
 import asyncio
-from nexus.okx.restapi import OkxApiClient
-from nexus.okx.constants import OkxUrl
-from nexus.config import settings
+from nexusbridge.okx.restapi import OkxApiClient
+from nexusbridge.okx.constants import OkxUrl
+from nexusbridge.config import settings
 
 API_KEY = settings.OKX.DEMO.api_key
 PASSPHRASE = settings.OKX.DEMO.passphrase

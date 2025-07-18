@@ -2,7 +2,7 @@ import json
 from unittest import IsolatedAsyncioTestCase
 from unittest.mock import patch
 
-from nexus.okx.restapi import OkxApiClient
+from nexusbridge.okx.restapi import OkxApiClient
 
 
 class TestGridTradeApiClient(IsolatedAsyncioTestCase):

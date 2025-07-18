@@ -2,8 +2,8 @@ import asyncio
 import time
 import os
 import datetime
-from nexus.okx.restapi import OkxApiClient
-from nexus.okx.constants import OkxUrl
+from nexusbridge.okx.restapi import OkxApiClient
+from nexusbridge.okx.constants import OkxUrl
 import pandas as pd
 
 
