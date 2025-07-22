@@ -7,7 +7,13 @@ from nexusbridge.okx.constants import OkxUrl
 import pandas as pd
 
 
-async def get_loan_rate(client: OkxApiClient, ccy: str, limit: int = None, start_time: str = None, end_time: str = None):
+async def get_loan_rate(
+    client: OkxApiClient,
+    ccy: str,
+    limit: int = None,
+    start_time: str = None,
+    end_time: str = None,
+):
     """
     Get the loan rate for a given currency
     """
@@ -15,11 +21,13 @@ async def get_loan_rate(client: OkxApiClient, ccy: str, limit: int = None, start
     limit = str(limit) if limit is not None else 100
     all_loan_rates = []
     while True:
-        loan_rates_response = await client.get_api_v5_finance_savings_lending_rate_history(
-            ccy=ccy,
-            limit=limit,
-            after=end_time,
-            before=start_time,
+        loan_rates_response = (
+            await client.get_api_v5_finance_savings_lending_rate_history(
+                ccy=ccy,
+                limit=limit,
+                after=end_time,
+                before=start_time,
+            )
         )
         loan_rates = loan_rates_response["data"]
         all_loan_rates.extend(loan_rates)
@@ -36,30 +44,25 @@ async def get_loan_rate(client: OkxApiClient, ccy: str, limit: int = None, start
     return all_loan_rates
 
 
-
-
-
-
 async def main():
     try:
         client = OkxApiClient(
             url=OkxUrl.LIVE,
-            max_rate=5.5/1,
+            max_rate=5.5 / 1,
         )
-        
+
         res = await client.get_api_v5_finance_savings_lending_rate_history()
         coins = [item["ccy"] for item in res["data"]]
-        
+
         for coin in coins:
-            
             if os.path.exists(f"loan_data/{coin}.parquet"):
                 continue
-            
+
             start_time = int(datetime.datetime(2023, 1, 1, 0, 0).timestamp() * 1000)
             loan_rates = await get_loan_rate(client, coin, start_time=start_time)
             df = pd.DataFrame(loan_rates)
-            df['timestamp'] = pd.to_datetime(df['ts'].astype(int), unit='ms')
-            df.sort_values(by='timestamp', inplace=True)
+            df["timestamp"] = pd.to_datetime(df["ts"].astype(int), unit="ms")
+            df.sort_values(by="timestamp", inplace=True)
             df.to_parquet(f"loan_data/{coin}.parquet")
     except Exception as e:
         print(e)

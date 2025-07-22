@@ -10,12 +10,12 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
         self.api_key = "Z6EAzmd1YBLqQAgB7z"
         self.api_secret = "R2EshsY4AJ0eQUy8HotalYzi3dyCcYmN9yLW"
         self.client = BybitApiClient(self.api_key, self.api_secret)
-    
+
     async def asyncTearDown(self):
         """测试结束，asyncTearDown 用于异步的结束"""
         await self.client.close_session()
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_order_create(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_order_create(
@@ -34,7 +34,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_order_amend(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_order_amend(
@@ -51,7 +51,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_order_cancel(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_order_cancel(
@@ -63,7 +63,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_order_realtime(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_order_realtime(
@@ -76,7 +76,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_order_cancel_all(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_order_cancel_all(
@@ -87,7 +87,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_order_history(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_order_history(
@@ -98,7 +98,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_execution_list(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_execution_list(
@@ -109,7 +109,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_order_create_batch(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_order_create_batch(
@@ -123,7 +123,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
                     "qty": "0.05",
                     "price": "30000",
                     "timeInForce": "GTC",
-                    "orderLinkId": "spot-btc-03"
+                    "orderLinkId": "spot-btc-03",
                 },
                 {
                     "symbol": "ATOMUSDT",
@@ -133,15 +133,15 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
                     "qty": "2",
                     "price": "12",
                     "timeInForce": "GTC",
-                    "orderLinkId": "spot-atom-03"
-                }
-            ]
+                    "orderLinkId": "spot-atom-03",
+                },
+            ],
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_order_amend_batch(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_order_amend_batch(
@@ -151,41 +151,35 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
                     "category": "option",
                     "symbol": "ETH-30DEC22-500-C",
                     "orderIv": "6.8",
-                    "orderId": "b551f227-7059-4fb5-a6a6-699c04dbd2f2"
+                    "orderId": "b551f227-7059-4fb5-a6a6-699c04dbd2f2",
                 },
                 {
                     "category": "option",
                     "symbol": "ETH-30DEC22-700-C",
                     "price": "650",
-                    "orderId": "fa6a595f-1a57-483f-b9d3-30e9c8235a52"
-                }
-            ]
+                    "orderId": "fa6a595f-1a57-483f-b9d3-30e9c8235a52",
+                },
+            ],
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_order_cancel_batch(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_order_cancel_batch(
             category="spot",
             request=[
-                {
-                    "symbol": "BTCUSDT",
-                    "orderId": "1666800494330512128"
-                },
-                {
-                    "symbol": "ATOMUSDT",
-                    "orderLinkId": "1666800494330512129"
-                }
-            ]
+                {"symbol": "BTCUSDT", "orderId": "1666800494330512128"},
+                {"symbol": "ATOMUSDT", "orderLinkId": "1666800494330512129"},
+            ],
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_order_spot_borrow_check(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_order_spot_borrow_check(
@@ -197,7 +191,7 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_order_disconnected_cancel_all(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_order_disconnected_cancel_all(
@@ -206,4 +200,3 @@ class TestTradeApiClient(IsolatedAsyncioTestCase):
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
-

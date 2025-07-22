@@ -1,20 +1,28 @@
 from typing import Literal, Callable, Any
 
 from nexusbridge.binance.base import BinanceApiClient, BinanceWSClient
-from nexusbridge.binance.constants import BinanceUrl, ALL_URL, BinanceInstrumentType, KeyType
+from nexusbridge.binance.constants import (
+    BinanceUrl,
+    ALL_URL,
+    BinanceInstrumentType,
+    KeyType,
+)
 
 
 class UmTradingApi(BinanceApiClient):
     def __init__(
-            self,
-            key=None,
-            secret=None,
-            binance_url: Literal[BinanceUrl.MAIN, BinanceUrl.TEST] = BinanceUrl.MAIN,
-            **kwargs):
+        self,
+        key=None,
+        secret=None,
+        binance_url: Literal[BinanceUrl.MAIN, BinanceUrl.TEST] = BinanceUrl.MAIN,
+        **kwargs,
+    ):
         if "base_url" not in kwargs:
-            kwargs["base_url"] = ALL_URL[BinanceInstrumentType.Derivatives_UM].get_url(binance_url)
+            kwargs["base_url"] = ALL_URL[BinanceInstrumentType.Derivatives_UM].get_url(
+                binance_url
+            )
         super().__init__(key=key, secret=secret, **kwargs)
-    
+
     # General endpoints
     from nexusbridge.binance.um.general import get_fapi_v1_exchangeInfo
 
@@ -41,10 +49,18 @@ class UmTradingApi(BinanceApiClient):
     from nexusbridge.binance.um.market_data import get_fapi_v1_delivery_price
     from nexusbridge.binance.um.market_data import get_fapi_v1_open_interest
     from nexusbridge.binance.um.market_data import get_fapi_v1_open_interest_hist
-    from nexusbridge.binance.um.market_data import get_futures_data_top_long_short_position_ratio
-    from nexusbridge.binance.um.market_data import get_futures_data_top_long_short_account_ratio
-    from nexusbridge.binance.um.market_data import get_futures_data_global_long_short_account_ratio
-    from nexusbridge.binance.um.market_data import get_futures_data_taker_long_short_ratio
+    from nexusbridge.binance.um.market_data import (
+        get_futures_data_top_long_short_position_ratio,
+    )
+    from nexusbridge.binance.um.market_data import (
+        get_futures_data_top_long_short_account_ratio,
+    )
+    from nexusbridge.binance.um.market_data import (
+        get_futures_data_global_long_short_account_ratio,
+    )
+    from nexusbridge.binance.um.market_data import (
+        get_futures_data_taker_long_short_ratio,
+    )
     from nexusbridge.binance.um.market_data import get_fapi_v1_lvt_klines
     from nexusbridge.binance.um.market_data import get_fapi_v1_index_info
     from nexusbridge.binance.um.market_data import get_fapi_v1_asset_index
@@ -115,19 +131,23 @@ class UmTradingApi(BinanceApiClient):
 
 class UmTradingWebsocket(BinanceWSClient):
     def __init__(
-            self,
-            handler: Callable[..., Any],
-            key=None,
-            secret=None,
-            listen_key=None,
-            private_key=None,
-            private_key_passphrase=None,
-            key_type: KeyType = KeyType.HMAC,
-            binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS, BinanceUrl.WS_STREAM] = BinanceUrl.WS_STREAM,
-            **kwargs
+        self,
+        handler: Callable[..., Any],
+        key=None,
+        secret=None,
+        listen_key=None,
+        private_key=None,
+        private_key_passphrase=None,
+        key_type: KeyType = KeyType.HMAC,
+        binance_url: Literal[
+            BinanceUrl.WS, BinanceUrl.TEST_WS, BinanceUrl.WS_STREAM
+        ] = BinanceUrl.WS_STREAM,
+        **kwargs,
     ):
         if "base_url" not in kwargs:
-            self.baseUrl = ALL_URL[BinanceInstrumentType.Derivatives_UM].get_url(binance_url)
+            self.baseUrl = ALL_URL[BinanceInstrumentType.Derivatives_UM].get_url(
+                binance_url
+            )
         else:
             self.baseUrl = kwargs["base_url"]
             kwargs.pop("base_url", None)
@@ -146,7 +166,8 @@ class UmTradingWebsocket(BinanceWSClient):
             private_key=self.private_key,
             private_key_passphrase=self.private_key_passphrase,
             secret=secret,
-            **kwargs)
+            **kwargs,
+        )
 
     # wss://ws-fapi.binance.com/ws-fapi/v1
     from nexusbridge.binance.um.web_socket_stream import depth

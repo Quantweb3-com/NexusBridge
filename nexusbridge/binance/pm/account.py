@@ -7,9 +7,7 @@ async def get_papi_v1_balance(self, **kwargs):
     Query account balance
     https://developers.binance.com/docs/derivatives/portfolio-margin/account
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -20,9 +18,7 @@ async def get_papi_v1_account(self, **kwargs):
     Query account information
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Account-Information
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -33,10 +29,7 @@ async def get_papi_v1_margin_max_borrowable(self, asset: str, **kwargs):
     Query margin max borrow
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Margin-Max-Borrow
     """
-    payload = {
-        "asset": asset,
-        **kwargs
-    }
+    payload = {"asset": asset, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -47,10 +40,7 @@ async def get_papi_v1_margin_max_withdraw(self, asset: str, **kwargs):
     Query Margin Max Withdraw
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Query-Margin-Max-Withdraw
     """
-    payload = {
-        "asset": asset,
-        **kwargs
-    }
+    payload = {"asset": asset, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -61,9 +51,7 @@ async def get_papi_v1_um_position_risk(self, **kwargs):
     Get current UM position information.
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Query-UM-Position-Information
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -74,9 +62,7 @@ async def get_papi_v1_cm_position_risk(self, **kwargs):
     Get current CM position information.
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Query-CM-Position-Information
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -87,11 +73,7 @@ async def post_papi_v1_um_leverage(self, symbol: str, leverage: int, **kwargs):
     Change user's initial leverage of specific symbol in UM.
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Change-UM-Initial-Leverage
     """
-    payload = {
-        "symbol": symbol,
-        "leverage": leverage,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "leverage": leverage, **kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
@@ -102,47 +84,33 @@ async def post_papi_v1_cm_leverage(self, symbol: str, leverage: int, **kwargs):
     Change user's initial leverage of specific symbol in CM.
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Change-CM-Initial-Leverage
     """
-    payload = {
-        "symbol": symbol,
-        "leverage": leverage,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "leverage": leverage, **kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
 
 async def post_papi_v1_um_position_side_dual(
-        self,
-        dual_side_position: Literal["true", "false"],
-        **kwargs
+    self, dual_side_position: Literal["true", "false"], **kwargs
 ):
     endpoint = "/papi/v1/um/positionSide/dual"
     """
     Change user's position mode (Hedge Mode or One-way Mode ) on EVERY symbol in UM
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Change-UM-Position-Mode
     """
-    payload = {
-        "dualSidePosition": dual_side_position,
-        **kwargs
-    }
+    payload = {"dualSidePosition": dual_side_position, **kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
 
 async def post_papi_v1_cm_position_side_dual(
-        self,
-        dual_side_position: Literal["true", "false"],
-        **kwargs
+    self, dual_side_position: Literal["true", "false"], **kwargs
 ):
     endpoint = "/papi/v1/cm/positionSide/dual"
     """
     Change user's position mode (Hedge Mode or One-way Mode ) on EVERY symbol in CM
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Change-CM-Position-Mode
     """
-    payload = {
-        "dualSidePosition": dual_side_position,
-        **kwargs
-    }
+    payload = {"dualSidePosition": dual_side_position, **kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
@@ -153,9 +121,7 @@ async def get_papi_v1_um_position_side_dual(self, **kwargs):
     Get user's position mode (Hedge Mode or One-way Mode ) on EVERY symbol in UM
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-UM-Current-Position-Mode
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -166,9 +132,7 @@ async def get_papi_v1_cm_position_side_dual(self, **kwargs):
     Get user's position mode (Hedge Mode or One-way Mode ) on EVERY symbol in CM
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-CM-Current-Position-Mode
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -179,9 +143,7 @@ async def get_papi_v1_um_leverage_bracket(self, **kwargs):
     Query UM notional and leverage brackets
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/UM-Notional-and-Leverage-Brackets
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -192,9 +154,7 @@ async def get_papi_v1_cm_leverage_bracket(self, **kwargs):
     Query CM notional and leverage brackets
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/CM-Notional-and-Leverage-Brackets
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -205,9 +165,7 @@ async def get_papi_v1_um_api_trading_status(self, **kwargs):
     Portfolio Margin UM Trading Quantitative Rules Indicators
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Portfolio-Margin-UM-Trading-Quantitative-Rules-Indicators
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -218,10 +176,7 @@ async def get_papi_v1_um_commission_rate(self, symbol: str, **kwargs):
     Get User Commission Rate for UM
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-User-Commission-Rate-for-UM
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -232,10 +187,7 @@ async def get_papi_v1_cm_commission_rate(self, symbol: str, **kwargs):
     Get User Commission Rate for CM
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-User-Commission-Rate-for-CM
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -246,10 +198,7 @@ async def get_papi_v1_margin_margin_loan(self, asset: str, **kwargs):
     Query margin loan record
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Query-Margin-Loan-Record
     """
-    payload = {
-        "asset": asset,
-        **kwargs
-    }
+    payload = {"asset": asset, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -260,10 +209,7 @@ async def get_papi_v1_margin_repay_loan(self, asset: str, **kwargs):
     Query margin repay record.
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Query-Margin-repay-Record
     """
-    payload = {
-        "asset": asset,
-        **kwargs
-    }
+    payload = {"asset": asset, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -274,23 +220,20 @@ async def get_papi_v1_repay_futures_switch(self, **kwargs):
     Query Auto-repay-futures Status
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-Auto-repay-futures-Status
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
 
-async def post_papi_v1_repay_futures_switch(self, auto_repay: Literal["true", "false"], **kwargs):
+async def post_papi_v1_repay_futures_switch(
+    self, auto_repay: Literal["true", "false"], **kwargs
+):
     endpoint = "/papi/v1/repay-futures-switch"
     """
     Change Auto-repay-futures Status
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Change-Auto-repay-futures-Status
     """
-    payload = {
-        "autoRepay": auto_repay,
-        **kwargs
-    }
+    payload = {"autoRepay": auto_repay, **kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
@@ -301,9 +244,7 @@ async def get_papi_v1_margin_margin_interest_history(self, **kwargs):
     Get Margin Borrow/Loan Interest History
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-Margin-BorrowLoan-Interest-History
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -314,9 +255,7 @@ async def post_papi_v1_repay_futures_negative_balance(self, **kwargs):
     Repay futures Negative Balance
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Repay-futures-Negative-Balance
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
@@ -327,9 +266,7 @@ async def get_papi_v1_portfolio_interest_history(self, **kwargs):
     Query interest history of negative balance for portfolio margin.
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Query-Portfolio-Margin-Negative-Balance-Interest-History
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -340,9 +277,7 @@ async def post_papi_v1_auto_collection(self, **kwargs):
     Fund collection for Portfolio Margin
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Fund-Auto-collection
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
@@ -353,30 +288,20 @@ async def post_papi_v1_asset_collection(self, asset: str, **kwargs):
     Transfers specific asset from Futures Account to Margin account
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Fund-Collection-by-Asset
     """
-    payload = {
-        "asset": asset,
-        **kwargs
-    }
+    payload = {"asset": asset, **kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
 
 async def post_papi_v1_bnb_transfer(
-        self,
-        transfer_side: Literal["TO_UM", "FROM_UM"],
-        amount: float,
-        **kwargs
+    self, transfer_side: Literal["TO_UM", "FROM_UM"], amount: float, **kwargs
 ):
     endpoint = "/papi/v1/bnb-transfer"
     """
     Transfer BNB in and out of UM
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/BNB-transfer
     """
-    payload = {
-        "transferSide": transfer_side,
-        "amount": amount,
-        **kwargs
-    }
+    payload = {"transferSide": transfer_side, "amount": amount, **kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
@@ -387,9 +312,7 @@ async def get_papi_v1_um_income(self, **kwargs):
     Get UM Income History
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-UM-Income-History
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -400,9 +323,7 @@ async def get_papi_v1_cm_income(self, **kwargs):
     Get CM Income History
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-CM-Income-History
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -413,9 +334,7 @@ async def get_papi_v1_um_account(self, **kwargs):
     Get current UM account asset and position information.
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-UM-Account-Detail
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -426,9 +345,7 @@ async def get_papi_v1_cm_account(self, **kwargs):
     Get current CM account asset and position information.
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-CM-Account-Detail
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -439,9 +356,7 @@ async def get_papi_v1_um_account_config(self, **kwargs):
     Query UM Futures account configuration
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-UM-Futures-Account-Config
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -452,9 +367,7 @@ async def get_papi_v1_um_symbol_config(self, **kwargs):
     Get current UM account symbol configuration.
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-UM-Futures-Symbol-Config
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -465,29 +378,18 @@ async def get_papi_v2_um_account(self, **kwargs):
     Get current UM account asset and position information.
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-UM-Account-Detail-V2
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
 
-async def get_papi_v1_um_trade_asyn(
-        self,
-        start_time: int,
-        end_time: int,
-        **kwargs
-):
+async def get_papi_v1_um_trade_asyn(self, start_time: int, end_time: int, **kwargs):
     endpoint = "/papi/v1/um/trade/asyn"
     """
     Get download id for UM futures trade history
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-Download-Id-For-UM-Futures-Trade-History
     """
-    payload = {
-        "startTime": start_time,
-        "endTime": end_time,
-        **kwargs
-    }
+    payload = {"startTime": start_time, "endTime": end_time, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -498,10 +400,7 @@ async def get_papi_v1_um_trade_asyn_id(self, _id: str, **kwargs):
     Get UM futures trade download link by Id
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-UM-Futures-Trade-Download-Link-by-Id
     """
-    payload = {
-        "downloadId": _id,
-        **kwargs
-    }
+    payload = {"downloadId": _id, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -512,11 +411,7 @@ async def get_papi_v1_um_order_asyn(self, start_time: int, end_time: int, **kwar
     Get download id for UM futures order history
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-Download-Id-For-UM-Futures-Order-History
     """
-    payload = {
-        "startTime": start_time,
-        "endTime": end_time,
-        **kwargs
-    }
+    payload = {"startTime": start_time, "endTime": end_time, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
 
     return raw
@@ -528,10 +423,7 @@ async def get_papi_v1_um_order_asyn_id(self, _id: str, **kwargs):
     Get UM futures order download link by Id
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-UM-Futures-Order-Download-Link-by-Id
     """
-    payload = {
-        "downloadId": _id,
-        **kwargs
-    }
+    payload = {"downloadId": _id, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -542,11 +434,7 @@ async def get_papi_v1_um_income_asyn(self, start_time: int, end_time: int, **kwa
     Get download id for UM futures transaction history
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-Download-Id-For-UM-Futures-Transaction-History
     """
-    payload = {
-        "startTime": start_time,
-        "endTime": end_time,
-        **kwargs
-    }
+    payload = {"startTime": start_time, "endTime": end_time, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -557,10 +445,7 @@ async def get_papi_v1_um_income_asyn_id(self, _id: str, **kwargs):
     Get UM futures Transaction download link by Id
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Get-UM-Futures-Transaction-Download-Link-by-Id
     """
-    payload = {
-        "downloadId": _id,
-        **kwargs
-    }
+    payload = {"downloadId": _id, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -571,8 +456,6 @@ async def get_papi_v1_rate_limit_order(self, **kwargs):
     Query User Rate Limit
     https://developers.binance.com/docs/derivatives/portfolio-margin/account/Query-User-Rate-Limit
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw

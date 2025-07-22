@@ -10,12 +10,12 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.api_key = "Z6EAzmd1YBLqQAgB7z"
         self.api_secret = "R2EshsY4AJ0eQUy8HotalYzi3dyCcYmN9yLW"
         self.client = BybitApiClient(self.api_key, self.api_secret)
-    
+
     async def asyncTearDown(self):
         """测试结束，asyncTearDown 用于异步的结束"""
         await self.client.close_session()
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_get_v5_market_time(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_time()
@@ -23,7 +23,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_kline(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_kline(
@@ -37,7 +37,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_mark_price_kline(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_mark_price_kline(
@@ -52,7 +52,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_index_price_kline(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_index_price_kline(
@@ -67,7 +67,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_premium_index_price_kline(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_premium_index_price_kline(
@@ -81,7 +81,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_instruments_info(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_instruments_info(
@@ -92,7 +92,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_orderbook(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_orderbook(
@@ -103,7 +103,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_tickers(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_tickers(
@@ -114,7 +114,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_funding_history(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_funding_history(
@@ -126,7 +126,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_recent_trade(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_recent_trade(
@@ -138,7 +138,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_open_interest(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_open_interest(
@@ -152,7 +152,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_historical_volatility(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_historical_volatility(
@@ -164,7 +164,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_insurance(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_insurance(
@@ -174,7 +174,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_risk_limit(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_risk_limit(
@@ -185,7 +185,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_delivery_price(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_delivery_price(
@@ -196,7 +196,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_market_account_ratio(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_market_account_ratio(
@@ -205,7 +205,7 @@ class TestMarketApiClient(IsolatedAsyncioTestCase):
             "1h",
             limit=2,
             startTime="1696089600000",
-            endTime="1696262400000"
+            endTime="1696262400000",
         )
         # 断言返回值
         self.assertIsInstance(result, dict)

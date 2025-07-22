@@ -6,7 +6,6 @@ from loguru import logger
 from datetime import timezone, datetime
 
 
-
 class LiveClock:
     def __init__(self):
         pass

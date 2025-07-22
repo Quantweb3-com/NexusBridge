@@ -1,9 +1,6 @@
-
-
-
-
-async def get_sapi_v1_simpleEarn_flexible_list(self, asset: str | None = None, current: int | None = None, size: int | None = None):
-
+async def get_sapi_v1_simpleEarn_flexible_list(
+    self, asset: str | None = None, current: int | None = None, size: int | None = None
+):
     """
     GET /sapi/v1/simple-earn/flexible/list
 
@@ -12,11 +9,11 @@ async def get_sapi_v1_simpleEarn_flexible_list(self, asset: str | None = None, c
 
     Request Parameters
     Name	Type	Mandatory	Description
-    asset	STRING	NO	
+    asset	STRING	NO
     current	LONG	NO	Currently querying page. Start from 1. Default:1
     size	LONG	NO	Default:10, Max:100
-    recvWindow	LONG	NO	
-    timestamp	LONG	YES	
+    recvWindow	LONG	NO
+    timestamp	LONG	YES
     """
     endpoint = "/sapi/v1/simple-earn/flexible/list"
     payload = {
@@ -29,7 +26,9 @@ async def get_sapi_v1_simpleEarn_flexible_list(self, asset: str | None = None, c
     return raw
 
 
-async def get_sapi_v1_simpleEarn_locked_list(self, asset: str | None = None, current: int | None = None, size: int | None = None):
+async def get_sapi_v1_simpleEarn_locked_list(
+    self, asset: str | None = None, current: int | None = None, size: int | None = None
+):
     """
     GET /sapi/v1/simple-earn/locked/list
 
@@ -38,11 +37,11 @@ async def get_sapi_v1_simpleEarn_locked_list(self, asset: str | None = None, cur
 
     Request Parameters
     Name	Type	Mandatory	Description
-    asset	STRING	NO	
+    asset	STRING	NO
     current	LONG	NO	Currently querying page. Start from 1. Default:1
     size	LONG	NO	Default:10, Max:100
-    recvWindow	LONG	NO	
-    timestamp	LONG	YES	
+    recvWindow	LONG	NO
+    timestamp	LONG	YES
     """
 
     endpoint = "/sapi/v1/simple-earn/locked/list"

@@ -8,10 +8,7 @@ async def post_dapi_v1_listen_key(self, signed=False):
     return raw
 
 
-async def put_dapi_v1_listen_key(
-        self,
-        signed=False
-):
+async def put_dapi_v1_listen_key(self, signed=False):
     """
     Keepalive a user data stream to prevent a time out. User data streams will close after 60 minutes. It's recommended to send a ping about every 60 minutes.
     https://developers.binance.com/docs/derivatives/usds-margined-futures/user-data-streams/Keepalive-User-Data-Stream
@@ -21,10 +18,7 @@ async def put_dapi_v1_listen_key(
     return raw
 
 
-async def delete_dapi_v1_listen_key(
-        self,
-        signed=False
-):
+async def delete_dapi_v1_listen_key(self, signed=False):
     """
     Close out a user data stream.
     https://developers.binance.com/docs/derivatives/usds-margined-futures/user-data-streams/Close-User-Data-Stream

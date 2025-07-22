@@ -10,12 +10,12 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.api_key = "Z6EAzmd1YBLqQAgB7z"
         self.api_secret = "R2EshsY4AJ0eQUy8HotalYzi3dyCcYmN9yLW"
         self.client = BybitApiClient(self.api_key, self.api_secret)
-    
+
     async def asyncTearDown(self):
         """测试结束，asyncTearDown 用于异步的结束"""
         await self.client.close_session()
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_delivery_record(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_delivery_record(
@@ -25,7 +25,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_settlement_record(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_settlement_record(
@@ -35,7 +35,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_exchange_order_record(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_exchange_order_record(
@@ -45,7 +45,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_coin_query_info(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_coin_query_info(
@@ -55,7 +55,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_transfer_query_sub_member_list(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_transfer_query_sub_member_list()
@@ -63,7 +63,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_transfer_query_asset_info(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_transfer_query_asset_info(
@@ -74,7 +74,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_transfer_query_account_coins_balance(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_transfer_query_account_coins_balance(
@@ -85,7 +85,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_transfer_query_account_coin_balance(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_transfer_query_account_coin_balance(
@@ -97,7 +97,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_withdraw_withdrawable_amount(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_withdraw_withdrawable_amount(
@@ -107,7 +107,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_transfer_query_transfer_coin_list(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_transfer_query_transfer_coin_list(
@@ -118,7 +118,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_post_v5_asset_transfer_inter_transfer(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.post_v5_asset_transfer_inter_transfer(
@@ -132,7 +132,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_transfer_query_inter_transfer_list(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_transfer_query_inter_transfer_list(
@@ -143,7 +143,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_asset_transfer_universal_transfer(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_asset_transfer_universal_transfer(
@@ -159,7 +159,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_transfer_query_universal_transfer_list(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_transfer_query_universal_transfer_list(
@@ -170,7 +170,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_deposit_query_allowed_list(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_deposit_query_allowed_list(
@@ -181,7 +181,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_asset_deposit_to_account(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_asset_deposit_to_account(
@@ -191,7 +191,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_deposit_query_record(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_deposit_query_record(
@@ -201,7 +201,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_deposit_query_sub_member_record(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_deposit_query_sub_member_record(
@@ -213,7 +213,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_deposit_query_internal_record(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_deposit_query_internal_record(
@@ -224,7 +224,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_deposit_query_address(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_deposit_query_address(
@@ -235,7 +235,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_deposit_query_sub_member_address(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_deposit_query_sub_member_address(
@@ -247,7 +247,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_withdraw_query_record(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_withdraw_query_record(
@@ -259,16 +259,15 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_withdraw_query_vasp_list(self, mock_get):
         # 执行异步 API 请求
-        result = await self.client.get_v5_asset_withdraw_query_vasp_list(
-        )
+        result = await self.client.get_v5_asset_withdraw_query_vasp_list()
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_asset_withdraw_create(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_asset_withdraw_create(
@@ -284,7 +283,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_asset_withdraw_cancel(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_asset_withdraw_cancel(
@@ -294,7 +293,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_exchange_query_coin_list(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_exchange_query_coin_list(
@@ -305,7 +304,7 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_asset_exchange_quote_apply(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_asset_exchange_quote_apply(
@@ -316,13 +315,13 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
             request_coin="ETH",
             requestId="test-00002",
             paramType="opFrom",
-            paramValue="broker-id-001"
+            paramValue="broker-id-001",
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_asset_exchange_convert_execute(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_asset_exchange_convert_execute(
@@ -332,18 +331,17 @@ class TestAssetApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_exchange_convert_result_query(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_exchange_convert_result_query(
-            "10100108106409343501030232064",
-            "eb_convert_funding"
+            "10100108106409343501030232064", "eb_convert_funding"
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_asset_exchange_query_convert_history(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_asset_exchange_query_convert_history(

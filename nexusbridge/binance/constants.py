@@ -2,25 +2,31 @@ from enum import Enum
 
 
 class BaseUrl:
-    def __init__(self, testnet_rest_url: str | None, main_rest_url: str, main_ws_url: str | None,
-                 testnet_ws_url: str | None, main_ws_stream_url: str | None = None):
+    def __init__(
+        self,
+        testnet_rest_url: str | None,
+        main_rest_url: str,
+        main_ws_url: str | None,
+        testnet_ws_url: str | None,
+        main_ws_stream_url: str | None = None,
+    ):
         self.testnet_rest_url = testnet_rest_url
         self.main_rest_url = main_rest_url
         self.main_ws_url = main_ws_url
         self.testnet_ws_url = testnet_ws_url
         self.main_ws_stream_url = main_ws_stream_url
-        
-    def get_url(self, url_type: 'BinanceUrl') -> str:
+
+    def get_url(self, url_type: "BinanceUrl") -> str:
         """根据 BinanceUrl 枚举获取对应的 URL"""
         if self.main_ws_stream_url is None and url_type == BinanceUrl.WS_STREAM:
             raise ValueError("main_ws_stream_url is not set")
-        
+
         url_mapping = {
             BinanceUrl.MAIN: self.main_rest_url,
             BinanceUrl.TEST: self.testnet_rest_url,
             BinanceUrl.WS: self.main_ws_url,
             BinanceUrl.TEST_WS: self.testnet_ws_url,
-            BinanceUrl.WS_STREAM: self.main_ws_stream_url
+            BinanceUrl.WS_STREAM: self.main_ws_stream_url,
         }
         return url_mapping[url_type]
 
@@ -31,6 +37,7 @@ class BinanceUrl(Enum):
     WS = 2
     TEST_WS = 3
     WS_STREAM = 4
+
 
 class KeyType(Enum):
     HMAC = 0  # "HMAC-SHA-256"
@@ -81,7 +88,6 @@ ALL_URL = {
         main_ws_url="wss://ws-api.binance.com:9443/ws-api/v3",
         main_ws_stream_url="wss://stream.binance.com:9443/ws",
     ),
- 
 }
 
 

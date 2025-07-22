@@ -24,8 +24,6 @@ async def get_api_v3_exchangeInfo(self, **kwargs):
     https://developers.binance.com/docs/binance-spot-api-docs/rest-api/general-endpoints
     """
     endpoint = "/api/v3/exchangeInfo"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=False)
     return raw

@@ -16,14 +16,14 @@ from nexusbridge.binance.error import BinanceClientError, BinanceServerError
 
 class BinanceApiClient(ApiClient):
     def __init__(
-            self,
-            base_url: str,
-            private_key=None,
-            private_key_passphrase=None,
-            secret: str = None,
-            key: str = None,
-            timeout: int = 10,
-            max_rate: int | None = None,
+        self,
+        base_url: str,
+        private_key=None,
+        private_key_passphrase=None,
+        secret: str = None,
+        key: str = None,
+        timeout: int = 10,
+        max_rate: int | None = None,
     ):
         super().__init__(
             secret=secret,
@@ -34,10 +34,10 @@ class BinanceApiClient(ApiClient):
             "Content-Type": "application/json",
             "User-Agent": "TradingBot/1.0",
         }
-        
+
         if key:
             self._headers["X-MBX-APIKEY"] = key
-        
+
         self.private_key = private_key
         self.private_key_pass = private_key_passphrase
         self.secret = secret
@@ -58,11 +58,17 @@ class BinanceApiClient(ApiClient):
             return f"{encoded_payload}&signature={signature}"
         return urlencode(payload)
 
-    async def _fetch(self, method: str, endpoint: str, payload: Dict[str, Any] = None, signed: bool = False):
+    async def _fetch(
+        self,
+        method: str,
+        endpoint: str,
+        payload: Dict[str, Any] = None,
+        signed: bool = False,
+    ):
         """Make an asynchronous HTTP request."""
         if self._limiter:
             await self._limiter.wait()
-            
+
         self._init_session()
 
         url = urljoin(self.base_url, endpoint)
@@ -108,34 +114,35 @@ class BinanceApiClient(ApiClient):
 
 class BinanceWSClient(WSClient):
     def __init__(
-            self,
-            url: str,
-            handler: Callable[..., Any],
-            key=None,
-            secret=None,
-            listen_key=None,
-            private_key=None,
-            key_type: KeyType = None,
-            private_key_passphrase=None,
-            **kwargs):
+        self,
+        url: str,
+        handler: Callable[..., Any],
+        key=None,
+        secret=None,
+        listen_key=None,
+        private_key=None,
+        key_type: KeyType = None,
+        private_key_passphrase=None,
+        **kwargs,
+    ):
         self.key_type = key_type
         self.key = key
         self.secret = secret
         self.private_key = private_key
         self.private_key_passphrase = private_key_passphrase
-        self.key_type = key_type,
+        self.key_type = (key_type,)
         listen_key = listen_key
         super().__init__(
             url,
             limiter=AsyncLimiter(max_rate=3, time_period=1),
             handler=handler,
-            **kwargs
+            **kwargs,
         )
 
     def _get_sign(self, payload):
-        pairs = payload.split('&')
+        pairs = payload.split("&")
         pairs.sort()
-        payload = '&'.join(pairs)
+        payload = "&".join(pairs)
         if self.key_type[0] == KeyType.RSA:
             return rsa_signature(self.private_key, payload, self.private_key_passphrase)
         elif self.key_type[0] == KeyType.Ed:
@@ -143,7 +150,9 @@ class BinanceWSClient(WSClient):
         else:
             return hmac_hashing(self.secret, payload)
 
-    async def _subscribe(self, params: str | list[str], subscription_id: str | None = None):
+    async def _subscribe(
+        self, params: str | list[str], subscription_id: str | None = None
+    ):
         if isinstance(params, str):
             params = [params]
 
@@ -182,10 +191,8 @@ class BinanceWSClient(WSClient):
         self._log.info(f"Unsubscribed from {subscription_id} with payload: {payload}")
 
     async def send(
-            self,
-            method: str,
-            params: list[Any] | None = None,
-            _id: str | None = None):
+        self, method: str, params: list[Any] | None = None, _id: str | None = None
+    ):
         await self._connect()
         payload = {
             "method": method,

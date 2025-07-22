@@ -5,16 +5,15 @@ from nexusbridge.binance.constants import BinanceUrl, ALL_URL, BinanceInstrument
 
 
 class PmTradingApi(BinanceApiClient):
-    def __init__(
-            self,
-            key=None,
-            secret=None,
-            **kwargs):
+    def __init__(self, key=None, secret=None, **kwargs):
         super().__init__(
             key=key,
             secret=secret,
-            base_url=ALL_URL[BinanceInstrumentType.Derivatives_PM].get_url(BinanceUrl.MAIN),
-            **kwargs)
+            base_url=ALL_URL[BinanceInstrumentType.Derivatives_PM].get_url(
+                BinanceUrl.MAIN
+            ),
+            **kwargs,
+        )
 
     # Common endpoints
     from nexusbridge.binance.pm.common import get_papi_v1_ping
@@ -34,11 +33,15 @@ class PmTradingApi(BinanceApiClient):
     from nexusbridge.binance.pm.trade import delete_papi_v1_um_order
     from nexusbridge.binance.pm.trade import delete_papi_v1_um_all_open_orders
     from nexusbridge.binance.pm.trade import delete_papi_v1_um_conditional_order
-    from nexusbridge.binance.pm.trade import delete_papi_v1_um_conditional_all_open_orders
+    from nexusbridge.binance.pm.trade import (
+        delete_papi_v1_um_conditional_all_open_orders,
+    )
     from nexusbridge.binance.pm.trade import delete_papi_v1_cm_order
     from nexusbridge.binance.pm.trade import delete_papi_v1_cm_all_open_orders
     from nexusbridge.binance.pm.trade import delete_papi_v1_cm_conditional_order
-    from nexusbridge.binance.pm.trade import delete_papi_v1_cm_conditional_all_open_orders
+    from nexusbridge.binance.pm.trade import (
+        delete_papi_v1_cm_conditional_all_open_orders,
+    )
     from nexusbridge.binance.pm.trade import delete_papi_v1_margin_order
     from nexusbridge.binance.pm.trade import delete_papi_v1_margin_orderList
     from nexusbridge.binance.pm.trade import delete_papi_v1_margin_all_open_orders
@@ -102,8 +105,12 @@ class PmTradingApi(BinanceApiClient):
     from nexusbridge.binance.pm.account import get_papi_v1_margin_repay_loan
     from nexusbridge.binance.pm.account import get_papi_v1_repay_futures_switch
     from nexusbridge.binance.pm.account import post_papi_v1_repay_futures_switch
-    from nexusbridge.binance.pm.account import get_papi_v1_margin_margin_interest_history
-    from nexusbridge.binance.pm.account import post_papi_v1_repay_futures_negative_balance
+    from nexusbridge.binance.pm.account import (
+        get_papi_v1_margin_margin_interest_history,
+    )
+    from nexusbridge.binance.pm.account import (
+        post_papi_v1_repay_futures_negative_balance,
+    )
     from nexusbridge.binance.pm.account import get_papi_v1_portfolio_interest_history
     from nexusbridge.binance.pm.account import post_papi_v1_auto_collection
     from nexusbridge.binance.pm.account import post_papi_v1_asset_collection
@@ -126,15 +133,17 @@ class PmTradingApi(BinanceApiClient):
 
 class PmTradingWebsocket(BinanceWSClient):
     def __init__(
-            self,
-            handler: Callable[..., Any],
-            key=None,
-            secret=None,
-            binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
-            **kwargs
+        self,
+        handler: Callable[..., Any],
+        key=None,
+        secret=None,
+        binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
+        **kwargs,
     ):
         if "base_url" not in kwargs:
             self.baseUrl = ALL_URL[BinanceInstrumentType.SPOT].get_url(binance_url)
         else:
             self.baseUrl = kwargs["base_url"]
-        super().__init__(url=self.baseUrl, handler=handler, key=key, secret=secret, **kwargs)
+        super().__init__(
+            url=self.baseUrl, handler=handler, key=key, secret=secret, **kwargs
+        )

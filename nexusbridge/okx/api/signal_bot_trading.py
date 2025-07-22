@@ -4,9 +4,9 @@ import orjson
 
 
 async def post_api_v5_trading_bot_signal_create_signal(
-        self,
-        signal_chan_name: str,
-        signal_chan_desc: str | None = None,
+    self,
+    signal_chan_name: str,
+    signal_chan_desc: str | None = None,
 ):
     """
     Create a signal.
@@ -23,30 +23,25 @@ async def post_api_v5_trading_bot_signal_create_signal(
 
 
 async def get_api_v5_trading_bot_signal_signals(
-        self,
-        signal_source_type: Literal["1", "2", "3"],
-        **kwargs
+    self, signal_source_type: Literal["1", "2", "3"], **kwargs
 ):
     """
     Get signals.
     https://www.okx.com/docs-v5/en/?shell#order-book-trading-signal-bot-trading-get-signals
     """
     endpoint = "/api/v5/tradingBot/signal/signals"
-    payload = {
-        "signalSourceType": signal_source_type,
-        **kwargs
-    }
+    payload = {"signalSourceType": signal_source_type, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_trading_bot_signal_order_algo(
-        self,
-        signal_chan_id: str,
-        lever: str,
-        invest_amt: str,
-        sub_ord_type: Literal["1", "2", "9"],
-        **kwargs
+    self,
+    signal_chan_id: str,
+    lever: str,
+    invest_amt: str,
+    sub_ord_type: Literal["1", "2", "9"],
+    **kwargs,
 ):
     """
     Create signal bot
@@ -58,15 +53,15 @@ async def post_api_v5_trading_bot_signal_order_algo(
         "lever": lever,
         "investAmt": invest_amt,
         "subOrdType": sub_ord_type,
-        **kwargs
+        **kwargs,
     }
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_trading_bot_signal_stop_order_algo(
-        self,
-        algo_ids: list[str],
+    self,
+    algo_ids: list[str],
 ):
     """
     Stop signal bot
@@ -75,9 +70,11 @@ async def post_api_v5_trading_bot_signal_stop_order_algo(
     endpoint = "/api/v5/tradingBot/signal/stop-order-algo"
     payload = []
     for i, algo_id in enumerate(algo_ids):
-        payload.append({
-            "algoId": algo_id,
-        })
+        payload.append(
+            {
+                "algoId": algo_id,
+            }
+        )
     if len(payload) == 0:
         raise ValueError("algo_ids is empty")
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
@@ -85,11 +82,11 @@ async def post_api_v5_trading_bot_signal_stop_order_algo(
 
 
 async def post_api_v5_trading_bot_signal_margin_balance(
-        self,
-        algo_id: str,
-        _type: Literal["add", "reduce"],
-        amt: str,
-        allow_reinvest: bool = False,
+    self,
+    algo_id: str,
+    _type: Literal["add", "reduce"],
+    amt: str,
+    allow_reinvest: bool = False,
 ):
     """
     Get signal bot margin balance
@@ -107,9 +104,9 @@ async def post_api_v5_trading_bot_signal_margin_balance(
 
 
 async def post_api_v5_trading_bot_signal_amend_tp_sl(
-        self,
-        algo_id: str,
-        exit_setting_param: dict[str, str],
+    self,
+    algo_id: str,
+    exit_setting_param: dict[str, str],
 ):
     """
     Amend signal bot take profit and stop loss
@@ -125,10 +122,10 @@ async def post_api_v5_trading_bot_signal_amend_tp_sl(
 
 
 async def post_api_v5_trading_bot_signal_set_instruments(
-        self,
-        algo_id: str,
-        inst_ids: list[str],
-        include_all: bool = False,
+    self,
+    algo_id: str,
+    inst_ids: list[str],
+    include_all: bool = False,
 ):
     """
     Set signal bot instruments
@@ -145,9 +142,9 @@ async def post_api_v5_trading_bot_signal_set_instruments(
 
 
 async def get_api_v5_trading_bot_signal_orders_algo_details(
-        self,
-        algo_id: str,
-        algo_ord_type: str = "contract",
+    self,
+    algo_id: str,
+    algo_ord_type: str = "contract",
 ):
     """
     Get signal bot orders algo details
@@ -163,47 +160,35 @@ async def get_api_v5_trading_bot_signal_orders_algo_details(
 
 
 async def get_api_v5_trading_bot_signal_orders_algo_pending(
-        self,
-        algo_ord_type: str = "contract",
-        **kwargs
+    self, algo_ord_type: str = "contract", **kwargs
 ):
     """
     Get signal bot orders algo pending
     https://www.okx.com/docs-v5/en/?shell#order-book-trading-signal-bot-trading-get-active-signal-bot
     """
     endpoint = "/api/v5/tradingBot/signal/orders-algo-pending"
-    payload = {
-        "algoOrdType": algo_ord_type,
-        **kwargs
-    }
+    payload = {"algoOrdType": algo_ord_type, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def get_api_v5_trading_bot_signal_orders_algo_history(
-        self,
-        algo_id: str,
-        algo_ord_type: str = "contract",
-        **kwargs
+    self, algo_id: str, algo_ord_type: str = "contract", **kwargs
 ):
     """
     Get signal bot orders algo history
     https://www.okx.com/docs-v5/en/?shell#order-book-trading-signal-bot-trading-get-signal-bot-history
     """
     endpoint = "/api/v5/tradingBot/signal/orders-algo-history"
-    payload = {
-        "algoOrdType": algo_ord_type,
-        "algoId": algo_id,
-        **kwargs
-    }
+    payload = {"algoOrdType": algo_ord_type, "algoId": algo_id, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def get_api_v5_trading_bot_signal_positions(
-        self,
-        algo_id: str,
-        algo_ord_type: str = "contract",
+    self,
+    algo_id: str,
+    algo_ord_type: str = "contract",
 ):
     """
     Get signal bot positions
@@ -218,28 +203,21 @@ async def get_api_v5_trading_bot_signal_positions(
     return orjson.loads(raw)
 
 
-async def get_api_v5_trading_bot_signal_positions_history(
-        self,
-        algo_id: str,
-        **kwargs
-):
+async def get_api_v5_trading_bot_signal_positions_history(self, algo_id: str, **kwargs):
     """
     Get signal bot positions history
     https://www.okx.com/docs-v5/en/?shell#order-book-trading-signal-bot-trading-get-position-history
     """
     endpoint = "/api/v5/tradingBot/signal/positions-history"
-    payload = {
-        "algoId": algo_id,
-        **kwargs
-    }
+    payload = {"algoId": algo_id, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_trading_bot_signal_close_position(
-        self,
-        algo_id: str,
-        inst_id: str,
+    self,
+    algo_id: str,
+    inst_id: str,
 ):
     """
     Close signal bot position
@@ -255,13 +233,13 @@ async def post_api_v5_trading_bot_signal_close_position(
 
 
 async def post_api_v5_trading_bot_signal_sub_order(
-        self,
-        algo_id: str,
-        inst_id: str,
-        side: Literal["buy", "sell"],
-        ord_type: Literal["market", "limit"],
-        sz: str,
-        **kwargs
+    self,
+    algo_id: str,
+    inst_id: str,
+    side: Literal["buy", "sell"],
+    ord_type: Literal["market", "limit"],
+    sz: str,
+    **kwargs,
 ):
     """
     You can place an order only if you have sufficient funds.
@@ -274,17 +252,17 @@ async def post_api_v5_trading_bot_signal_sub_order(
         "side": side,
         "ordType": ord_type,
         "sz": sz,
-        **kwargs
+        **kwargs,
     }
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_trading_bot_signal_cancel_sub_order(
-        self,
-        algo_id: str,
-        inst_id: str,
-        signal_ord_id: str,
+    self,
+    algo_id: str,
+    inst_id: str,
+    signal_ord_id: str,
 ):
     """
     Cancel signal bot sub order
@@ -301,38 +279,24 @@ async def post_api_v5_trading_bot_signal_cancel_sub_order(
 
 
 async def get_api_v5_trading_bot_signal_sub_orders(
-        self,
-        algo_id: str,
-        algo_ord_type: str = "contract",
-        **kwargs
+    self, algo_id: str, algo_ord_type: str = "contract", **kwargs
 ):
     """
     Get signal bot sub orders
     https://www.okx.com/docs-v5/en/?shell#order-book-trading-signal-bot-trading-get-signal-bot-sub-orders
     """
     endpoint = "/api/v5/tradingBot/signal/sub-orders"
-    payload = {
-        "algoId": algo_id,
-        "algoOrdType": algo_ord_type,
-        **kwargs
-    }
+    payload = {"algoId": algo_id, "algoOrdType": algo_ord_type, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
-async def get_api_v5_trading_bot_signal_event_history(
-        self,
-        algo_id: str,
-        **kwargs
-):
+async def get_api_v5_trading_bot_signal_event_history(self, algo_id: str, **kwargs):
     """
     Get signal bot event history
     https://www.okx.com/docs-v5/en/?shell#order-book-trading-signal-bot-trading-get-signal-bot-event-history
     """
     endpoint = "/api/v5/tradingBot/signal/event-history"
-    payload = {
-        "algoId": algo_id,
-        **kwargs
-    }
+    payload = {"algoId": algo_id, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)

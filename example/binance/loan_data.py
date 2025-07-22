@@ -13,13 +13,16 @@ async def main():
             secret="GBea3WRwj9IsbXL5iOwiRvl1jcmQ00hdEcc1rlYNZid5BfVE3nHLPF5VnK32USXg",
         )
         res = await api.get_sapi_v1_simpleEarn_flexible_list(size=100)
-        df = pd.DataFrame(res['rows'])
+        df = pd.DataFrame(res["rows"])
         print(df)
-        
-        res = await api.get_sapi_v1_simpleEarn_flexible_history_rateHistory(productId="SOLV001")
+
+        res = await api.get_sapi_v1_simpleEarn_flexible_history_rateHistory(
+            productId="SOLV001"
+        )
         print(res)
     finally:
         await api.close_session()
+
 
 if __name__ == "__main__":
     asyncio.run(main())

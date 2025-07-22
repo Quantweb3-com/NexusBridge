@@ -3,9 +3,7 @@ from typing import Any, Dict, Literal
 
 
 async def get_v5_position_list(
-        self,
-        category: Literal["linear", "inverse", "option"],
-        **kwargs
+    self, category: Literal["linear", "inverse", "option"], **kwargs
 ):
     """
     Get Position Info
@@ -21,11 +19,11 @@ async def get_v5_position_list(
 
 
 async def post_v5_position_set_leverage(
-        self,
-        category: Literal["linear", "inverse"],
-        symbol: str,
-        buy_leverage: str,
-        sell_leverage: str
+    self,
+    category: Literal["linear", "inverse"],
+    symbol: str,
+    buy_leverage: str,
+    sell_leverage: str,
 ):
     """
     Set Leverage
@@ -43,12 +41,12 @@ async def post_v5_position_set_leverage(
 
 
 async def post_v5_position_switch_isolated(
-        self,
-        symbol: str,
-        category: Literal["inverse", "linear"],
-        trade_mode: Literal[0, 1],
-        buy_leverage: str,
-        sell_leverage: str
+    self,
+    symbol: str,
+    category: Literal["inverse", "linear"],
+    trade_mode: Literal[0, 1],
+    buy_leverage: str,
+    sell_leverage: str,
 ):
     """
     Switch Cross/Isolated Margin
@@ -67,10 +65,7 @@ async def post_v5_position_switch_isolated(
 
 
 async def post_v5_position_switch_mode(
-        self,
-        category: Literal["inverse", "linear"],
-        mode: Literal[0, 3],
-        **kwargs
+    self, category: Literal["inverse", "linear"], mode: Literal[0, 3], **kwargs
 ):
     """
     Switch Position Mode
@@ -87,11 +82,11 @@ async def post_v5_position_switch_mode(
 
 
 async def post_v5_position_trading_stop(
-        self,
-        category: Literal["linear", "inverse"],
-        symbol: str,
-        position_idx: Literal[0, 1, 2],
-        **kwargs
+    self,
+    category: Literal["linear", "inverse"],
+    symbol: str,
+    position_idx: Literal[0, 1, 2],
+    **kwargs,
 ):
     """
     Set Trading-Stop
@@ -109,11 +104,11 @@ async def post_v5_position_trading_stop(
 
 
 async def post_v5_position_set_auto_add_margin(
-        self,
-        symbol: str,
-        auto_add_margin: Literal[0, 1],
-        position_idx: Literal[0, 1, 2] | None = None,
-        category: str = "linear",
+    self,
+    symbol: str,
+    auto_add_margin: Literal[0, 1],
+    position_idx: Literal[0, 1, 2] | None = None,
+    category: str = "linear",
 ):
     """
     Set Auto Add Margin
@@ -132,11 +127,11 @@ async def post_v5_position_set_auto_add_margin(
 
 
 async def post_v5_position_add_margin(
-        self,
-        category: Literal["linear", "inverse"],
-        symbol: str,
-        margin: str,
-        position_idx: Literal[0, 1, 2] | None = None
+    self,
+    category: Literal["linear", "inverse"],
+    symbol: str,
+    margin: str,
+    position_idx: Literal[0, 1, 2] | None = None,
 ):
     """
     Add Or Reduce Margin
@@ -155,9 +150,7 @@ async def post_v5_position_add_margin(
 
 
 async def get_v5_position_closed_pnl(
-        self,
-        category: Literal["linear", "inverse"],
-        **kwargs
+    self, category: Literal["linear", "inverse"], **kwargs
 ):
     """
     Get Closed PnL
@@ -173,10 +166,7 @@ async def get_v5_position_closed_pnl(
 
 
 async def post_v5_position_move_positions(
-        self,
-        from_uid: str,
-        to_uid: str,
-        _list: list[dict[str, Any]]
+    self, from_uid: str, to_uid: str, _list: list[dict[str, Any]]
 ):
     """
     Move Position
@@ -192,10 +182,7 @@ async def post_v5_position_move_positions(
     return orjson.loads(raw)
 
 
-async def get_v5_position_move_history(
-        self,
-        **kwargs
-):
+async def get_v5_position_move_history(self, **kwargs):
     """
     Get Move Position History
     https://bybit-exchange.github.io/docs/v5/position/move-position-history
@@ -209,9 +196,9 @@ async def get_v5_position_move_history(
 
 
 async def post_v5_position_confirm_pending_mmr(
-        self,
-        symbol: str,
-        category: Literal["linear", "inverse"],
+    self,
+    symbol: str,
+    category: Literal["linear", "inverse"],
 ):
     """
     Confirm New Risk Limit
@@ -227,10 +214,10 @@ async def post_v5_position_confirm_pending_mmr(
 
 
 async def post_v5_position_set_tpsl_mode(
-        self,
-        symbol: str,
-        category: Literal["linear", "inverse"],
-        tp_sl_mode: Literal["Full", "Partial"],
+    self,
+    symbol: str,
+    category: Literal["linear", "inverse"],
+    tp_sl_mode: Literal["Full", "Partial"],
 ):
     """
     Set TP/SL Mode
@@ -247,11 +234,11 @@ async def post_v5_position_set_tpsl_mode(
 
 
 async def post_v5_position_set_risk_limit(
-        self,
-        symbol: str,
-        category: Literal["linear", "inverse"],
-        risk_id: int,
-        position_idx: Literal[0, 1, 2] | None = None,
+    self,
+    symbol: str,
+    category: Literal["linear", "inverse"],
+    risk_id: int,
+    position_idx: Literal[0, 1, 2] | None = None,
 ):
     """
     Set Risk Limit

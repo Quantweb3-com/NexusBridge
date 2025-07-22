@@ -7,16 +7,16 @@ import orjson
 
 
 async def post_api_v5_trading_bot_grid_order_algo(
-        self,
-        inst_id: str,
-        algo_ord_type: Literal["grid", "contract_grid"],
-        max_px: str,
-        min_px: str,
-        grid_num: str,
-        trigger_param: list[dict[str, str]] | None = None,
-        base_sz: str | None = None,
-        quote_sz: str | None = None,
-        **kwargs
+    self,
+    inst_id: str,
+    algo_ord_type: Literal["grid", "contract_grid"],
+    max_px: str,
+    min_px: str,
+    grid_num: str,
+    trigger_param: list[dict[str, str]] | None = None,
+    base_sz: str | None = None,
+    quote_sz: str | None = None,
+    **kwargs,
 ):
     """
     Create a grid strategy order
@@ -42,11 +42,11 @@ async def post_api_v5_trading_bot_grid_order_algo(
 
 
 async def post_api_v5_trading_bot_grid_amend_order_algo(
-        self,
-        inst_id: str,
-        algo_id: str,
-        trigger_param: list[dict[str, str]] | None = None,
-        **kwargs
+    self,
+    inst_id: str,
+    algo_id: str,
+    trigger_param: list[dict[str, str]] | None = None,
+    **kwargs,
 ):
     """
     Amend a grid strategy order
@@ -65,8 +65,8 @@ async def post_api_v5_trading_bot_grid_amend_order_algo(
 
 
 async def post_api_v5_trading_bot_grid_stop_order_algo(
-        self,
-        payload: list[dict[str, str]],
+    self,
+    payload: list[dict[str, str]],
 ):
     """
     A maximum of 10 orders can be stopped per request.
@@ -78,10 +78,7 @@ async def post_api_v5_trading_bot_grid_stop_order_algo(
 
 
 async def post_api_v5_trading_bot_grid_close_position(
-        self,
-        algo_id: str,
-        mkt_close: Literal[True, False],
-        **kwargs
+    self, algo_id: str, mkt_close: Literal[True, False], **kwargs
 ):
     """
     Close position when the contract grid stop type is 'keep position'.
@@ -91,7 +88,7 @@ async def post_api_v5_trading_bot_grid_close_position(
     payload = {
         "algoId": algo_id,
         "mktClose": mkt_close,
-        "tag": "f50cdd72d3b6BCDE", 
+        "tag": "f50cdd72d3b6BCDE",
         **kwargs,
     }
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
@@ -99,9 +96,7 @@ async def post_api_v5_trading_bot_grid_close_position(
 
 
 async def post_api_v5_trading_bot_grid_cancel_close_order(
-        self,
-        algo_id: str,
-        ord_id: str
+    self, algo_id: str, ord_id: str
 ):
     """
     Cancel close position order for contract grid
@@ -117,8 +112,8 @@ async def post_api_v5_trading_bot_grid_cancel_close_order(
 
 
 async def post_api_v5_trading_bot_grid_order_instant_trigger(
-        self,
-        algo_id: str,
+    self,
+    algo_id: str,
 ):
     """
     Place an instant trigger order
@@ -133,9 +128,7 @@ async def post_api_v5_trading_bot_grid_order_instant_trigger(
 
 
 async def get_api_v5_trading_bot_grid_orders_algo_pending(
-        self,
-        algo_ord_type: Literal["grid", "contract_grid"],
-        **kwargs
+    self, algo_ord_type: Literal["grid", "contract_grid"], **kwargs
 ):
     """
     Grid algo order list
@@ -151,9 +144,7 @@ async def get_api_v5_trading_bot_grid_orders_algo_pending(
 
 
 async def get_api_v5_trading_bot_grid_orders_algo_history(
-        self,
-        algo_ord_type: Literal["grid", "contract_grid"],
-        **kwargs
+    self, algo_ord_type: Literal["grid", "contract_grid"], **kwargs
 ):
     """
     Grid algo order history
@@ -169,9 +160,9 @@ async def get_api_v5_trading_bot_grid_orders_algo_history(
 
 
 async def get_api_v5_trading_bot_grid_orders_algo_details(
-        self,
-        algo_id: str,
-        algo_ord_type: Literal["grid", "contract_grid"],
+    self,
+    algo_id: str,
+    algo_ord_type: Literal["grid", "contract_grid"],
 ):
     """
     Grid algo order details
@@ -187,11 +178,11 @@ async def get_api_v5_trading_bot_grid_orders_algo_details(
 
 
 async def get_api_v5_trading_bot_grid_sub_orders(
-        self,
-        algo_id: str,
-        algo_ord_type: Literal["grid", "contract_grid"],
-        _type: Literal["live", "filled"],
-        **kwargs
+    self,
+    algo_id: str,
+    algo_ord_type: Literal["grid", "contract_grid"],
+    _type: Literal["live", "filled"],
+    **kwargs,
 ):
     """
     Grid algo sub orders
@@ -209,9 +200,9 @@ async def get_api_v5_trading_bot_grid_sub_orders(
 
 
 async def get_api_v5_trading_bot_grid_positions(
-        self,
-        algo_id: str,
-        algo_ord_type: Literal["grid", "contract_grid"],
+    self,
+    algo_id: str,
+    algo_ord_type: Literal["grid", "contract_grid"],
 ):
     """
     Grid algo order positions
@@ -227,8 +218,8 @@ async def get_api_v5_trading_bot_grid_positions(
 
 
 async def post_api_v5_trading_bot_grid_withdraw_income(
-        self,
-        algo_id: str,
+    self,
+    algo_id: str,
 ):
     """
     Spot grid withdraw income
@@ -243,10 +234,10 @@ async def post_api_v5_trading_bot_grid_withdraw_income(
 
 
 async def post_api_v5_trading_bot_grid_compute_margin_balance(
-        self,
-        algo_id: str,
-        _type: Literal["add", "reduce"],
-        amt: str | None = None,
+    self,
+    algo_id: str,
+    _type: Literal["add", "reduce"],
+    amt: str | None = None,
 ):
     """
     Compute margin balance
@@ -265,11 +256,11 @@ async def post_api_v5_trading_bot_grid_compute_margin_balance(
 
 
 async def post_api_v5_trading_bot_grid_margin_balance(
-        self,
-        algo_id: str,
-        _type: Literal["add", "reduce"],
-        amt: str | None = None,
-        percent: str | None = None,
+    self,
+    algo_id: str,
+    _type: Literal["add", "reduce"],
+    amt: str | None = None,
+    percent: str | None = None,
 ):
     """
     Adjust margin balance
@@ -291,9 +282,9 @@ async def post_api_v5_trading_bot_grid_margin_balance(
 
 
 async def post_api_v5_trading_bot_grid_adjust_investment(
-        self,
-        algo_id: str,
-        amt: str,
+    self,
+    algo_id: str,
+    amt: str,
 ):
     """
     It is used to add investment and only applicable to contract gird.
@@ -310,10 +301,7 @@ async def post_api_v5_trading_bot_grid_adjust_investment(
 
 
 async def get_api_v5_trading_bot_grid_ai_param(
-        self,
-        algo_ord_type: Literal["grid", "contract_grid"],
-        inst_id: str,
-        **kwargs
+    self, algo_ord_type: Literal["grid", "contract_grid"], inst_id: str, **kwargs
 ):
     """
     Get grid AI parameters
@@ -330,15 +318,15 @@ async def get_api_v5_trading_bot_grid_ai_param(
 
 
 async def post_api_v5_trading_bot_grid_min_investment(
-        self,
-        inst_id: str,
-        algo_ord_type: Literal["grid", "contract_grid"],
-        max_px: str,
-        min_px: str,
-        grid_num: str,
-        run_type: Literal["1", "2"],
-        investment_data: list[dict[str, str]] | None = None,
-        **kwargs
+    self,
+    inst_id: str,
+    algo_ord_type: Literal["grid", "contract_grid"],
+    max_px: str,
+    min_px: str,
+    grid_num: str,
+    run_type: Literal["1", "2"],
+    investment_data: list[dict[str, str]] | None = None,
+    **kwargs,
 ):
     """
     Compute the minimum investment
@@ -361,12 +349,8 @@ async def post_api_v5_trading_bot_grid_min_investment(
 
 
 async def get_api_v5_trading_bot_rsi_back_testing(
-        self,
-        inst_id: str,
-        timeframe: str,
-        thold: str,
-        time_period: str,
-        **kwargs):
+    self, inst_id: str, timeframe: str, thold: str, time_period: str, **kwargs
+):
     """
     RSI back testing (public)
     https://www.okx.com/docs-v5/en/?shell#order-book-trading-grid-trading-get-rsi-back-testing-public
@@ -384,13 +368,13 @@ async def get_api_v5_trading_bot_rsi_back_testing(
 
 
 async def get_api_v5_trading_bot_grid_quantity(
-        self,
-        inst_id: str,
-        run_type: Literal["1", "2"],
-        algo_ord_type: Literal["grid", "contract_grid"],
-        max_px: str,
-        min_px: str,
-        lever: str | None = None,
+    self,
+    inst_id: str,
+    run_type: Literal["1", "2"],
+    algo_ord_type: Literal["grid", "contract_grid"],
+    max_px: str,
+    min_px: str,
+    lever: str | None = None,
 ):
     """
     Get grid quantity

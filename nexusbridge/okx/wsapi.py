@@ -15,13 +15,13 @@ from nexusbridge.okx.constants import OkxAccountType, ChannelKind
 
 class OkxWSClient(WSClient):
     def __init__(
-            self,
-            account_type: OkxAccountType,
-            handler: Callable[..., Any],
-            api_key: str = None,
-            secret: str = None,
-            passphrase: str = None,
-            channel_kind: ChannelKind = ChannelKind.PUBLIC,
+        self,
+        account_type: OkxAccountType,
+        handler: Callable[..., Any],
+        api_key: str = None,
+        secret: str = None,
+        passphrase: str = None,
+        channel_kind: ChannelKind = ChannelKind.PUBLIC,
     ):
         self._api_key = api_key
         self._secret = secret
@@ -83,7 +83,9 @@ class OkxWSClient(WSClient):
         }
         await self._send(payload)
 
-    async def _subscribe(self, params: Dict[str, Any], subscription_id: str, auth: bool = False):
+    async def _subscribe(
+        self, params: Dict[str, Any], subscription_id: str, auth: bool = False
+    ):
         if subscription_id not in self._subscriptions:
             await self._connect()
 
@@ -100,7 +102,9 @@ class OkxWSClient(WSClient):
         else:
             print(f"Already subscribed to {subscription_id}")
 
-    async def _unsubscribe(self, params: Dict[str, Any], subscription_id: str, auth: bool = False):
+    async def _unsubscribe(
+        self, params: Dict[str, Any], subscription_id: str, auth: bool = False
+    ):
         if subscription_id in self._subscriptions:
             await self.connect()
 
@@ -126,7 +130,9 @@ class OkxWSClient(WSClient):
 
     def check_channel_allowed(self, channel: ChannelKind):
         if not self._channel_kind == channel:
-            raise ValueError(f"The method need {channel},but the client is set to {self._channel_kind}")
+            raise ValueError(
+                f"The method need {channel},but the client is set to {self._channel_kind}"
+            )
 
     """
     Private Channels
@@ -134,10 +140,10 @@ class OkxWSClient(WSClient):
     """
 
     async def private_account_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            channel: str = "account",
-            **kwargs
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        channel: str = "account",
+        **kwargs,
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         params = {
@@ -150,11 +156,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, "account", auth=True)
 
     async def private_positions_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
-            channel: str = "positions",
-            **kwargs
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
+        channel: str = "positions",
+        **kwargs,
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         params = {
@@ -168,9 +174,9 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def private_balance_and_position_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            channel: str = "balance_and_position",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        channel: str = "balance_and_position",
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         params = {
@@ -182,11 +188,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def private_position_risk_warning(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
-            channel: str = "liquidation-warning",
-            **kwargs
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
+        channel: str = "liquidation-warning",
+        **kwargs,
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         params = {
@@ -200,10 +206,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def private_account_greeks_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            channel: str = "account-greeks",
-            ccy: str | None = None,
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        channel: str = "account-greeks",
+        ccy: str | None = None,
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         params = {
@@ -217,11 +223,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def private_order_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["SPOT", "MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
-            channel: str = "orders",
-            **kwargs
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["SPOT", "MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
+        channel: str = "orders",
+        **kwargs,
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         params = {
@@ -235,10 +241,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, True)
 
     async def private_fills_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            channel: str = "fills",
-            inst_id: str | None = None
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        channel: str = "fills",
+        inst_id: str | None = None,
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         params = {
@@ -252,14 +258,22 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, True)
 
     async def private_place_order(
-            self,
-            inst_id: str,
-            td_mode: Literal["isolated", "cross", "cash", "spot_isolated"],
-            side: Literal["buy", "sell"],
-            ord_type: Literal[
-                "market", "limit", "post_only", "fok", "ioc", "optimal_limit_ioc", "mmp", "mmp_and_post_only"],
-            sz: str,
-            **kwargs
+        self,
+        inst_id: str,
+        td_mode: Literal["isolated", "cross", "cash", "spot_isolated"],
+        side: Literal["buy", "sell"],
+        ord_type: Literal[
+            "market",
+            "limit",
+            "post_only",
+            "fok",
+            "ioc",
+            "optimal_limit_ioc",
+            "mmp",
+            "mmp_and_post_only",
+        ],
+        sz: str,
+        **kwargs,
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         params = {
@@ -273,14 +287,14 @@ class OkxWSClient(WSClient):
         await self._submit("order", params)
 
     async def private_place_multiple_orders(
-            self,
-            args: list[Dict[str, Any]],
-            op: str = "batch-orders"
+        self, args: list[Dict[str, Any]], op: str = "batch-orders"
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         await self._submit(op, args)
 
-    async def private_cancel_order(self, inst_id: str, ord_id: str | None = None, cl_ord_id: str | None = None):
+    async def private_cancel_order(
+        self, inst_id: str, ord_id: str | None = None, cl_ord_id: str | None = None
+    ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         params = {
             "instId": inst_id,
@@ -292,18 +306,15 @@ class OkxWSClient(WSClient):
         await self._submit("cancel-order", params)
 
     async def private_cancel_multiple_orders(
-            self,
-            args: list[Dict[str, Any]],
-            op: str = "batch-cancel-orders",
+        self,
+        args: list[Dict[str, Any]],
+        op: str = "batch-cancel-orders",
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         await self._submit(op, args)
 
     async def private_amend_order(
-            self,
-            inst_id: str,
-            op: str = "amend-order",
-            **kwargs
+        self, inst_id: str, op: str = "amend-order", **kwargs
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         params = {
@@ -313,17 +324,17 @@ class OkxWSClient(WSClient):
         await self._submit(op, params)
 
     async def private_amend_multiple_orders(
-            self,
-            args: list[Dict[str, Any]],
+        self,
+        args: list[Dict[str, Any]],
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         await self._submit("batch-amend-orders", args)
 
     async def private_mass_cancel_order(
-            self,
-            inst_family: str,
-            inst_type: str = "OPTION",
-            lock_interval: str | None = None,
+        self,
+        inst_family: str,
+        inst_type: str = "OPTION",
+        lock_interval: str | None = None,
     ):
         self.check_channel_allowed(ChannelKind.PRIVATE)
         params = {
@@ -340,11 +351,11 @@ class OkxWSClient(WSClient):
     """
 
     async def business_algo_orders_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
-            channel: str = "orders-algo",
-            **kwargs
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
+        channel: str = "orders-algo",
+        **kwargs,
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -358,11 +369,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_advance_algo_orders_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
-            channel: str = "algo-advance",
-            **kwargs
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
+        channel: str = "algo-advance",
+        **kwargs,
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -376,11 +387,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_spot_grid_algo_orders_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["SPOT", "ANY"],
-            channel: str = "grid-orders-spot",
-            **kwargs
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["SPOT", "ANY"],
+        channel: str = "grid-orders-spot",
+        **kwargs,
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -394,11 +405,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_contract_grid_algo_orders_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["FUTURES", "SWAP", "ANY"],
-            channel: str = "grid-orders-contract",
-            **kwargs
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["FUTURES", "SWAP", "ANY"],
+        channel: str = "grid-orders-contract",
+        **kwargs,
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -412,10 +423,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_grid_positions_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            algo_id: str,
-            channel: str = "grid-positions",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        algo_id: str,
+        channel: str = "grid-positions",
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -428,10 +439,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_grid_sub_orders_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            algo_id: str,
-            channel: str = "grid-sub-orders",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        algo_id: str,
+        channel: str = "grid-sub-orders",
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -444,11 +455,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_recurring_buy_orders_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["SPOT", "ANY"],
-            channel: str = "algo-recurring-buy",
-            algo_id: str | None = None,
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["SPOT", "ANY"],
+        channel: str = "algo-recurring-buy",
+        algo_id: str | None = None,
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -463,11 +474,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_copy_trading_notification_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            channel: str = "copytrading-notification",
-            inst_type: str = "SWAP",
-            inst_id: str | None = None,
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        channel: str = "copytrading-notification",
+        inst_type: str = "SWAP",
+        inst_id: str | None = None,
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -482,11 +493,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_lead_trading_notification_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            channel: str = "copytrading-lead-notification",
-            inst_type: str = "SWAP",
-            inst_id: str | None = None,
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        channel: str = "copytrading-lead-notification",
+        inst_type: str = "SWAP",
+        inst_id: str | None = None,
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -501,10 +512,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_candlesticks_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str,
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str,
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -517,10 +528,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_all_trades_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str = "trades-all",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str = "trades-all",
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -533,10 +544,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_mark_price_candlesticks_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str,
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str,
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -549,10 +560,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_index_candlesticks_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str,
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str,
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -565,9 +576,9 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel, auth=True)
 
     async def business_economic_calendar_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            channel: str = "economic-calendar",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        channel: str = "economic-calendar",
     ):
         self.check_channel_allowed(ChannelKind.BUSINESS)
         params = {
@@ -584,10 +595,10 @@ class OkxWSClient(WSClient):
     """
 
     async def public_tickers_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str = "tickers",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str = "tickers",
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -600,10 +611,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_trades_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str = "trades",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str = "trades",
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -616,10 +627,12 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_order_book_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: Literal["books", "books5", "bbo-tbt", "books50-l2-tbt", "books-l2-tbt"]
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: Literal[
+            "books", "books5", "bbo-tbt", "books50-l2-tbt", "books-l2-tbt"
+        ],
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -632,11 +645,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_option_trades_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            channel: str = "option-trades",
-            inst_type: str = "OPTION",
-            **kwargs
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        channel: str = "option-trades",
+        inst_type: str = "OPTION",
+        **kwargs,
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -650,10 +663,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_call_auction_details_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str = "call-auction-details",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str = "call-auction-details",
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -666,10 +679,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_instruments_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["SPOT", "MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
-            channel: str = "instruments",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["SPOT", "MARGIN", "SWAP", "FUTURES", "OPTION", "ANY"],
+        channel: str = "instruments",
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -682,10 +695,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_open_interest_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str = "open-interest",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str = "open-interest",
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -698,10 +711,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_funding_rate_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str = "funding-rate",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str = "funding-rate",
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -714,10 +727,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_price_limit_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str = "price-limit",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str = "price-limit",
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -730,10 +743,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_option_summary_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_family: str,
-            channel: str = "opt-summary",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_family: str,
+        channel: str = "opt-summary",
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -746,11 +759,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_estimated_delivery_price_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["OPTION", "FUTURES", "SWAP"],
-            channel: str = "estimated-price",
-            **kwargs
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["OPTION", "FUTURES", "SWAP"],
+        channel: str = "estimated-price",
+        **kwargs,
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -764,10 +777,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_mark_price_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str = "mark-price",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str = "mark-price",
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -780,10 +793,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_index_tickers_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_id: str,
-            channel: str = "index-tickers",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_id: str,
+        channel: str = "index-tickers",
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -796,10 +809,10 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_liquidation_orders_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION"],
-            channel: str = "liquidation-orders",
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION"],
+        channel: str = "liquidation-orders",
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {
@@ -812,11 +825,11 @@ class OkxWSClient(WSClient):
             await self._unsubscribe(params, channel)
 
     async def public_adl_warning_channel(
-            self,
-            op: Literal["subscribe", "unsubscribe"],
-            inst_type: Literal["SWAP", "FUTURES", "OPTION"],
-            channel: str = "adl-warning",
-            inst_family: str | None = None,
+        self,
+        op: Literal["subscribe", "unsubscribe"],
+        inst_type: Literal["SWAP", "FUTURES", "OPTION"],
+        channel: str = "adl-warning",
+        inst_family: str | None = None,
     ):
         self.check_channel_allowed(ChannelKind.PUBLIC)
         params = {

@@ -10,12 +10,12 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
         self.api_key = "Z6EAzmd1YBLqQAgB7z"
         self.api_secret = "R2EshsY4AJ0eQUy8HotalYzi3dyCcYmN9yLW"
         self.client = BybitApiClient(self.api_key, self.api_secret)
-    
+
     async def asyncTearDown(self):
         """测试结束，asyncTearDown 用于异步的结束"""
         await self.client.close_session()
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_position_list(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_position_list(
@@ -26,7 +26,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_position_set_leverage(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_position_set_leverage(
@@ -39,7 +39,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_position_switch_isolated(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_position_switch_isolated(
@@ -53,7 +53,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_position_switch_mode(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_position_switch_mode(
@@ -65,7 +65,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_position_trading_stop(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_position_trading_stop(
@@ -88,7 +88,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_position_set_auto_add_margin(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_position_set_auto_add_margin(
@@ -100,19 +100,17 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_position_add_margin(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_position_add_margin(
-            category="linear",
-            symbol="BTCUSDT",
-            margin="10"
+            category="linear", symbol="BTCUSDT", margin="10"
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_position_closed_pnl(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_position_closed_pnl(
@@ -123,7 +121,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_position_move_positions(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_position_move_positions(
@@ -135,26 +133,25 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
                     "symbol": "BTCUSDT",
                     "price": "100",
                     "side": "Sell",
-                    "qty": "0.01"
+                    "qty": "0.01",
                 }
-            ]
+            ],
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_v5_position_move_history(self, mock_get):
         # 执行异步 API 请求
         result = await self.client.get_v5_position_move_history(
-            limit="1",
-            status="Filled"
+            limit="1", status="Filled"
         )
         # 断言返回值
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_position_confirm_pending_mmr(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_position_confirm_pending_mmr(
@@ -165,7 +162,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_position_set_tpsl_mode(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_position_set_tpsl_mode(
@@ -177,7 +174,7 @@ class TestPositionApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_v5_position_set_risk_limit(self, mock_post):
         # 执行异步 API 请求
         result = await self.client.post_v5_position_set_risk_limit(

@@ -8,14 +8,37 @@ import orjson
 Log.setup_logger(log_path="logs", log_level="INFO")
 
 
-async def get_symbol_klines(api: UmTradingApi, symbol: str, interval: Interval, startTime: int):
-    res = await api.get_fapi_v1_klines(symbol=symbol, interval=interval, startTime=startTime)
-    df = pd.DataFrame(res, columns=["timestamp", "open", "high", "low", "close", "volume", "close_time", "quote_volume", "count", "taker_buy_volume", "taker_buy_quote_volume", "ignore"])
-    df['datetime'] = pd.to_datetime(df['timestamp'], unit='ms')
-    df['symbol'] = symbol
+async def get_symbol_klines(
+    api: UmTradingApi, symbol: str, interval: Interval, startTime: int
+):
+    res = await api.get_fapi_v1_klines(
+        symbol=symbol, interval=interval, startTime=startTime
+    )
+    df = pd.DataFrame(
+        res,
+        columns=[
+            "timestamp",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "close_time",
+            "quote_volume",
+            "count",
+            "taker_buy_volume",
+            "taker_buy_quote_volume",
+            "ignore",
+        ],
+    )
+    df["datetime"] = pd.to_datetime(df["timestamp"], unit="ms")
+    df["symbol"] = symbol
     return df
 
-async def get_symbols_klines(api: UmTradingApi, symbols: list[str], interval: Interval, startTime: int):
+
+async def get_symbols_klines(
+    api: UmTradingApi, symbols: list[str], interval: Interval, startTime: int
+):
     tasks = [get_symbol_klines(api, symbol, interval, startTime) for symbol in symbols]
     res = await asyncio.gather(*tasks)
     return pd.concat(res)
@@ -34,12 +57,16 @@ async def main():
     try:
         api = UmTradingApi()
         ws = UmTradingWebsocket(handler=handler)
-        
+
         info = await api.get_fapi_v1_exchangeInfo()
-        symbols = [symbol['symbol'] for symbol in info['symbols'] if symbol['quoteAsset'] == 'USDT']
-        
+        symbols = [
+            symbol["symbol"]
+            for symbol in info["symbols"]
+            if symbol["quoteAsset"] == "USDT"
+        ]
+
         for symbol in symbols[:10]:
-            await ws.kline(symbol, interval='1h')
+            await ws.kline(symbol, interval="1h")
         await ws.connect()
     finally:
         await api.close_session()

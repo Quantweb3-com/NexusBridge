@@ -9,14 +9,15 @@ class BybitUrl(Enum):
     HONGKONG = "HONGKONG"
     TURKEY = "TURKEY"
     HAZAKHSTAN = "HAZAKHSTAN"
-    
+
     @property
     def base_url(self):
         return BASE_URLS[self]
-    
+
     @property
     def is_testnet(self):
         return self == BybitUrl.TESTNET
+
 
 BASE_URLS = {
     BybitUrl.MAINNET_1: "https://api.bybit.com",
@@ -40,11 +41,11 @@ class BybitAccountType(Enum):
     OPTION_TESTNET = "OPTION_TESTNET"
     UNIFIED = "UNIFIED"
     UNIFIED_TESTNET = "UNIFIED_TESTNET"
-    
+
     @property
     def exchange_id(self):
         return "bybit"
-    
+
     @property
     def is_testnet(self):
         return self in {

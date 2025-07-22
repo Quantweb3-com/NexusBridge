@@ -4,7 +4,7 @@ from nexusbridge.binance.constants import Interval, ContractType
 
 
 async def get_fapi_v1_ping(
-        self,
+    self,
 ):
     """
     Test connectivity
@@ -26,7 +26,7 @@ async def get_fapi_v1_time(self):
 
 
 async def get_fapi_v1_exchange_info(
-        self,
+    self,
 ):
     """
     Current exchange trading rules and symbol information
@@ -38,9 +38,9 @@ async def get_fapi_v1_exchange_info(
 
 
 async def get_fapi_v1_depth(
-        self,
-        symbol: str,
-        limit: int = 500,
+    self,
+    symbol: str,
+    limit: int = 500,
 ):
     """
     Query symbol orderbook
@@ -53,9 +53,9 @@ async def get_fapi_v1_depth(
 
 
 async def get_fapi_v1_trades(
-        self,
-        symbol: str,
-        limit: int = 500,
+    self,
+    symbol: str,
+    limit: int = 500,
 ):
     """
     Get recent market trades
@@ -67,68 +67,41 @@ async def get_fapi_v1_trades(
     return raw
 
 
-async def get_fapi_v1_historical_trades(
-        self,
-        symbol: str,
-        **kwargs
-):
+async def get_fapi_v1_historical_trades(self, symbol: str, **kwargs):
     """
     Get older market historical trades.
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Old-Trades-Lookup
     """
     endpoint = "/fapi/v1/historicalTrades"
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
-async def get_fapi_v1_agg_trades(
-        self,
-        symbol: str,
-        **kwargs
-):
+async def get_fapi_v1_agg_trades(self, symbol: str, **kwargs):
     """
     Get compressed, aggregate market trades. Market trades that fill in 100ms with the same price and the same taking side will have the quantity aggregated.
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Compressed-Aggregate-Trades-List
     """
     endpoint = "/fapi/v1/aggTrades"
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
-async def get_fapi_v1_klines(
-        self,
-        symbol: str,
-        interval: Interval,
-        **kwargs
-):
+async def get_fapi_v1_klines(self, symbol: str, interval: Interval, **kwargs):
     """
     Kline/candlestick bars for a symbol. Klines are uniquely identified by their open time.
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Kline-Candlestick-Data
     """
     endpoint = "/fapi/v1/klines"
-    payload = {
-        "symbol": symbol,
-        "interval": interval.value,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "interval": interval.value, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
 async def get_fapi_v1_continuous_klines(
-        self,
-        pair: str,
-        contract_type: ContractType,
-        interval: Interval,
-        **kwargs
+    self, pair: str, contract_type: ContractType, interval: Interval, **kwargs
 ):
     """
     Kline/candlestick bars for a specific contract type of a pair. Klines are uniquely identified by their open time.
@@ -139,75 +112,52 @@ async def get_fapi_v1_continuous_klines(
         "pair": pair,
         "contractType": contract_type.value,
         "interval": interval.value,
-        **kwargs
+        **kwargs,
     }
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
-async def get_fapi_v1_index_price_klines(
-        self,
-        pair: str,
-        interval: Interval,
-        **kwargs
-):
+async def get_fapi_v1_index_price_klines(self, pair: str, interval: Interval, **kwargs):
     """
     Kline/candlestick bars for the index price of a pair. Klines are uniquely identified by their open time.
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Index-Price-Kline-Candlestick-Data
     """
     endpoint = "/fapi/v1/indexPriceKlines"
-    payload = {
-        "pair": pair,
-        "interval": interval.value,
-        **kwargs
-    }
+    payload = {"pair": pair, "interval": interval.value, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
 async def get_fapi_v1_mark_price_klines(
-        self,
-        symbol: str,
-        interval: Interval,
-        **kwargs
+    self, symbol: str, interval: Interval, **kwargs
 ):
     """
     Kline/candlestick bars for the mark price of a symbol. Klines are uniquely identified by their open time.
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Mark-Price-Kline-Candlestick-Data
     """
     endpoint = "/fapi/v1/markPriceKlines"
-    payload = {
-        "symbol": symbol,
-        "interval": interval.value,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "interval": interval.value, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
 async def get_fapi_v1_premium_index_klines(
-        self,
-        symbol: str,
-        interval: Interval,
-        **kwargs
+    self, symbol: str, interval: Interval, **kwargs
 ):
     """
     Premium index kline bars of a symbol. Klines are uniquely identified by their open time.
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Premium-Index-Kline-Data
     """
     endpoint = "/fapi/v1/premiumIndexKlines"
-    payload = {
-        "symbol": symbol,
-        "interval": interval.value,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "interval": interval.value, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
 async def get_fapi_v1_premium_index(
-        self,
-        symbol: str,
+    self,
+    symbol: str,
 ):
     """
     Mark Price and Funding Rate
@@ -221,18 +171,13 @@ async def get_fapi_v1_premium_index(
     return raw
 
 
-async def get_fapi_v1_funding_rate(
-        self,
-        **kwargs
-):
+async def get_fapi_v1_funding_rate(self, **kwargs):
     """
     Get Funding Rate History
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Get-Funding-Rate-History
     """
     endpoint = "/fapi/v1/fundingRate"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
@@ -306,9 +251,7 @@ async def get_fapi_v1_delivery_price(self, pair: str):
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Delivery-Price
     """
     endpoint = "/fapi/v1/deliveryPrice"
-    payload = {
-        "pair": pair
-    }
+    payload = {"pair": pair}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
@@ -319,136 +262,103 @@ async def get_fapi_v1_open_interest(self, symbol: str):
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Open-Interest
     """
     endpoint = "/fapi/v1/openInterest"
-    payload = {
-        "symbol": symbol
-    }
+    payload = {"symbol": symbol}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
 async def get_fapi_v1_open_interest_hist(
-        self,
-        symbol: str,
-        period: Literal["5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"],
-        **kwargs):
+    self,
+    symbol: str,
+    period: Literal["5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"],
+    **kwargs,
+):
     """
     Open Interest Statistics
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Open-Interest-Statistics
     """
     endpoint = "/fapi/v1/openInterestHist"
-    payload = {
-        "symbol": symbol,
-        "period": period,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "period": period, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
 async def get_futures_data_top_long_short_position_ratio(
-        self,
-        symbol: str,
-        period: Literal["5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"],
-        **kwargs
+    self,
+    symbol: str,
+    period: Literal["5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"],
+    **kwargs,
 ):
     """
     The proportion of net long and net short positions to total open positions of the top 20% users with the highest margin balance. Long Position % = Long positions of top traders / Total open positions of top traders Short Position % = Short positions of top traders / Total open positions of top traders Long/Short Ratio (Positions) = Long Position % / Short Position %
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Top-Trader-Long-Short-Ratio
     """
     endpoint = "/futures/data/topLongShortPositionRatio"
-    payload = {
-        "symbol": symbol,
-        "period": period,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "period": period, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
 async def get_futures_data_top_long_short_account_ratio(
-        self,
-        symbol: str,
-        period: Literal["5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"],
-        **kwargs
+    self,
+    symbol: str,
+    period: Literal["5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"],
+    **kwargs,
 ):
     """
     The proportion of net long and net short accounts to total accounts of the top 20% users with the highest margin balance. Each account is counted once only. Long Account % = Accounts of top traders with net long positions / Total accounts of top traders with open positions Short Account % = Accounts of top traders with net short positions / Total accounts of top traders with open positions Long/Short Ratio (Accounts) = Long Account % / Short Account %
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Top-Long-Short-Account-Ratio
     """
     endpoint = "/futures/data/topLongShortAccountRatio"
-    payload = {
-        "symbol": symbol,
-        "period": period,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "period": period, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
 async def get_futures_data_global_long_short_account_ratio(
-        self,
-        symbol: str,
-        period: Literal["5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"],
-        **kwargs
+    self,
+    symbol: str,
+    period: Literal["5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"],
+    **kwargs,
 ):
     """
     Query symbol Long/Short Ratio
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Long-Short-Ratio
     """
     endpoint = "/futures/data/globalLongShortAccountRatio"
-    payload = {
-        "symbol": symbol,
-        "period": period,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "period": period, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
 async def get_futures_data_taker_long_short_ratio(
-        self,
-        symbol: str,
-        period: Literal["5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"],
-        **kwargs
+    self,
+    symbol: str,
+    period: Literal["5m", "15m", "30m", "1h", "2h", "4h", "6h", "12h", "1d"],
+    **kwargs,
 ):
     """
     Taker Buy/Sell Volume
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Taker-BuySell-Volume
     """
     endpoint = "/futures/data/takerlongshortRatio"
-    payload = {
-        "symbol": symbol,
-        "period": period,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "period": period, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
-async def get_fapi_v1_lvt_klines(
-        self,
-        symbol: str,
-        interval: Interval,
-        **kwargs
-):
+async def get_fapi_v1_lvt_klines(self, symbol: str, interval: Interval, **kwargs):
     """
     Kline/candlestick bars for a symbol. Klines are uniquely identified by their open time.
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Kline-Candlestick-Data
     """
     endpoint = "/fapi/v1/lvtKlines"
-    payload = {
-        "symbol": symbol,
-        "interval": interval.value,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "interval": interval.value, **kwargs}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw
 
 
-async def get_fapi_v1_index_info(
-        self,
-        symbol: str | None = None
-):
+async def get_fapi_v1_index_info(self, symbol: str | None = None):
     """
     Query composite index symbol information
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Composite-Index-Symbol-Information
@@ -461,10 +371,7 @@ async def get_fapi_v1_index_info(
     return raw
 
 
-async def get_fapi_v1_asset_index(
-        self,
-        symbol: str | None = None
-):
+async def get_fapi_v1_asset_index(self, symbol: str | None = None):
     """
     asset index for Multi-Assets mode
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Multi-Assets-Mode-Asset-Index
@@ -483,8 +390,6 @@ async def get_fapi_v1_constituents(self, symbol: str):
     https://developers.binance.com/docs/derivatives/usds-margined-futures/market-data/rest-api/Index-Constituents
     """
     endpoint = "/fapi/v1/constituents"
-    payload = {
-        "symbol": symbol
-    }
+    payload = {"symbol": symbol}
     raw = await self._fetch("GET", endpoint, signed=False, payload=payload)
     return raw

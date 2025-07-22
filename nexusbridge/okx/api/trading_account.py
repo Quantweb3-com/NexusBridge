@@ -3,20 +3,13 @@ from typing import Literal
 import orjson
 
 
-async def get_api_v5_account_instruments(
-        self,
-        inst_type: str,
-        **kwargs
-):
+async def get_api_v5_account_instruments(self, inst_type: str, **kwargs):
     """
     Retrieve available instruments info of current account.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-instruments
     """
     endpoint = "/api/v5/account/instruments"
-    payload = {
-        "instType": inst_type,
-        **kwargs
-    }
+    payload = {"instType": inst_type, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
@@ -40,9 +33,7 @@ async def get_api_v5_account_positions(self, **kwargs):
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-positions
     """
     endpoint = "/api/v5/account/positions"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
 
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
@@ -54,17 +45,14 @@ async def get_api_v5_account_positions_history(self, **kwargs):
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-positions-history
     """
     endpoint = "/api/v5/account/positions-history"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
 
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def get_api_v5_account_position_risk(
-        self,
-        inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION"] | None = None
+    self, inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION"] | None = None
 ):
     """
     Retrieve the risk limit of the account.
@@ -79,73 +67,57 @@ async def get_api_v5_account_position_risk(
     return orjson.loads(raw)
 
 
-async def get_api_v5_account_bills(
-        self,
-        **kwargs
-):
+async def get_api_v5_account_bills(self, **kwargs):
     """
     Retrieve the bills of the account. The bill refers to all transaction records that result in changing the balance of an account. Pagination is supported, and the response is sorted with the most recent first. This endpoint can retrieve data from the last 7 days.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-bills-details-last-7-days
     """
     endpoint = "/api/v5/account/bills"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
 
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
-async def get_api_v5_account_bills_archive(
-        self,
-        **kwargs
-):
+async def get_api_v5_account_bills_archive(self, **kwargs):
     """
     Retrieve the account’s bills. The bill refers to all transaction records that result in changing the balance of an account. Pagination is supported, and the response is sorted with most recent first. This endpoint can retrieve data from the last 3 months.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-bills-details-last-3-months
     """
     endpoint = "/api/v5/account/bills-archive"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
 
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_bills_history_archive(
-        self,
-        year: str,
-        quarter: Literal["Q1", "Q2", "Q3", "Q4"],
+    self,
+    year: str,
+    quarter: Literal["Q1", "Q2", "Q3", "Q4"],
 ):
     """
     Apply for bill data since 1 February, 2021 except for the current quarter.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-apply-bills-details-since-2021
     """
     endpoint = "/api/v5/account/bills-history-archive"
-    payload = {
-        "year": year,
-        "quarter": quarter
-    }
+    payload = {"year": year, "quarter": quarter}
 
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def get_api_v5_account_bills_history_archive(
-        self,
-        year: str,
-        quarter: Literal["Q1", "Q2", "Q3", "Q4"],
+    self,
+    year: str,
+    quarter: Literal["Q1", "Q2", "Q3", "Q4"],
 ):
     """
     Apply for bill data since 1 February, 2021 except for the current quarter.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-bills-details-since-2021
     """
     endpoint = "/api/v5/account/bills-history-archive"
-    payload = {
-        "year": year,
-        "quarter": quarter
-    }
+    payload = {"year": year, "quarter": quarter}
 
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
@@ -162,8 +134,7 @@ async def get_api_v5_account_config(self):
 
 
 async def post_api_v5_account_set_position_mode(
-        self,
-        pos_mode: Literal["long_short_mode", "net_mode"]
+    self, pos_mode: Literal["long_short_mode", "net_mode"]
 ):
     """
     Spot and futures mode and Multi-currency mode: FUTURES and SWAP support both long/short mode and net mode. In net mode, users can only have positions in one direction; In long/short mode, users can hold positions in long and short directions.
@@ -171,20 +142,14 @@ async def post_api_v5_account_set_position_mode(
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-set-position-mode
     """
     endpoint = "/api/v5/account/set-position-mode"
-    payload = {
-        "posMode": pos_mode
-    }
+    payload = {"posMode": pos_mode}
 
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_set_leverage(
-        self,
-        mgn_mode: Literal["isolated", "cross"],
-        lever: str,
-        ccy: str,
-        **kwargs
+    self, mgn_mode: Literal["isolated", "cross"], lever: str, ccy: str, **kwargs
 ):
     """
     There are 10 different scenarios for leverage setting:
@@ -204,66 +169,53 @@ async def post_api_v5_account_set_leverage(
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-set-leverage
     """
     endpoint = "/api/v5/account/set-leverage"
-    payload = {
-        "lever": lever,
-        "mgnMode": mgn_mode,
-        "ccy": ccy,
-        **kwargs
-    }
+    payload = {"lever": lever, "mgnMode": mgn_mode, "ccy": ccy, **kwargs}
 
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def get_api_v5_account_max_size(
-        self,
-        inst_id: str,
-        td_mode: Literal["cross", "isolated", "cash", "spot_isolated"],
-        **kwargs
+    self,
+    inst_id: str,
+    td_mode: Literal["cross", "isolated", "cash", "spot_isolated"],
+    **kwargs,
 ):
     """
     The maximum quantity to buy or sell. It corresponds to the "sz" from placement.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-maximum-order-quantity
     """
     endpoint = "/api/v5/account/max-size"
-    payload = {
-        "instId": inst_id,
-        "tdMode": td_mode,
-        **kwargs
-    }
+    payload = {"instId": inst_id, "tdMode": td_mode, **kwargs}
 
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def get_api_v5_account_max_avail_size(
-        self,
-        inst_id: str,
-        td_mode: Literal["cross", "isolated", "cash", "spot_isolated"],
-        **kwargs
+    self,
+    inst_id: str,
+    td_mode: Literal["cross", "isolated", "cash", "spot_isolated"],
+    **kwargs,
 ):
     """
     Available balance for isolated margin positions and SPOT, available equity for cross margin positions.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-maximum-available-balance-equity
     """
     endpoint = "/api/v5/account/max-avail-size"
-    payload = {
-        "instId": inst_id,
-        "tdMode": td_mode,
-        **kwargs
-    }
+    payload = {"instId": inst_id, "tdMode": td_mode, **kwargs}
 
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_position_margin_balance(
-        self,
-        inst_id: str,
-        pos_side: Literal["long", "short"],
-        _type: Literal["add", "reduce"],
-        amt: str,
-        ccy: str | None = None
+    self,
+    inst_id: str,
+    pos_side: Literal["long", "short"],
+    _type: Literal["add", "reduce"],
+    amt: str,
+    ccy: str | None = None,
 ):
     """
     Increase or decrease the margin of the isolated position. Margin reduction may result in the change of the actual leverage.
@@ -284,96 +236,73 @@ async def post_api_v5_account_position_margin_balance(
 
 
 async def get_api_v5_account_leverage_info(
-        self,
-        mgn_mode: Literal["isolated", "cross"],
-        **kwargs
+    self, mgn_mode: Literal["isolated", "cross"], **kwargs
 ):
     """
     Get leverage
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-leverage
     """
     endpoint = "/api/v5/account/leverage-info"
-    payload = {
-        "mgnMode": mgn_mode,
-        **kwargs
-    }
+    payload = {"mgnMode": mgn_mode, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def get_api_v5_account_adjust_leverage_info(
-        self,
-        inst_type: Literal["MARGIN", "SWAP", "FUTURES"],
-        mgn_mode: Literal["isolated", "cross"],
-        lever: str,
-        **kwargs
+    self,
+    inst_type: Literal["MARGIN", "SWAP", "FUTURES"],
+    mgn_mode: Literal["isolated", "cross"],
+    lever: str,
+    **kwargs,
 ):
     """
     Get leverage estimated info
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-leverage-estimated-info
     """
     endpoint = "/api/v5/account/adjust-leverage-info"
-    payload = {
-        "instType": inst_type,
-        "mgnMode": mgn_mode,
-        "lever": lever,
-        **kwargs
-    }
+    payload = {"instType": inst_type, "mgnMode": mgn_mode, "lever": lever, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def get_api_v5_account_max_loan(
-        self,
-        mgn_mode: Literal["isolated", "cross"],
-        **kwargs
+    self, mgn_mode: Literal["isolated", "cross"], **kwargs
 ):
     """
     Get the maximum loan of instrument
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-the-maximum-loan-of-instrument
     """
     endpoint = "/api/v5/account/max-loan"
-    payload = {
-        "mgnMode": mgn_mode,
-        **kwargs
-    }
+    payload = {"mgnMode": mgn_mode, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def get_api_v5_account_trade_fee(
-        self,
-        inst_type: Literal["SPOT", "MARGIN", "SWAP", "FUTURES", "OPTION"],
-        rule_type: Literal["normal", "pre_market"] | None = None,
-        **kwargs
+    self,
+    inst_type: Literal["SPOT", "MARGIN", "SWAP", "FUTURES", "OPTION"],
+    rule_type: Literal["normal", "pre_market"] | None = None,
+    **kwargs,
 ):
     """
     Get fee rates
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-fee-rates
     """
     endpoint = "/api/v5/account/trade-fee"
-    payload = {
-        "instType": inst_type,
-        **kwargs
-    }
+    payload = {"instType": inst_type, **kwargs}
     if rule_type:
         payload["ruleType"] = rule_type
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
-async def get_api_v5_account_interest_accrued(
-        self,
-        **kwargs
-):
+async def get_api_v5_account_interest_accrued(self, **kwargs):
     """
     Get interest accrued data. Only data within the last one year can be obtained.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-interest-accrued-data
     """
     endpoint = "/api/v5/account/interest-accrued"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
@@ -392,43 +321,33 @@ async def get_api_v5_account_interest_rate(self, ccy: str | None = None):
 
 
 async def post_api_v5_account_set_greeks(
-        self,
-        greeks_type: Literal["PA", "BS"],
+    self,
+    greeks_type: Literal["PA", "BS"],
 ):
     """
     Set the display type of Greeks.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-set-greeks-pa-bs
     """
     endpoint = "/api/v5/account/set-greeks"
-    payload = {
-        "greeksType": greeks_type
-    }
+    payload = {"greeksType": greeks_type}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_set_isolated_mode(
-        self,
-        _type: Literal["MARGIN", "CONTRACTS"],
-        iso_mode: str = "automatic"
+    self, _type: Literal["MARGIN", "CONTRACTS"], iso_mode: str = "automatic"
 ):
     """
     Set isolated margin mode
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-set-isolated-margin-mode
     """
     endpoint = "/api/v5/account/set-isolated-mode"
-    payload = {
-        "type": _type,
-        "isoMode": iso_mode
-    }
+    payload = {"type": _type, "isoMode": iso_mode}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
-async def get_api_v5_account_max_withdrawal(
-        self,
-        ccy: str | None = None
-):
+async def get_api_v5_account_max_withdrawal(self, ccy: str | None = None):
     """
     Retrieve the maximum transferable amount from trading account to funding account. If no currency is specified, the transferable amount of all owned currencies will be returned.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-maximum-withdrawals
@@ -452,11 +371,11 @@ async def get_api_v5_account_risk_state(self):
 
 
 async def post_api_v5_account_quick_margin_borrow_repay(
-        self,
-        inst_id: str,
-        ccy: str,
-        amt: str,
-        side: Literal["borrow", "repay"],
+    self,
+    inst_id: str,
+    ccy: str,
+    amt: str,
+    side: Literal["borrow", "repay"],
 ):
     """
     Please note that this endpoint will be deprecated soon.
@@ -479,17 +398,13 @@ async def get_api_v5_account_quick_margin_borrow_repay_history(self, **kwargs):
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-borrow-and-repay-history-in-quick-margin-mode
     """
     endpoint = "/api/v5/account/quick-margin-borrow-repay-history"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def get_api_v5_account_interest_limits(
-        self,
-        _type: str | None = None,
-        ccy: str | None = None
+    self, _type: str | None = None, ccy: str | None = None
 ):
     """
     Get borrow interest and limit
@@ -517,31 +432,21 @@ async def get_api_v5_account_fixed_loan_borrowing_limit(self):
 
 
 async def get_api_v5_account_fixed_loan_borrowing_quote(
-        self,
-        _type: Literal["normal", "reborrow"],
-        **kwargs
+    self, _type: Literal["normal", "reborrow"], **kwargs
 ):
     """
     Get fixed loan borrow quote
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-fixed-loan-borrow-quote
     """
     endpoint = "/api/v5/account/fixed-loan/borrowing-quote"
-    payload = {
-        "type": _type,
-        **kwargs
-    }
+    payload = {"type": _type, **kwargs}
 
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_fixed_loan_borrowing_order(
-        self,
-        ccy: str,
-        amt: str,
-        max_rate: str,
-        term: str = "30D",
-        **kwargs
+    self, ccy: str, amt: str, max_rate: str, term: str = "30D", **kwargs
 ):
     """
     For new borrowing orders, they belong to the IOC (immediately close and cancel the remaining) type. For renewal orders, they belong to the FOK (Fill-or-kill) type.
@@ -549,59 +454,43 @@ async def post_api_v5_account_fixed_loan_borrowing_order(
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-place-fixed-loan-borrowing-order
     """
     endpoint = "/api/v5/account/fixed-loan/borrowing-order"
-    payload = {
-        "ccy": ccy,
-        "amt": amt,
-        "term": term,
-        "maxRate": max_rate,
-        **kwargs
-    }
+    payload = {"ccy": ccy, "amt": amt, "term": term, "maxRate": max_rate, **kwargs}
 
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_fixed_loan_amend_borrowing_order(
-        self,
-        ord_id: str,
-        **kwargs
+    self, ord_id: str, **kwargs
 ):
     """
     Amend fixed loan borrowing order
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-amend-fixed-loan-borrowing-order
     """
     endpoint = "/api/v5/account/fixed-loan/amend-borrowing-order"
-    payload = {
-        "ordId": ord_id,
-        **kwargs
-    }
+    payload = {"ordId": ord_id, **kwargs}
 
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_fixed_loan_manual_reborrow(
-        self,
-        ord_id: str,
-        max_rate: str
+    self, ord_id: str, max_rate: str
 ):
     """
     Manual renew fixed loan borrowing order
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-manual-renew-fixed-loan-borrowing-order
     """
     endpoint = "/api/v5/account/fixed-loan/manual-reborrow"
-    payload = {
-        "ordId": ord_id,
-        "maxRate": max_rate
-    }
+    payload = {"ordId": ord_id, "maxRate": max_rate}
 
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_fixed_loan_repay_borrowing_order(
-        self,
-        ord_id: str,
+    self,
+    ord_id: str,
 ):
     """
     Repay fixed loan borrowing order
@@ -617,8 +506,8 @@ async def post_api_v5_account_fixed_loan_repay_borrowing_order(
 
 
 async def post_api_v5_account_fixed_loan_convert_to_market_loan(
-        self,
-        ord_id: str,
+    self,
+    ord_id: str,
 ):
     """
     Convert fixed loan to market loan
@@ -634,9 +523,9 @@ async def post_api_v5_account_fixed_loan_convert_to_market_loan(
 
 
 async def post_api_v5_account_fixed_loan_reduce_liabilities(
-        self,
-        ord_id: str,
-        pending_repay: bool,
+    self,
+    ord_id: str,
+    pending_repay: bool,
 ):
     """
     Provide the function of "setting pending repay state / canceling pending repay state" for fixed loan order.
@@ -658,19 +547,17 @@ async def get_api_v5_account_fixed_loan_borrowing_orders_list(self, **kwargs):
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-fixed-loan-borrow-order-list
     """
     endpoint = "/api/v5/account/fixed-loan/borrowing-orders-list"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
 
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_spot_manual_borrow_repay(
-        self,
-        ccy: str,
-        amt: str,
-        side: Literal["borrow", "repay"],
+    self,
+    ccy: str,
+    amt: str,
+    side: Literal["borrow", "repay"],
 ):
     """
     Only applicable to Spot mode (enabled borrowing)
@@ -687,8 +574,8 @@ async def post_api_v5_account_spot_manual_borrow_repay(
 
 
 async def post_api_v5_account_set_auto_repay(
-        self,
-        auto_repay: bool,
+    self,
+    auto_repay: bool,
 ):
     """
     Only applicable to Spot mode (enabled borrowing)
@@ -708,9 +595,7 @@ async def get_api_v5_account_spot_borrow_repay_history(self, **kwargs):
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-borrow-repay-history
     """
     endpoint = "/api/v5/account/spot-borrow-repay-history"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
@@ -722,27 +607,22 @@ async def post_api_v5_account_position_builder(self, **kwargs):
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-position-builder-new
     """
     endpoint = "/api/v5/account/position-builder"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_set_risk_offset_amt(
-        self,
-        cl_spot_in_use_amt: str,
-        ccy: str,
+    self,
+    cl_spot_in_use_amt: str,
+    ccy: str,
 ):
     """
     Set risk offset amount. This does not represent the actual spot risk offset amount. Only applicable to Portfolio Margin Mode.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-set-risk-offset-amount
     """
     endpoint = "/api/v5/account/set-riskOffset-amt"
-    payload = {
-        "clSpotInUseAmt": cl_spot_in_use_amt,
-        "ccy": ccy
-    }
+    payload = {"clSpotInUseAmt": cl_spot_in_use_amt, "ccy": ccy}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
@@ -761,35 +641,27 @@ async def get_api_v5_account_greeks(self, ccy: str | None = None):
 
 
 async def get_api_v5_account_position_tiers(
-        self,
-        inst_type: Literal["SWAP", "FUTURES", "OPTION"],
-        **kwargs
+    self, inst_type: Literal["SWAP", "FUTURES", "OPTION"], **kwargs
 ):
     """
     Retrieve cross position limitation of SWAP/FUTURES/OPTION under Portfolio margin mode.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-get-pm-position-limitation
     """
     endpoint = "/api/v5/account/position-tiers"
-    payload = {
-        "instType": inst_type,
-        **kwargs
-    }
+    payload = {"instType": inst_type, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_set_risk_offset_type(
-        self,
-        _type: Literal["1", "2", "3", "4"]
+    self, _type: Literal["1", "2", "3", "4"]
 ):
     """
     Configure the risk offset type in portfolio margin mode.
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-set-risk-offset-type
     """
     endpoint = "/api/v5/account/set-riskOffset-type"
-    payload = {
-        "type": _type
-    }
+    payload = {"type": _type}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
@@ -806,8 +678,8 @@ async def post_api_v5_account_activate_option(self):
 
 
 async def post_api_v5_account_set_auto_loan(
-        self,
-        auto_loan: bool | None = None,
+    self,
+    auto_loan: bool | None = None,
 ):
     """
     Only applicable to Multi-currency margin and Portfolio margin
@@ -822,9 +694,7 @@ async def post_api_v5_account_set_auto_loan(
 
 
 async def post_api_v5_account_account_level_switch_preset(
-        self,
-        acct_lv: Literal["2", "3", "4"],
-        **kwargs
+    self, acct_lv: Literal["2", "3", "4"], **kwargs
 ):
     """
     Pre-set the required information for account mode switching. When switching from Spot and futures mode / Multi-currency margin mode to Portfolio margin mode, you may optionally pre-set riskOffetType. When switching from Portfolio margin mode back to Spot and futures mode / Multi-currency margin mode, and if there are existing cross-margin contract positions, it is mandatory to pre-set leverage.
@@ -832,17 +702,14 @@ async def post_api_v5_account_account_level_switch_preset(
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-preset-account-mode-switch
     """
     endpoint = "/api/v5/account/account-level-switch-preset"
-    payload = {
-        "acctLv": acct_lv,
-        **kwargs
-    }
+    payload = {"acctLv": acct_lv, **kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def get_api_v5_account_set_account_switch_precheck(
-        self,
-        acct_lv: Literal["1", "2", "3", "4"],
+    self,
+    acct_lv: Literal["1", "2", "3", "4"],
 ):
     """
     Retrieve precheck information for account mode switching.
@@ -857,9 +724,8 @@ async def get_api_v5_account_set_account_switch_precheck(
 
 
 async def post_api_v5_account_set_account_level(
-        self,
-        acct_lv: Literal["1", "2", "3", "4"],
-
+    self,
+    acct_lv: Literal["1", "2", "3", "4"],
 ):
     """
     You need to set on the Web/App for the first set of every account mode. If users plan to switch account modes while holding positions, they should first call the preset endpoint to conduct necessary settings, then call the precheck endpoint to get unmatched information, margin check, and other related information, and finally call the account mode switch endpoint to switch account modes.
@@ -874,9 +740,7 @@ async def post_api_v5_account_set_account_level(
 
 
 async def post_api_v5_account_mmp_reset(
-        self,
-        inst_family: str,
-        inst_type: str = "OPTION"
+    self, inst_family: str, inst_type: str = "OPTION"
 ):
     """
     You can unfreeze by this endpoint once MMP is triggered.
@@ -884,20 +748,17 @@ async def post_api_v5_account_mmp_reset(
     https://www.okx.com/docs-v5/en/?shell#trading-account-rest-api-reset-mmp-status
     """
     endpoint = "/api/v5/account/mmp-reset"
-    payload = {
-        "instFamily": inst_family,
-        "instType": inst_type
-    }
+    payload = {"instFamily": inst_family, "instType": inst_type}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
 
 async def post_api_v5_account_mmp_config(
-        self,
-        inst_family: str,
-        time_interval: str,
-        frozen_interval: str,
-        qty_limit: str,
+    self,
+    inst_family: str,
+    time_interval: str,
+    frozen_interval: str,
+    qty_limit: str,
 ):
     """
     This endpoint is used to set MMP configure
@@ -909,7 +770,7 @@ async def post_api_v5_account_mmp_config(
         "instFamily": inst_family,
         "timeInterval": time_interval,
         "frozenInterval": frozen_interval,
-        "qtyLimit": qty_limit
+        "qtyLimit": qty_limit,
     }
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)

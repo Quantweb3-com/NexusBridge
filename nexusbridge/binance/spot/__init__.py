@@ -1,18 +1,26 @@
 from typing import Literal, Callable, Any
 
 from nexusbridge.binance.base import BinanceApiClient, BinanceWSClient
-from nexusbridge.binance.constants import BinanceUrl, ALL_URL, BinanceInstrumentType, KeyType
+from nexusbridge.binance.constants import (
+    BinanceUrl,
+    ALL_URL,
+    BinanceInstrumentType,
+    KeyType,
+)
 
 
 class SpotTradingApi(BinanceApiClient):
     def __init__(
-            self,
-            key=None,
-            secret=None,
-            binance_url: Literal[BinanceUrl.MAIN, BinanceUrl.TEST] = BinanceUrl.MAIN,
-            **kwargs):
+        self,
+        key=None,
+        secret=None,
+        binance_url: Literal[BinanceUrl.MAIN, BinanceUrl.TEST] = BinanceUrl.MAIN,
+        **kwargs,
+    ):
         if "base_url" not in kwargs:
-            kwargs["base_url"] = ALL_URL[BinanceInstrumentType.SPOT].get_url(binance_url)
+            kwargs["base_url"] = ALL_URL[BinanceInstrumentType.SPOT].get_url(
+                binance_url
+            )
         super().__init__(key=key, secret=secret, **kwargs)
 
     # General endpoints
@@ -61,16 +69,16 @@ class SpotTradingApi(BinanceApiClient):
 
 class BinanceSpotWSClient(BinanceWSClient):
     def __init__(
-            self,
-            handler: Callable[..., Any],
-            key=None,
-            secret=None,
-            listen_key=None,
-            private_key=None,
-            private_key_passphrase=None,
-            key_type: KeyType = KeyType.HMAC,
-            binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
-            **kwargs
+        self,
+        handler: Callable[..., Any],
+        key=None,
+        secret=None,
+        listen_key=None,
+        private_key=None,
+        private_key_passphrase=None,
+        key_type: KeyType = KeyType.HMAC,
+        binance_url: Literal[BinanceUrl.WS, BinanceUrl.TEST_WS] = BinanceUrl.WS,
+        **kwargs,
     ):
         if "base_url" not in kwargs:
             self.baseUrl = ALL_URL[BinanceInstrumentType.SPOT].get_url(binance_url)
@@ -92,7 +100,8 @@ class BinanceSpotWSClient(BinanceWSClient):
             private_key=self.private_key,
             private_key_passphrase=self.private_key_passphrase,
             secret=secret,
-            **kwargs)
+            **kwargs,
+        )
 
     # wss://stream.binance.com:443
     from nexusbridge.binance.spot.web_socket_stream import agg_trade
@@ -143,4 +152,3 @@ class BinanceSpotWSClient(BinanceWSClient):
     from nexusbridge.binance.spot.web_socket_stream import my_prevented_matches_api
     from nexusbridge.binance.spot.web_socket_stream import my_allocations_api
     from nexusbridge.binance.spot.web_socket_stream import account_commission_api
-

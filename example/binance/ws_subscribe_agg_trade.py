@@ -1,18 +1,13 @@
 import asyncio
-import cysimdjson
 from nexusbridge.binance.um import UmTradingWebsocket
+from nexusbridge.binance.cm import CmTradingWebsocket
 from nexusbridge.utils import Log
 import sys
+
 Log.setup_logger(log_level="INFO")
 
-parser = cysimdjson.JSONParser()
+DATA = []
 
-
-# Access using JSON Pointer
-
-import pickle
-
-DATA =[]
 
 def handler(msg):
     try:
@@ -39,12 +34,9 @@ def handler(msg):
 
 
 async def main():
-    client = UmTradingWebsocket(handler=handler)
-    await client.depth_levels("BTCUSDT", 5)
+    client = CmTradingWebsocket(handler=handler)
+    await client.depth_levels("BTCUSD_PERP", 5)
     await client.connect()
-    
-    with open("data.pkl", "wb") as f:
-        pickle.dump(DATA, f)
 
 
 if __name__ == "__main__":

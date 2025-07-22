@@ -21,5 +21,7 @@ def rsa_signature(private_key, payload, private_key_pass=None):
 
 
 def ed_25519(private_key: str, payload, private_key_pass: str = None):
-    key = load_pem_private_key(private_key.encode('utf-8'), password=private_key_pass.encode('utf-8'))
-    return base64.b64encode(key.sign(payload.encode('ASCII'))).decode("utf-8")
+    key = load_pem_private_key(
+        private_key.encode("utf-8"), password=private_key_pass.encode("utf-8")
+    )
+    return base64.b64encode(key.sign(payload.encode("ASCII"))).decode("utf-8")

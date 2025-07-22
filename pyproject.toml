@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nexusbridge"
-version = "0.1.1"
+version = "0.1.2"
 description = "A unified trading interface for major cryptocurrency exchanges, supporting REST APIs and WebSocket connections for Binance, OKX, Bybit and more."
 authors = ["River-Shi <nachuan.shi.quant@gmail.com>"]
 license = "MIT LICENSE"

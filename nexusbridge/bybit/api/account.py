@@ -4,9 +4,9 @@ import orjson
 
 
 async def get_v5_account_wallet_balance(
-        self,
-        account_type: Literal["UNIFIED", "CONTRACT", "SPOT"],
-        coin: str | None = None,
+    self,
+    account_type: Literal["UNIFIED", "CONTRACT", "SPOT"],
+    coin: str | None = None,
 ):
     """
     Get Wallet Balance
@@ -22,10 +22,7 @@ async def get_v5_account_wallet_balance(
     return orjson.loads(raw)
 
 
-async def get_v5_account_withdrawal(
-        self,
-        coin_name: str
-):
+async def get_v5_account_withdrawal(self, coin_name: str):
     """
     Get Transferable Amount (Unified)
     https://bybit-exchange.github.io/docs/v5/account/unified-trans-amnt
@@ -39,7 +36,7 @@ async def get_v5_account_withdrawal(
 
 
 async def post_v5_account_upgrade_to_uta(
-        self,
+    self,
 ):
     """
     Upgrade to Unified Account
@@ -50,26 +47,18 @@ async def post_v5_account_upgrade_to_uta(
     return orjson.loads(raw)
 
 
-async def get_v5_account_borrow_history(
-        self,
-        **kwargs
-):
+async def get_v5_account_borrow_history(self, **kwargs):
     """
     Get Borrow History
     https://bybit-exchange.github.io/docs/v5/account/borrow-history
     """
     endpoint = "/v5/account/borrow-history"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload, signed=True)
     return orjson.loads(raw)
 
 
-async def post_v5_account_quick_repayment(
-        self,
-        coin: str | None = None
-):
+async def post_v5_account_quick_repayment(self, coin: str | None = None):
     """
     Repay Liability
     https://bybit-exchange.github.io/docs/v5/account/repay-liability
@@ -83,9 +72,7 @@ async def post_v5_account_quick_repayment(
 
 
 async def post_v5_account_set_collateral_switch(
-        self,
-        coin: str,
-        collateral_switch: Literal["off", "on"]
+    self, coin: str, collateral_switch: Literal["off", "on"]
 ):
     """
     Set Collateral Coin
@@ -101,8 +88,8 @@ async def post_v5_account_set_collateral_switch(
 
 
 async def post_v5_account_set_collateral_switch_batch(
-        self,
-        request: list[Dict[str, Any]],
+    self,
+    request: list[Dict[str, Any]],
 ):
     """
     Batch Set Collateral Coin
@@ -116,10 +103,7 @@ async def post_v5_account_set_collateral_switch_batch(
     return orjson.loads(raw)
 
 
-async def get_v5_account_collateral_info(
-        self,
-        currency: str | None = None
-):
+async def get_v5_account_collateral_info(self, currency: str | None = None):
     """
     Get Collateral Info
     https://bybit-exchange.github.io/docs/v5/account/collateral-info
@@ -146,18 +130,16 @@ async def get_v5_asset_coin_greeks(self, base_coin: str | None = None):
 
 
 async def get_v5_account_fee_rate(
-        self,
-        category: Literal["linear", "inverse", "spot", "option"] | None = None,
-        **kwargs
+    self,
+    category: Literal["linear", "inverse", "spot", "option"] | None = None,
+    **kwargs,
 ):
     """
     Get Fee Rate
     https://bybit-exchange.github.io/docs/v5/account/fee-rate
     """
     endpoint = "/v5/account/fee-rate"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     if category:
         payload["category"] = category
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
@@ -190,9 +172,7 @@ async def get_v5_account_transaction_log(self, **kwargs):
     https://bybit-exchange.github.io/docs/v5/account/transaction-log
     """
     endpoint = "/v5/account/transaction-log"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
@@ -203,9 +183,7 @@ async def get_v5_account_contract_transaction_log(self, **kwargs):
     https://bybit-exchange.github.io/docs/v5/account/contract-transaction-log
     """
     endpoint = "/v5/account/contract-transaction-log"
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return orjson.loads(raw)
 
@@ -221,8 +199,8 @@ async def get_v5_account_smp_group(self):
 
 
 async def post_v5_account_set_margin_mode(
-        self,
-        set_margin_mode: Literal["ISOLATED_MARGIN", "REGULAR_MARGIN", "PORTFOLIO_MARGIN"]
+    self,
+    set_margin_mode: Literal["ISOLATED_MARGIN", "REGULAR_MARGIN", "PORTFOLIO_MARGIN"],
 ):
     """
     Set Margin Mode
@@ -237,8 +215,7 @@ async def post_v5_account_set_margin_mode(
 
 
 async def post_v5_account_set_hedging_mode(
-        self,
-        set_hedging_mode: Literal["ON", "OFF"]
+    self, set_hedging_mode: Literal["ON", "OFF"]
 ):
     """
     Set Spot Hedging
@@ -253,12 +230,12 @@ async def post_v5_account_set_hedging_mode(
 
 
 async def post_v5_account_mmp_modify(
-        self,
-        base_coin: str,
-        window: str,
-        frozen_period: str,
-        qty_limit: str,
-        delta_limit: str
+    self,
+    base_coin: str,
+    window: str,
+    frozen_period: str,
+    qty_limit: str,
+    delta_limit: str,
 ):
     """
     Set MMP
@@ -276,10 +253,7 @@ async def post_v5_account_mmp_modify(
     return orjson.loads(raw)
 
 
-async def post_v5_account_mmp_reset(
-        self,
-        base_coin: str
-):
+async def post_v5_account_mmp_reset(self, base_coin: str):
     """
     Reset MMP
     https://bybit-exchange.github.io/docs/v5/account/reset-mmp

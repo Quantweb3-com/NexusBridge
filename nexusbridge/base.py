@@ -24,11 +24,11 @@ from nexusbridge.utils import Log, LiveClock
 
 class ApiClient(ABC):
     def __init__(
-            self,
-            api_key: str = None,
-            secret: str = None,
-            timeout: int = 10,
-            max_rate: int | None = None,
+        self,
+        api_key: str = None,
+        secret: str = None,
+        timeout: int = 10,
+        max_rate: int | None = None,
     ):
         self._api_key = api_key
         self._secret = secret
@@ -37,9 +37,9 @@ class ApiClient(ABC):
         self._ssl_context = ssl.create_default_context(cafile=certifi.where())
         self._session: Optional[aiohttp.ClientSession] = None
         self._clock = LiveClock()
-        
+
         if max_rate:
-            self._limiter =  asynciolimiter.Limiter(rate=max_rate)
+            self._limiter = asynciolimiter.Limiter(rate=max_rate)
         else:
             self._limiter = None
 
@@ -60,7 +60,14 @@ class ApiClient(ABC):
 
 
 class Listener(WSListener):
-    def __init__(self, logger, handler: Callable[..., Any], specific_ping_msg=None, *args, **kwargs):
+    def __init__(
+        self,
+        logger,
+        handler: Callable[..., Any],
+        specific_ping_msg=None,
+        *args,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
         self._log = logger
         self._specific_ping_msg = specific_ping_msg
@@ -105,19 +112,19 @@ class Listener(WSListener):
 
 class WSClient(ABC):
     def __init__(
-            self,
-            url: str,
-            limiter: AsyncLimiter,
-            handler: Callable[..., Any],
-            specific_ping_msg: bytes = None,
-            reconnect_interval: int = 1,
-            ping_idle_timeout: int = 2,
-            ping_reply_timeout: int = 1,
-            auto_ping_strategy: Literal[
-                "ping_when_idle", "ping_periodically"
-            ] = "ping_when_idle",
-            enable_auto_ping: bool = True,
-            enable_auto_pong: bool = False,
+        self,
+        url: str,
+        limiter: AsyncLimiter,
+        handler: Callable[..., Any],
+        specific_ping_msg: bytes = None,
+        reconnect_interval: int = 1,
+        ping_idle_timeout: int = 2,
+        ping_reply_timeout: int = 1,
+        auto_ping_strategy: Literal[
+            "ping_when_idle", "ping_periodically"
+        ] = "ping_when_idle",
+        enable_auto_ping: bool = True,
+        enable_auto_pong: bool = False,
     ):
         self._clock = LiveClock()
         self._url = url
@@ -144,8 +151,11 @@ class WSClient(ABC):
 
     async def _connect(self):
         if not self.connected:
-            WSListenerFactory = lambda: Listener(self._log, handler=self._handler,
-                                                 specific_ping_msg=self._specific_ping_msg)  # noqa: E731
+            WSListenerFactory = lambda: Listener(
+                self._log,
+                handler=self._handler,
+                specific_ping_msg=self._specific_ping_msg,
+            )  # noqa: E731
             self._transport, self._listener = await ws_connect(
                 WSListenerFactory,
                 self._url,

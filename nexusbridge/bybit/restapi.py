@@ -13,12 +13,12 @@ from nexusbridge.bybit.error import BybitError
 
 class BybitApiClient(ApiClient):
     def __init__(
-            self,
-            api_key: str = None,
-            secret: str = None,
-            url: BybitUrl = BybitUrl.TESTNET,
-            timeout: int = 10,
-            max_rate: int | None = None,
+        self,
+        api_key: str = None,
+        secret: str = None,
+        url: BybitUrl = BybitUrl.TESTNET,
+        timeout: int = 10,
+        max_rate: int | None = None,
     ):
         """
         ### Testnet:
@@ -65,15 +65,15 @@ class BybitApiClient(ApiClient):
         return [signature, timestamp]
 
     async def _fetch(
-            self,
-            method: str,
-            endpoint: str,
-            payload: Dict[str, Any] = None,
-            signed: bool = False,
+        self,
+        method: str,
+        endpoint: str,
+        payload: Dict[str, Any] = None,
+        signed: bool = False,
     ):
         if self._limiter:
             await self._limiter.wait()
-            
+
         self._init_session()
 
         url = urljoin(self._base_url, endpoint)
@@ -138,7 +138,9 @@ class BybitApiClient(ApiClient):
     from nexusbridge.bybit.api.account import get_v5_account_borrow_history
     from nexusbridge.bybit.api.account import post_v5_account_quick_repayment
     from nexusbridge.bybit.api.account import post_v5_account_set_collateral_switch
-    from nexusbridge.bybit.api.account import post_v5_account_set_collateral_switch_batch
+    from nexusbridge.bybit.api.account import (
+        post_v5_account_set_collateral_switch_batch,
+    )
     from nexusbridge.bybit.api.account import get_v5_account_collateral_info
     from nexusbridge.bybit.api.account import get_v5_asset_coin_greeks
     from nexusbridge.bybit.api.account import get_v5_account_fee_rate
@@ -160,20 +162,30 @@ class BybitApiClient(ApiClient):
     from nexusbridge.bybit.api.asset import get_v5_asset_coin_query_info
     from nexusbridge.bybit.api.asset import get_v5_asset_transfer_query_sub_member_list
     from nexusbridge.bybit.api.asset import get_v5_asset_transfer_query_asset_info
-    from nexusbridge.bybit.api.asset import get_v5_asset_transfer_query_account_coin_balance
+    from nexusbridge.bybit.api.asset import (
+        get_v5_asset_transfer_query_account_coin_balance,
+    )
     from nexusbridge.bybit.api.asset import get_v5_asset_withdraw_withdrawable_amount
-    from nexusbridge.bybit.api.asset import get_v5_asset_transfer_query_transfer_coin_list
+    from nexusbridge.bybit.api.asset import (
+        get_v5_asset_transfer_query_transfer_coin_list,
+    )
     from nexusbridge.bybit.api.asset import post_v5_asset_transfer_inter_transfer
-    from nexusbridge.bybit.api.asset import get_v5_asset_transfer_query_inter_transfer_list
+    from nexusbridge.bybit.api.asset import (
+        get_v5_asset_transfer_query_inter_transfer_list,
+    )
     from nexusbridge.bybit.api.asset import post_v5_asset_transfer_universal_transfer
-    from nexusbridge.bybit.api.asset import get_v5_asset_transfer_query_universal_transfer_list
+    from nexusbridge.bybit.api.asset import (
+        get_v5_asset_transfer_query_universal_transfer_list,
+    )
     from nexusbridge.bybit.api.asset import get_v5_asset_deposit_query_allowed_list
     from nexusbridge.bybit.api.asset import post_v5_asset_deposit_to_account
     from nexusbridge.bybit.api.asset import get_v5_asset_deposit_query_record
     from nexusbridge.bybit.api.asset import get_v5_asset_deposit_query_sub_member_record
     from nexusbridge.bybit.api.asset import get_v5_asset_deposit_query_internal_record
     from nexusbridge.bybit.api.asset import get_v5_asset_deposit_query_address
-    from nexusbridge.bybit.api.asset import get_v5_asset_deposit_query_sub_member_address
+    from nexusbridge.bybit.api.asset import (
+        get_v5_asset_deposit_query_sub_member_address,
+    )
     from nexusbridge.bybit.api.asset import get_v5_asset_withdraw_query_record
     from nexusbridge.bybit.api.asset import get_v5_asset_withdraw_query_vasp_list
     from nexusbridge.bybit.api.asset import post_v5_asset_withdraw_create

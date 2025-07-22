@@ -3,13 +3,13 @@ from typing import Any, Dict, Callable, Literal
 
 
 async def post_v5_order_create(
-        self,
-        category: Literal["linear", "inverse", "spot", "option"],
-        symbol: str,
-        side: Literal["Buy", "Sell"],
-        order_type: Literal["Market", "Limit"],
-        qty: str,
-        **kwargs,
+    self,
+    category: Literal["linear", "inverse", "spot", "option"],
+    symbol: str,
+    side: Literal["Buy", "Sell"],
+    order_type: Literal["Market", "Limit"],
+    qty: str,
+    **kwargs,
 ):
     """
     This endpoint supports to create the order for Spot, Margin trading, USDT perpetual, USDC perpetual, USDC futures, Inverse Futures and Options.
@@ -29,10 +29,10 @@ async def post_v5_order_create(
 
 
 async def post_v5_order_amend(
-        self,
-        category: Literal["linear", "inverse", "spot", "option"],
-        symbol: str,
-        **kwargs
+    self,
+    category: Literal["linear", "inverse", "spot", "option"],
+    symbol: str,
+    **kwargs,
 ):
     """
     Amend Order
@@ -49,10 +49,10 @@ async def post_v5_order_amend(
 
 
 async def post_v5_order_cancel(
-        self,
-        category: Literal["linear", "inverse", "spot", "option"],
-        symbol: str,
-        **kwargs
+    self,
+    category: Literal["linear", "inverse", "spot", "option"],
+    symbol: str,
+    **kwargs,
 ):
     """
     Cancel Order
@@ -69,9 +69,7 @@ async def post_v5_order_cancel(
 
 
 async def get_v5_order_realtime(
-        self,
-        category: Literal["linear", "inverse", "spot", "option"],
-        **kwargs
+    self, category: Literal["linear", "inverse", "spot", "option"], **kwargs
 ):
     """
     Get Open & Closed Orders
@@ -87,9 +85,7 @@ async def get_v5_order_realtime(
 
 
 async def post_v5_order_cancel_all(
-        self,
-        category: Literal["linear", "inverse", "spot", "option"],
-        **kwargs
+    self, category: Literal["linear", "inverse", "spot", "option"], **kwargs
 ):
     """
     Cancel All Orders
@@ -105,9 +101,8 @@ async def post_v5_order_cancel_all(
 
 
 async def get_v5_order_history(
-        self,
-        category: Literal["linear", "inverse", "spot", "option"],
-        **kwargs):
+    self, category: Literal["linear", "inverse", "spot", "option"], **kwargs
+):
     """
     Get Order History
     https://bybit-exchange.github.io/docs/v5/order/order-list
@@ -122,9 +117,8 @@ async def get_v5_order_history(
 
 
 async def get_v5_execution_list(
-        self,
-        category: Literal["linear", "inverse", "spot", "option"],
-        **kwargs):
+    self, category: Literal["linear", "inverse", "spot", "option"], **kwargs
+):
     """
     Get Trade History
     https://bybit-exchange.github.io/docs/v5/order/execution
@@ -139,9 +133,9 @@ async def get_v5_execution_list(
 
 
 async def post_v5_order_create_batch(
-        self,
-        category: Literal["linear", "inverse", "spot", "option"],
-        request: list[Dict[str, Any]],
+    self,
+    category: Literal["linear", "inverse", "spot", "option"],
+    request: list[Dict[str, Any]],
 ):
     """
     Batch Place Order
@@ -157,9 +151,9 @@ async def post_v5_order_create_batch(
 
 
 async def post_v5_order_amend_batch(
-        self,
-        category: Literal["linear", "inverse", "spot", "option"],
-        request: list[Dict[str, Any]],
+    self,
+    category: Literal["linear", "inverse", "spot", "option"],
+    request: list[Dict[str, Any]],
 ):
     """
     Batch Amend Order
@@ -175,9 +169,9 @@ async def post_v5_order_amend_batch(
 
 
 async def post_v5_order_cancel_batch(
-        self,
-        category: Literal["linear", "inverse", "spot", "option"],
-        request: list[Dict[str, Any]],
+    self,
+    category: Literal["linear", "inverse", "spot", "option"],
+    request: list[Dict[str, Any]],
 ):
     """
     Batch Cancel Order
@@ -193,10 +187,10 @@ async def post_v5_order_cancel_batch(
 
 
 async def get_v5_order_spot_borrow_check(
-        self,
-        symbol: str,
-        side: Literal["buy", "sell"],
-        category: str = "spot",
+    self,
+    symbol: str,
+    side: Literal["buy", "sell"],
+    category: str = "spot",
 ):
     """
     Get Borrow Quota (Spot)
@@ -213,9 +207,9 @@ async def get_v5_order_spot_borrow_check(
 
 
 async def post_v5_order_disconnected_cancel_all(
-        self,
-        time_window: int,
-        product: Literal["OPTIONS", "DERIVATIVES", "SPOT"] = "OPTIONS",
+    self,
+    time_window: int,
+    product: Literal["OPTIONS", "DERIVATIVES", "SPOT"] = "OPTIONS",
 ):
     """
     Set Disconnect Cancel All

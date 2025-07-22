@@ -9,10 +9,18 @@ from nexusbridge.base import WSClient
 from nexusbridge.bybit.constants import BybitAccountType
 
 
-def generate_topic(base: str, symbol: str, depth: int = None, interval: str = None) -> str:
+def generate_topic(
+    base: str, symbol: str, depth: int = None, interval: str = None
+) -> str:
     if base == "orderbook" and depth:
         return f"orderbook.{depth}.{symbol}"
-    elif base == "publicTrade" or base == "tickers" or base == "liquidation" or base == "tickers_lt" or base == "lt":
+    elif (
+        base == "publicTrade"
+        or base == "tickers"
+        or base == "liquidation"
+        or base == "tickers_lt"
+        or base == "lt"
+    ):
         return f"{base}.{symbol}"
     elif base == "kline" or base == "kline_lt":
         return f"{base}.{interval}.{symbol}"
@@ -22,11 +30,11 @@ def generate_topic(base: str, symbol: str, depth: int = None, interval: str = No
 
 class BybitWSClient(WSClient):
     def __init__(
-            self,
-            account_type: BybitAccountType,
-            handler: Callable[..., Any],
-            api_key: str = None,
-            secret: str = None,
+        self,
+        account_type: BybitAccountType,
+        handler: Callable[..., Any],
+        api_key: str = None,
+        secret: str = None,
     ):
         self._account_type = account_type
         self._api_key = api_key
@@ -84,7 +92,10 @@ class BybitWSClient(WSClient):
                 self._log.debug(f"Already subscribed to {topic}")
                 return
         await self._connect()
-        payload = {"op": "subscribe", "args": [topic] if isinstance(topic, str) else topic}
+        payload = {
+            "op": "subscribe",
+            "args": [topic] if isinstance(topic, str) else topic,
+        }
         if auth:
             await self._auth()
         if isinstance(topic, list):
@@ -170,8 +181,10 @@ class BybitWSClient(WSClient):
             await self._send(payload)
 
     async def subscribe_order(
-            self,
-            topic: Literal["order", "order.spot", "order.linear", "order.inverse", "order.option"] = "order"
+        self,
+        topic: Literal[
+            "order", "order.spot", "order.linear", "order.inverse", "order.option"
+        ] = "order",
     ):
         """
         ### Topics:
@@ -188,8 +201,10 @@ class BybitWSClient(WSClient):
         await self._subscribe(topic, auth=True)
 
     async def subscribe_position(
-            self,
-            topic: Literal["position", "position.linear", "position.inverse", "position.option"] = "position"
+        self,
+        topic: Literal[
+            "position", "position.linear", "position.inverse", "position.option"
+        ] = "position",
     ):
         """
         ### Topics:
@@ -212,9 +227,14 @@ class BybitWSClient(WSClient):
         await self._subscribe(topic, auth=True)
 
     async def subscribe_execution(
-            self,
-            topic: Literal[
-                "execution", "execution.spot", "execution.linear", "execution.inverse", "execution.option"] = "execution"
+        self,
+        topic: Literal[
+            "execution",
+            "execution.spot",
+            "execution.linear",
+            "execution.inverse",
+            "execution.option",
+        ] = "execution",
     ):
         """
         ### Topics:
@@ -223,11 +243,14 @@ class BybitWSClient(WSClient):
         await self._subscribe(topic, auth=True)
 
     async def subscribe_fast_execution(
-            self,
-            topic: Literal[
-                "execution.fast.linear", "execution.fast.inverse", "execution.fast.spot", "execution.fast"] = "execution.fast"
+        self,
+        topic: Literal[
+            "execution.fast.linear",
+            "execution.fast.inverse",
+            "execution.fast.spot",
+            "execution.fast",
+        ] = "execution.fast",
     ):
-
         await self._subscribe(topic, auth=True)
 
     async def subscribe_greek(self, topic: str = "greeks"):
@@ -238,8 +261,8 @@ class BybitWSClient(WSClient):
         await self._subscribe(topic, auth=True)
 
     async def subscribe_dcp(
-            self,
-            topic: Literal["dcp.future", "dcp.spot", "dcp.option"]):
+        self, topic: Literal["dcp.future", "dcp.spot", "dcp.option"]
+    ):
         """
         ### Topics:
         Subscribe to the dcp stream to trigger DCP function.

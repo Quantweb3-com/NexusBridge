@@ -4,9 +4,7 @@ import orjson
 
 
 async def get_api_v5_public_instruments(
-        self,
-        inst_type: Literal["SPOT", "MARGIN", "FUTURES", "SWAP", "OPTION"],
-        **kwargs
+    self, inst_type: Literal["SPOT", "MARGIN", "FUTURES", "SWAP", "OPTION"], **kwargs
 ):
     """
     Retrieve a list of instruments with open contracts.
@@ -22,9 +20,7 @@ async def get_api_v5_public_instruments(
 
 
 async def get_api_v5_public_delivery_exercise_history(
-        self,
-        inst_type: Literal["FUTURES", "OPTION"],
-        **kwargs
+    self, inst_type: Literal["FUTURES", "OPTION"], **kwargs
 ):
     """
     Retrieve delivery records of Futures and exercise records of Options in the last 3 months.
@@ -40,9 +36,7 @@ async def get_api_v5_public_delivery_exercise_history(
 
 
 async def get_api_v5_public_open_interest(
-        self,
-        inst_type: Literal["FUTURES", "SWAP", "OPTION"],
-        **kwargs
+    self, inst_type: Literal["FUTURES", "SWAP", "OPTION"], **kwargs
 ):
     """
     Retrieve the total open interest for contracts on OKX.
@@ -58,8 +52,8 @@ async def get_api_v5_public_open_interest(
 
 
 async def get_api_v5_public_funding_rate(
-        self,
-        inst_id: str,
+    self,
+    inst_id: str,
 ):
     """
     Retrieve funding rate.
@@ -73,11 +67,7 @@ async def get_api_v5_public_funding_rate(
     return orjson.loads(raw)
 
 
-async def get_api_v5_public_funding_rate_history(
-        self,
-        inst_id: str,
-        **kwargs
-):
+async def get_api_v5_public_funding_rate_history(self, inst_id: str, **kwargs):
     """
     Retrieve funding rate history. This endpoint can retrieve data from the last 3 months.
     https://www.okx.com/docs-v5/en/?python#public-data-rest-api-get-funding-rate-history
@@ -92,8 +82,8 @@ async def get_api_v5_public_funding_rate_history(
 
 
 async def get_api_v5_public_price_limit(
-        self,
-        inst_id: str,
+    self,
+    inst_id: str,
 ):
     """
     Retrieve the highest buy limit and lowest sell limit of the instrument.
@@ -157,9 +147,7 @@ async def get_api_v5_public_time(self):
 
 
 async def get_api_v5_public_mark_price(
-        self,
-        inst_id: Literal["MARGIN", "SWAP", "FUTURES", "OPTION"],
-        **kwargs
+    self, inst_id: Literal["MARGIN", "SWAP", "FUTURES", "OPTION"], **kwargs
 ):
     """
     Retrieve mark price.
@@ -176,10 +164,10 @@ async def get_api_v5_public_mark_price(
 
 
 async def get_api_v5_public_position_tiers(
-        self,
-        inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION"],
-        td_mode: Literal["cross", "isolated"],
-        **kwargs
+    self,
+    inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION"],
+    td_mode: Literal["cross", "isolated"],
+    **kwargs,
 ):
     """
     Retrieve position tiers information, maximum leverage depends on your borrowings and margin ratio.
@@ -207,7 +195,9 @@ async def get_api_v5_public_interest_rate_loan_quota(self):
     return orjson.loads(raw)
 
 
-async def get_api_v5_public_underlying(self, inst_type: Literal["SWAP", "FUTURES", "OPTION"]):
+async def get_api_v5_public_underlying(
+    self, inst_type: Literal["SWAP", "FUTURES", "OPTION"]
+):
     """
     Retrieve underlying index information.
     https://www.okx.com/docs-v5/en/?python#public-data-rest-api-get-underlying-index
@@ -222,9 +212,7 @@ async def get_api_v5_public_underlying(self, inst_type: Literal["SWAP", "FUTURES
 
 
 async def get_api_v5_public_insurance_fund(
-        self,
-        inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION"],
-        **kwargs
+    self, inst_type: Literal["MARGIN", "SWAP", "FUTURES", "OPTION"], **kwargs
 ):
     """
     Get insurance fund balance information
@@ -241,10 +229,7 @@ async def get_api_v5_public_insurance_fund(
 
 
 async def get_api_v5_public_convert_contract_coin(
-        self,
-        inst_id: str,
-        sz: str,
-        **kwargs
+    self, inst_id: str, sz: str, **kwargs
 ):
     """
     Convert the crypto value to the number of contracts, or vice versa
@@ -262,9 +247,9 @@ async def get_api_v5_public_convert_contract_coin(
 
 
 async def get_api_v5_public_instrument_tick_bands(
-        self,
-        inst_type: str = "OPTION",
-        inst_family: str | None = None,
+    self,
+    inst_type: str = "OPTION",
+    inst_family: str | None = None,
 ):
     """
     Get option tick bands information
@@ -335,11 +320,7 @@ async def get_api_v5_market_history_index_candles(self, inst_id: str, **kwargs):
     return orjson.loads(raw)
 
 
-async def get_api_v5_market_mark_price_candles(
-        self,
-        inst_id: str,
-        **kwargs
-):
+async def get_api_v5_market_mark_price_candles(self, inst_id: str, **kwargs):
     """
     Retrieve the candlestick charts of mark price. This endpoint can retrieve the latest 1,440 data entries. Charts are returned in groups based on the requested bar.
     https://www.okx.com/docs-v5/en/?shell#public-data-rest-api-get-mark-price-candlesticks
@@ -353,11 +334,7 @@ async def get_api_v5_market_mark_price_candles(
     return orjson.loads(raw)
 
 
-async def get_api_v5_market_history_mark_price_candles(
-        self,
-        inst_id: str,
-        **kwargs
-):
+async def get_api_v5_market_history_mark_price_candles(self, inst_id: str, **kwargs):
     """
     Retrieve the candlestick charts of mark price from recent years.
     https://www.okx.com/docs-v5/en/?python#public-data-rest-api-get-mark-price-candlesticks-history
@@ -393,10 +370,7 @@ async def get_api_v5_market_exchange_rate(self):
     return orjson.loads(raw)
 
 
-async def get_api_v5_market_index_components(
-        self,
-        index: str
-):
+async def get_api_v5_market_index_components(self, index: str):
     """
     Get the index component information data on the market
     https://www.okx.com/docs-v5/en/?shell#public-data-rest-api-get-index-components
@@ -409,10 +383,7 @@ async def get_api_v5_market_index_components(
     return orjson.loads(raw)
 
 
-async def get_api_v5_public_economic_calendar(
-        self,
-        **kwargs
-):
+async def get_api_v5_public_economic_calendar(self, **kwargs):
     """
     Get the macro-economic calendar data within 3 months. Historical data from 3 months ago is only available to users with trading fee tier VIP1 and above.
     https://www.okx.com/docs-v5/en/?python#public-data-rest-api-get-economic-calendar-data

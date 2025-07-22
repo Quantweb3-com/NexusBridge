@@ -4,33 +4,35 @@ from nexusbridge.binance.constants import Side
 
 
 async def post_papi_v1_um_order(
-        self,
-        symbol: str,
-        side: Side,
-        _type: Literal["LIMIT", "MARKET"],
-        **kwargs
+    self, symbol: str, side: Side, _type: Literal["LIMIT", "MARKET"], **kwargs
 ):
     endpoint = "/papi/v1/um/order"
     """
     Place new UM order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade
     """
-    payload = {
-        "symbol": symbol,
-        "side": side.value,
-        "type": _type,
-        **kwargs
-    }
-    raw = await self._fetch("POST", endpoint, payload=payload, signed=True, )
+    payload = {"symbol": symbol, "side": side.value, "type": _type, **kwargs}
+    raw = await self._fetch(
+        "POST",
+        endpoint,
+        payload=payload,
+        signed=True,
+    )
     return raw
 
 
 async def post_papi_v1_um_conditional_order(
-        self,
-        symbol: str,
-        side: Side,
-        strategy_type: Literal["STOP", "STOP_MARKET", "TAKE_PROFIT", "TAKE_PROFIT_MARKET", "TRAILING_STOP_MARKET"],
-        **kwargs
+    self,
+    symbol: str,
+    side: Side,
+    strategy_type: Literal[
+        "STOP",
+        "STOP_MARKET",
+        "TAKE_PROFIT",
+        "TAKE_PROFIT_MARKET",
+        "TRAILING_STOP_MARKET",
+    ],
+    **kwargs,
 ):
     endpoint = "/papi/v1/um/conditional/order"
     """
@@ -41,40 +43,42 @@ async def post_papi_v1_um_conditional_order(
         "symbol": symbol,
         "side": side.value,
         "strategyType": strategy_type,
-        **kwargs
+        **kwargs,
     }
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
 
 async def post_papi_v1_cm_order(
-        self,
-        symbol: str,
-        side: Side,
-        _type: Literal["LIMIT", "MARKET"],
-        **kwargs
+    self, symbol: str, side: Side, _type: Literal["LIMIT", "MARKET"], **kwargs
 ):
     endpoint = "/papi/v1/cm/order"
     """
     Place new CM order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-CM-Order
     """
-    payload = {
-        "symbol": symbol,
-        "side": side.value,
-        "type": _type,
-        **kwargs
-    }
-    raw = await self._fetch("POST", endpoint, payload=payload, signed=True, )
+    payload = {"symbol": symbol, "side": side.value, "type": _type, **kwargs}
+    raw = await self._fetch(
+        "POST",
+        endpoint,
+        payload=payload,
+        signed=True,
+    )
     return raw
 
 
 async def post_papi_v1_cm_conditional_order(
-        self,
-        symbol: str,
-        side: Side,
-        strategy_type: Literal["STOP", "STOP_MARKET", "TAKE_PROFIT", "TAKE_PROFIT_MARKET", "TRAILING_STOP_MARKET"],
-        **kwargs
+    self,
+    symbol: str,
+    side: Side,
+    strategy_type: Literal[
+        "STOP",
+        "STOP_MARKET",
+        "TAKE_PROFIT",
+        "TAKE_PROFIT_MARKET",
+        "TRAILING_STOP_MARKET",
+    ],
+    **kwargs,
 ):
     endpoint = "/papi/v1/cm/conditional/order"
     """
@@ -85,82 +89,70 @@ async def post_papi_v1_cm_conditional_order(
         "symbol": symbol,
         "side": side.value,
         "strategyType": strategy_type,
-        **kwargs
+        **kwargs,
     }
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
 
 async def post_papi_v1_margin_order(
-        self,
-        symbol: str,
-        side: Side,
-        _type: Literal["LIMIT", "MARKET"],
-        **kwargs
+    self, symbol: str, side: Side, _type: Literal["LIMIT", "MARKET"], **kwargs
 ):
     endpoint = "/papi/v1/margin/order"
     """
     New Margin Order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/New-Margin-Order
     """
-    payload = {
-        "symbol": symbol,
-        "side": side.value,
-        "type": _type,
-        **kwargs
-    }
-    raw = await self._fetch("POST", endpoint, payload=payload, signed=True, )
+    payload = {"symbol": symbol, "side": side.value, "type": _type, **kwargs}
+    raw = await self._fetch(
+        "POST",
+        endpoint,
+        payload=payload,
+        signed=True,
+    )
     return raw
 
 
-async def post_papi_v1_margin_loan(
-        self,
-        asset: str,
-        amount: float,
-        **kwargs
-):
+async def post_papi_v1_margin_loan(self, asset: str, amount: float, **kwargs):
     endpoint = "/papi/v1/marginLoan"
     """
     Apply for a loan
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Borrow
     """
-    payload = {
-        "asset": asset,
-        "amount": amount,
-        **kwargs
-    }
-    raw = await self._fetch("POST", endpoint, payload=payload, signed=True, )
+    payload = {"asset": asset, "amount": amount, **kwargs}
+    raw = await self._fetch(
+        "POST",
+        endpoint,
+        payload=payload,
+        signed=True,
+    )
     return raw
 
 
-async def post_papi_v1_repay_loan(
-        self,
-        asset: str,
-        amount: float,
-        **kwargs
-):
+async def post_papi_v1_repay_loan(self, asset: str, amount: float, **kwargs):
     endpoint = "/papi/v1/repayLoan"
     """
     Repay for a margin loan.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Repay
     """
-    payload = {
-        "asset": asset,
-        "amount": amount,
-        **kwargs
-    }
-    raw = await self._fetch("POST", endpoint, payload=payload, signed=True, )
+    payload = {"asset": asset, "amount": amount, **kwargs}
+    raw = await self._fetch(
+        "POST",
+        endpoint,
+        payload=payload,
+        signed=True,
+    )
     return raw
 
 
 async def post_papi_v1_margin_order_oco(
-        self,
-        symbol: str,
-        side: Side,
-        quantity: float,
-        price: float,
-        stop_price: float,
-        **kwargs
+    self,
+    symbol: str,
+    side: Side,
+    quantity: float,
+    price: float,
+    stop_price: float,
+    **kwargs,
 ):
     endpoint = "/papi/v1/margin/order/oco"
     """
@@ -173,9 +165,14 @@ async def post_papi_v1_margin_order_oco(
         "quantity": quantity,
         "price": price,
         "stopPrice": stop_price,
-        **kwargs
+        **kwargs,
     }
-    raw = await self._fetch("POST", endpoint, payload=payload, signed=True, )
+    raw = await self._fetch(
+        "POST",
+        endpoint,
+        payload=payload,
+        signed=True,
+    )
     return raw
 
 
@@ -185,10 +182,7 @@ async def delete_papi_v1_um_order(self, symbol: str, **kwargs):
     Cancel an active UM LIMIT order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-UM-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("DELETE", endpoint, payload=payload, signed=True)
     return raw
 
@@ -199,10 +193,7 @@ async def delete_papi_v1_um_all_open_orders(self, symbol: str, **kwargs):
     Cancel all active LIMIT orders on specific symbol
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-UM-Open-Orders
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("DELETE", endpoint, payload=payload, signed=True)
     return raw
 
@@ -213,10 +204,7 @@ async def delete_papi_v1_um_conditional_order(self, symbol: str, **kwargs):
     Cancel UM Conditional Order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-UM-Conditional-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("DELETE", endpoint, payload=payload, signed=True)
     return raw
 
@@ -227,10 +215,7 @@ async def delete_papi_v1_um_conditional_all_open_orders(self, symbol: str, **kwa
     Cancel All UM Open Conditional Orders
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-UM-Open-Conditional-Orders
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("DELETE", endpoint, payload=payload, signed=True)
     return raw
 
@@ -241,10 +226,7 @@ async def delete_papi_v1_cm_order(self, symbol: str, **kwargs):
     Cancel an active LIMIT order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-CM-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("DELETE", endpoint, payload=payload, signed=True)
     return raw
 
@@ -255,10 +237,7 @@ async def delete_papi_v1_cm_all_open_orders(self, symbol: str, **kwargs):
     Cancel all active LIMIT orders on specific symbol
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-CM-Open-Orders
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("DELETE", endpoint, payload=payload, signed=True)
     return raw
 
@@ -269,10 +248,7 @@ async def delete_papi_v1_cm_conditional_order(self, symbol: str, **kwargs):
     Cancel CM Conditional Order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-CM-Conditional-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("DELETE", endpoint, payload=payload, signed=True)
     return raw
 
@@ -283,10 +259,7 @@ async def delete_papi_v1_cm_conditional_all_open_orders(self, symbol: str, **kwa
     Cancel All CM Open Conditional Orders
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-All-CM-Open-Conditional-Orders
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("DELETE", endpoint, payload=payload, signed=True)
     return raw
 
@@ -297,10 +270,7 @@ async def delete_papi_v1_margin_order(self, symbol: str, **kwargs):
     Cancel Margin Account Order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-Margin-Account-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("DELETE", endpoint, payload=payload, signed=True)
     return raw
 
@@ -311,10 +281,7 @@ async def delete_papi_v1_margin_orderList(self, symbol: str, **kwargs):
     Cancel Margin Account OCO Orders
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-Margin-Account-OCO-Orders
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("DELETE", endpoint, payload=payload, signed=True)
     return raw
 
@@ -325,43 +292,26 @@ async def delete_papi_v1_margin_all_open_orders(self, symbol: str, **kwargs):
     Cancel Margin Account All Open Orders on a Symbol
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Cancel-Margin-Account-All-Open-Orders-on-a-Symbol
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("DELETE", endpoint, payload=payload, signed=True)
     return raw
 
 
 async def put_papi_v1_um_order(
-        self,
-        side: Side,
-        symbol: str,
-        quantity: float,
-        **kwargs
+    self, side: Side, symbol: str, quantity: float, **kwargs
 ):
     endpoint = "/papi/v1/um/order"
     """
     Order modify function, currently only LIMIT order modification is supported, modified orders will be reordered in the match queue
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Modify-UM-Order
     """
-    payload = {
-        "symbol": symbol,
-        "side": side.value,
-        "quantity": quantity,
-        **kwargs
-    }
+    payload = {"symbol": symbol, "side": side.value, "quantity": quantity, **kwargs}
     raw = await self._fetch("PUT", endpoint, payload=payload, signed=True)
     return raw
 
 
 async def put_papi_v1_cm_order(
-        self,
-        side: Side,
-        symbol: str,
-        quantity: float,
-        price: float,
-        **kwargs
+    self, side: Side, symbol: str, quantity: float, price: float, **kwargs
 ):
     endpoint = "/papi/v1/cm/order"
     """
@@ -373,7 +323,7 @@ async def put_papi_v1_cm_order(
         "side": side.value,
         "quantity": quantity,
         "price": price,
-        **kwargs
+        **kwargs,
     }
     raw = await self._fetch("PUT", endpoint, payload=payload, signed=True)
     return raw
@@ -385,10 +335,7 @@ async def get_papi_v1_um_order(self, symbol: str, **kwargs):
     Check an UM order's status.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-UM-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -399,10 +346,7 @@ async def get_papi_v1_um_all_orders(self, symbol: str, **kwargs):
     Get all account UM orders; active, canceled, or filled.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-UM-Orders
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -413,10 +357,7 @@ async def get_papi_v1_um_open_order(self, symbol: str, **kwargs):
     Query current UM open order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-UM-Open-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -427,9 +368,7 @@ async def get_papi_v1_um_open_orders(self, **kwargs):
     Get all open orders on a symbol.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-UM-Open-Orders
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -440,9 +379,7 @@ async def get_papi_v1_um_conditional_all_orders(self, **kwargs):
     Query All UM Conditional Orders
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-UM-Conditional-Orders
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -453,9 +390,7 @@ async def get_papi_v1_um_conditional_open_orders(self, **kwargs):
     Get all open conditional orders on a symbol.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-UM-Open-Conditional-Orders
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -466,10 +401,7 @@ async def get_papi_v1_um_conditional_open_order(self, symbol: str, **kwargs):
     Query Current UM Open Conditional Order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-UM-Open-Conditional-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -480,10 +412,7 @@ async def get_papi_v1_um_conditional_order_history(self, symbol: str, **kwargs):
     Query UM Conditional Order History
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-UM-Conditional-Order-History
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -494,10 +423,7 @@ async def get_papi_v1_cm_order(self, symbol: str, **kwargs):
     Check an CM order's status.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-CM-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -508,10 +434,7 @@ async def get_papi_v1_cm_all_orders(self, symbol: str, **kwargs):
     Get all account CM orders; active, canceled, or filled.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-CM-Orders
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -522,10 +445,7 @@ async def get_papi_v1_cm_open_order(self, symbol: str, **kwargs):
     Query current CM open order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-CM-Open-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -536,9 +456,7 @@ async def get_papi_v1_cm_open_orders(self, **kwargs):
     Get all open orders on a symbol.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-CM-Open-Orders
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -549,9 +467,7 @@ async def get_papi_v1_cm_conditional_open_orders(self, **kwargs):
     Get all open conditional orders on a symbol. Careful when accessing this with no symbol.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Current-CM-Open-Conditional-Orders
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -562,10 +478,7 @@ async def get_papi_v1_cm_conditional_open_order(self, symbol: str, **kwargs):
     Query Current CM Open Conditional Order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-CM-Open-Conditional-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -576,9 +489,7 @@ async def get_papi_v1_cm_conditional_all_orders(self, **kwargs):
     Query All CM Conditional Orders
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-CM-Conditional-Orders
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -589,10 +500,7 @@ async def get_papi_v1_cm_conditional_order_history(self, symbol: str, **kwargs):
     Query CM Conditional Order History
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-CM-Conditional-Order-History
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -603,9 +511,7 @@ async def get_papi_v1_um_force_orders(self, **kwargs):
     Query User's UM Force Orders
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Users-UM-Force-Orders
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -616,9 +522,7 @@ async def get_papi_v1_cm_force_orders(self, **kwargs):
     Query User's CM Force Orders
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Users-CM-Force-Orders
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -629,10 +533,7 @@ async def get_papi_v1_um_order_amendment(self, symbol: str, **kwargs):
     Get order modification history
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-UM-Modify-Order-History
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -643,10 +544,7 @@ async def get_papi_v1_cm_order_amendment(self, symbol: str, **kwargs):
     Get order modification history
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-CM-Modify-Order-History
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -657,9 +555,7 @@ async def get_papi_v1_margin_force_orders(self, **kwargs):
     Query user's margin force orders
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Users-Margin-Force-Orders
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -670,10 +566,7 @@ async def get_papi_v1_um_user_trades(self, symbol: str, **kwargs):
     Get trades for a specific account and UM symbol.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/UM-Account-Trade-List
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -684,9 +577,7 @@ async def get_papi_v1_cm_user_trades(self, **kwargs):
     Get trades for a specific account and CM symbol.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/CM-Account-Trade-List
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -697,9 +588,7 @@ async def get_papi_v1_um_adl_quantile(self, **kwargs):
     Query UM Position ADL Quantile Estimation
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/UM-Position-ADL-Quantile-Estimation
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -710,25 +599,18 @@ async def get_papi_v1_cm_adl_quantile(self, **kwargs):
     Query CM Position ADL Quantile Estimation
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/CM-Position-ADL-Quantile-Estimation
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
 
-async def post_papi_v1_um_feeBurn(self,
-                                  fee_burn: Literal["true", "false"],
-                                  **kwargs):
+async def post_papi_v1_um_feeBurn(self, fee_burn: Literal["true", "false"], **kwargs):
     endpoint = "/papi/v1/um/feeBurn"
     """
     Change user's BNB Fee Discount for UM Futures (Fee Discount On or Fee Discount Off ) on EVERY symbol
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Toggle-BNB-Burn-On-UM-Futures-Trade
     """
-    payload = {
-        "feeBurn": fee_burn,
-        **kwargs
-    }
+    payload = {"feeBurn": fee_burn, **kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw
 
@@ -739,9 +621,7 @@ async def get_papi_v1_um_feeBurn(self, **kwargs):
     Get user's BNB Fee Discount for UM Futures (Fee Discount On or Fee Discount Off )
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Get-UM-Futures-BNB-Burn-Status
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -752,10 +632,7 @@ async def get_papi_v1_margin_order(self, symbol: str, **kwargs):
     Query Margin Account Order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -766,10 +643,7 @@ async def get_papi_v1_margin_openOrders(self, symbol: str, **kwargs):
     Query Current Margin Open Order
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Current-Margin-Open-Order
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -780,10 +654,7 @@ async def get_papi_v1_margin_all_open_orders(self, symbol: str, **kwargs):
     Query All Margin Account Orders
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-All-Margin-Account-Orders
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -794,9 +665,7 @@ async def get_papi_v1_margin_orderList(self, **kwargs):
     Retrieves a specific OCO based on provided optional parameters
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-OCO
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -807,9 +676,7 @@ async def get_papi_v1_margin_all_orderList(self, **kwargs):
     Query all OCO for a specific margin account based on provided optional parameters
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-all-OCO
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -820,9 +687,7 @@ async def get_papi_v1_margin_openOrderList(self, **kwargs):
     Query Margin Account's Open OCO
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Query-Margin-Account-Open-OCO
     """
-    payload = {
-        **kwargs
-    }
+    payload = {**kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -833,10 +698,7 @@ async def get_papi_v1_margin_myTrades(self, symbol: str, **kwargs):
     Margin Account Trade List
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Trade-List
     """
-    payload = {
-        "symbol": symbol,
-        **kwargs
-    }
+    payload = {"symbol": symbol, **kwargs}
     raw = await self._fetch("GET", endpoint, payload=payload, signed=True)
     return raw
 
@@ -847,9 +709,6 @@ async def post_papi_v1_margin_repay_debt(self, asset: str, **kwargs):
     Repay debt for a margin loan.
     https://developers.binance.com/docs/derivatives/portfolio-margin/trade/Margin-Account-Repay-Debt
     """
-    payload = {
-        "asset": asset,
-        **kwargs
-    }
+    payload = {"asset": asset, **kwargs}
     raw = await self._fetch("POST", endpoint, payload=payload, signed=True)
     return raw

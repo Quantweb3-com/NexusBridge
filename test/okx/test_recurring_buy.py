@@ -16,41 +16,31 @@ class TestRecurringBuyApiClient(IsolatedAsyncioTestCase):
         """测试结束，asyncTearDown 用于异步的结束"""
         await self.client.close_session()
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_api_v5_trading_bot_recurring_order_algo(self, mock_post):
         result = await self.client.post_api_v5_trading_bot_recurring_order_algo(
             "BTC|ETH recurring buy monthly",
-            [
-                {
-                    "ccy": "BTC",
-                    "ratio": "0.2"
-                },
-                {
-                    "ccy": "ETH",
-                    "ratio": "0.8"
-                }
-            ],
+            [{"ccy": "BTC", "ratio": "0.2"}, {"ccy": "ETH", "ratio": "0.8"}],
             "monthly",
             "0",
             "8",
             "100",
             "USDT",
             "cross",
-            recurringDay="1"
+            recurringDay="1",
         )
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_api_v5_trading_bot_recurring_amend_order_algo(self, mock_post):
         result = await self.client.post_api_v5_trading_bot_recurring_amend_order_algo(
-            "448965992920907776",
-            "stg1"
+            "448965992920907776", "stg1"
         )
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.post')
+    @patch("aiohttp.ClientSession.post")
     async def test_post_api_v5_trading_bot_recurring_stop_order_algo(self, mock_post):
         result = await self.client.post_api_v5_trading_bot_recurring_stop_order_algo(
             ["448965992920907776"]
@@ -58,28 +48,40 @@ class TestRecurringBuyApiClient(IsolatedAsyncioTestCase):
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
-    async def test_get_api_v5_trading_bot_recurring_orders_algo_pending(self, mock_post):
-        result = await self.client.get_api_v5_trading_bot_recurring_orders_algo_pending()
+    @patch("aiohttp.ClientSession.get")
+    async def test_get_api_v5_trading_bot_recurring_orders_algo_pending(
+        self, mock_post
+    ):
+        result = (
+            await self.client.get_api_v5_trading_bot_recurring_orders_algo_pending()
+        )
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
-    async def test_get_api_v5_trading_bot_recurring_orders_algo_history(self, mock_post):
-        result = await self.client.get_api_v5_trading_bot_recurring_orders_algo_history()
+    @patch("aiohttp.ClientSession.get")
+    async def test_get_api_v5_trading_bot_recurring_orders_algo_history(
+        self, mock_post
+    ):
+        result = (
+            await self.client.get_api_v5_trading_bot_recurring_orders_algo_history()
+        )
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
-    async def test_get_api_v5_trading_bot_recurring_orders_algo_details(self, mock_post):
+    @patch("aiohttp.ClientSession.get")
+    async def test_get_api_v5_trading_bot_recurring_orders_algo_details(
+        self, mock_post
+    ):
         result = await self.client.get_api_v5_trading_bot_recurring_orders_algo_details(
-            "448965992920907776")
+            "448965992920907776"
+        )
         self.assertIsInstance(result, dict)
         print(result)
 
-    @patch('aiohttp.ClientSession.get')
+    @patch("aiohttp.ClientSession.get")
     async def test_get_api_v5_trading_bot_recurring_sub_orders(self, mock_post):
         result = await self.client.get_api_v5_trading_bot_recurring_sub_orders(
-            "560516615079727104")
+            "560516615079727104"
+        )
         self.assertIsInstance(result, dict)
         print(result)
